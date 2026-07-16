@@ -1,5 +1,5 @@
 <?php
-class Jugador extends Usuario {
+class Jugador {
     private $JugadorID;
     private $Cantidadfichas;
     private $PuntosPartida;
@@ -26,8 +26,7 @@ class Jugador extends Usuario {
         $this -> PartidasGanadas = $PPartidasGanadas;
     }
 
-    public function __construct($PUemail, $PUnombre, $PUcontrasenia, $PUid, $PJugadorID, $PCantidadfichas, $PPuntosPartida, $PPartidasJugadas, $PPartidasGanadas) {
-        parent::__construct($PUemail, $PUnombre, $PUcontrasenia, $PUid);
+    public function __construct($PJugadorID, $PCantidadfichas, $PPuntosPartida, $PPartidasJugadas, $PPartidasGanadas) {
         $this -> setJugadorID($PJugadorID);
         $this -> setCantidadfichas($PCantidadfichas);
         $this -> setPuntosPartida($PPuntosPartida);

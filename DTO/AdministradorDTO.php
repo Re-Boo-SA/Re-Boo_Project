@@ -1,8 +1,8 @@
 <?php
-class Administrador extends Usuario {
+class Administrador {
     //ABML para control de administradores
     
-    private $id;
+    private $id;    
     
 
     public function setId($id) {
