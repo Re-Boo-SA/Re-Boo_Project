@@ -6,7 +6,8 @@ require_once('/IAdminLogica.php');
 class Fachada {
 
     public function retornoIAdminLogica(): IAdminLogica{
-        $unIAL =
+        $unIAL = new AdminLogica();
+        return $unIAL;
     }
 }
 ?>
