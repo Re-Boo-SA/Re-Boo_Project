@@ -4,7 +4,7 @@ class ConexionBD
 {
 
     private $host = 'localhost';
-    private $db_name = 'TesteoPHP';
+    private $db_name = 'PROYECTO2026';
     private $username = 'root';
     private $password = 'root';
     private $conn;
