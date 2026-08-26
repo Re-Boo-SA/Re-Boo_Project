@@ -1,8 +1,7 @@
 <?php
 class Recinto {
-    private $RecintoID;
-    private $NombreRecinto;
-
+    private int $RecintoID;
+    private string $NombreRecinto;
     public function setRecintoID(int $PRecintoID):void{
         $this -> RecintoID = $PRecintoID;
     }

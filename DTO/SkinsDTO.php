@@ -1,11 +1,11 @@
 <?php
 
 class Skins {
-    private $SkinID;
-    private $NombreSkin;
-    private $EspecieSkin;
-    private $PrecioSkin;
-    private $disenioSkin; // Agregado para almacenar el diseño de la skin
+    private int $SkinID;
+    private string $NombreSkin;
+    private string $EspecieSkin;
+    private float $PrecioSkin;
+    private string $DisenioSkin;
 
     public function setSkinID(int $PSkinID):void{
         $this -> SkinID = $PSkinID;
@@ -24,7 +24,7 @@ class Skins {
     }
 
     public function setDisenioSkin(string $PDisenioSkin):void{
-        $this -> disenioSkin = $PDisenioSkin;
+        $this -> DisenioSkin = $PDisenioSkin;
     }
 
     public function __construct($PSkinID, $PNombreSkin, $PEspecieSkin, $PPrecioSkin, $PDisenioSkin){
@@ -52,6 +52,6 @@ class Skins {
     }
 
     public function getDisenioSkin():string {
-        return $this -> disenioSkin;
+        return $this -> DisenioSkin;
     }
 }

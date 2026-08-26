@@ -15,47 +15,48 @@ require_once('IPersistenciaJugador.php');
 require_once('IPersistenciaPartidas.php');
 require_once('IPersistenciaRecinto.php');
 require_once('IPersistenciaSkins.php');
+
 class FachadaPersistencia
 {
     public function retornoIPersistenciaAdmin(): IPersistenciaAdmin
     {
-        $unIPA = new PersistenciaAdmin();
+        $unIPA = PersistenciaAdmin::getInstance();
         return $unIPA;
     }
 
     public function retornoIPersistenciaFicha(): IPersistenciaFicha
     {
-        $unIPF = new PersistenciaFicha();
+        $unIPF = PersistenciaFicha::getInstance();
         return $unIPF;
     }
 
     public function retornoIPersistenciaJugadas(): IPersistenciaJugadas
     {
-        $unIPJ = new PersistenciaJugadas();
+        $unIPJ = PersistenciaJugadas::getInstance();
         return $unIPJ;
     }
 
     public function retornoIPersistenciaJugador(): IPersistenciaJugador
     {
-        $unIPJ = new PersistenciaJugador();
+        $unIPJ = PersistenciaJugador::getInstance();
         return $unIPJ;
     }
 
     public function retornoIPersistenciaPartidas(): IPersistenciaPartidas
     {
-        $unIPP = new PersistenciaPartidas();
+        $unIPP = PersistenciaPartidas::getInstance();
         return $unIPP;
     }
 
     public function retornoIPersistenciaRecinto(): IPersistenciaRecinto
     {
-        $unIPR = new PersistenciaRecinto();
+        $unIPR = PersistenciaRecinto::getInstance();
         return $unIPR;
     }
 
     public function retornoIPersistenciaSkins(): IPersistenciaSkins
     {
-        $unIPS = new PersistenciaSkins();
+        $unIPS = PersistenciaSkins::getInstance();
         return $unIPS;
     }
 }

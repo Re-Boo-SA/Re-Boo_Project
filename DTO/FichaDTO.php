@@ -1,9 +1,7 @@
 <?php
 class Ficha {
-    private $FichaID;
-    private $FichaEspecie;
-
-
+    private int $FichaID;
+    private string $FichaEspecie;
     public function setFichaID(int $PFichaID):void{
         $this -> FichaID = $PFichaID;
     }
@@ -13,10 +11,9 @@ class Ficha {
     }
 
 
-    public function __construct($PFichaID, $PFichaEspecie){
+    public function __construct(int $PFichaID, string $PFichaEspecie){
         $this -> setFichaID($PFichaID);
-        $this -> setFichaEspecie($PFichaEspecie);
-    }
+        $this -> setFichaEspecie($PFichaEspecie);    }
 
     public function getFichaID():int {
         return $this -> FichaID;

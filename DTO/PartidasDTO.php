@@ -1,46 +1,37 @@
 <?php
 class Partidas {
-    private $id_partida;
-    private $posicion_podio;
-    private $puntaje_maximo;
-    private $fecha_hora;
+    private int $PartidaID;
+    private int $puntaje_maximo;
+    private string $fecha_hora;
 
-    public function setIdPartida($id_partida) {
-        $this->id_partida = $id_partida;
+    public function setPartidaID(int $PartidaID): void {
+        $this->PartidaID = $PartidaID;
     }
 
-    public function setPosicionPodio($posicion_podio) {
-        $this->posicion_podio = $posicion_podio;
-    }
-
-    public function setPuntajeMaximo($puntaje_maximo) {
+    public function setPuntajeMaximo(int $puntaje_maximo): void {
         $this->puntaje_maximo = $puntaje_maximo;
     }
 
-    public function setFechaHora($fecha_hora) {
+    public function setFechaHora(string $fecha_hora): void {
         $this->fecha_hora = $fecha_hora;
     }
 
-    public function __construct($id_partida, $posicion_podio, $puntaje_maximo, $fecha_hora) {
-        $this->id_partida = $id_partida;
-        $this->posicion_podio = $posicion_podio;
+    public function __construct($PartidaID, $puntaje_maximo, $fecha_hora) {
+        $this->PartidaID = $PartidaID;
         $this->puntaje_maximo = $puntaje_maximo;
         $this->fecha_hora = $fecha_hora;
     }
 
-    public function getIdPartida() {
-        return $this->id_partida;
+    public function getPartidaID(): int {
+        return $this->PartidaID;
     }
 
-    public function getPosicionPodio() {
-        return $this->posicion_podio;
-    }
 
-    public function getPuntajeMaximo() {
+    public function getPuntajeMaximo(): int {
         return $this->puntaje_maximo;
     }
 
-    public function getFechaHora() {
+    public function getFechaHora(): string {
         return $this->fecha_hora;
     }
 
