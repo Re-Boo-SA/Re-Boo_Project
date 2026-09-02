@@ -19,43 +19,43 @@ class FachadaPersistencia
 {
     public function retornoIPersistenciaAdmin(): IPersistenciaAdmin
     {
-        $unIPA = new PersistenciaAdmin();
+        $unIPA = PersistenciaAdmin::getInstancia();
         return $unIPA;
     }
 
     public function retornoIPersistenciaFicha(): IPersistenciaFicha
     {
-        $unIPF = new PersistenciaFicha();
+        $unIPF = PersistenciaFicha::getInstancia();
         return $unIPF;
     }
 
     public function retornoIPersistenciaJugadas(): IPersistenciaJugadas
     {
-        $unIPJ = new PersistenciaJugadas();
+        $unIPJ = PersistenciaJugadas::getInstancia();
         return $unIPJ;
     }
 
     public function retornoIPersistenciaJugador(): IPersistenciaJugador
     {
-        $unIPJ = new PersistenciaJugador();
+        $unIPJ = PersistenciaJugador::getInstancia();
         return $unIPJ;
     }
 
     public function retornoIPersistenciaPartidas(): IPersistenciaPartidas
     {
-        $unIPP = new PersistenciaPartidas();
+        $unIPP = PersistenciaPartidas::getInstancia();
         return $unIPP;
     }
 
     public function retornoIPersistenciaRecinto(): IPersistenciaRecinto
     {
-        $unIPR = new PersistenciaRecinto();
+        $unIPR = PersistenciaRecinto::getInstancia();
         return $unIPR;
     }
 
     public function retornoIPersistenciaSkins(): IPersistenciaSkins
     {
-        $unIPS = new PersistenciaSkins();
+        $unIPS = PersistenciaSkins::getInstancia();
         return $unIPS;
     }
 }
