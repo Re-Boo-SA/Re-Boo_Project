@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../DTO/JugadorDTO.php');
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 
 interface IJugadorLogica
 {
@@ -9,5 +10,9 @@ interface IJugadorLogica
     public function obtenerJugador(int $idUsuario): ?Jugador;
 
     public function listarJugadores(): array;
+
+    public function bajaJugador(int $idUsuario): bool;
+
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool;
 }
 ?>
