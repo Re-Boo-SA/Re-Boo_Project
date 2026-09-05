@@ -17,8 +17,8 @@ $mensajeResultado = '';
 $identificador = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $identificador = isset($_POST['usuario']) ? $_POST['usuario'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $identificador = isset($_POST['usuario']) ?? '';
+    $password = isset($_POST['password']) ?? '';
 
     $fachadaLogica = new FachadaLogica();
     $usuarioLogica = $fachadaLogica->retornoIUsuarioLogica();
@@ -46,9 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($rol === 'administrador') {
             $mensajeResultado = $resultado['mensaje'];
         }
-
-        $destino = !empty($resultado['redirect']) ? ($resultado['redirect'] === 'inicioHome.php' ? 'inicioHome.php' : $resultado['redirect']) : ($rol === 'administrador' ? 'panel_admin.php' : 'login.php');
-        header("Location: $destino");
+        
+        header('Location: ' . $resultado['redirect']);
         exit();
     }
 }
