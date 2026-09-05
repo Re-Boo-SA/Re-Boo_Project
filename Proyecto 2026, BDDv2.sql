@@ -169,7 +169,7 @@ INSERT INTO tienda_skins (IDTienda, IDSkin, IDFicha) VALUES (1, 2, 2);
 
 DELIMITER $$
 
-CREATE PROCEDURE bajaAdmin()
+CREATE PROCEDURE bajaAdmin(IN p_IDUsuario INT)
 		BEGIN
 			DECLARE EXIT HANDLER FOR sqlexception
 			BEGIN 
@@ -177,7 +177,7 @@ CREATE PROCEDURE bajaAdmin()
 				SELECT "error" AS mensaje;
 			END;
 		SELECT * FROM ADMINISTRADORES;
-		UPDATE ADMINISTRADORES SET BajaLogica = 1 WHERE IDUsuario = 1;
+		UPDATE ADMINISTRADORES SET BajaLogica = 1 WHERE IDUsuario = p_IDUsuario;
 		END $$
 
 DELIMITER ;
@@ -186,7 +186,7 @@ CALL bajaAdmin();
 
 DELIMITER $$
 
-CREATE PROCEDURE bajaJugador()
+CREATE PROCEDURE bajaJugador(IN p_IDUsuario INT)
 		BEGIN
 			DECLARE EXIT HANDLER FOR sqlexception
 			BEGIN 
@@ -194,7 +194,7 @@ CREATE PROCEDURE bajaJugador()
 				SELECT "error" AS mensaje;
 			END;
 		SELECT * FROM JUGADORES;
-		UPDATE JUGADORES SET BajaLogica = 1 WHERE IDUsuario = 1;
+		UPDATE JUGADORES SET BajaLogica = 1 WHERE IDUsuario = p_IDUsuario;
 		END $$
 
 DELIMITER ;
@@ -202,16 +202,15 @@ CALL bajaJugador();
 
 DELIMITER $$
 
-	CREATE PROCEDURE eliminarJugador()
+	CREATE PROCEDURE eliminarJugador(IN p_IDUsuario INT)
 		BEGIN
 			DECLARE EXIT HANDLER FOR sqlexception
 			BEGIN 
 				rollback;
 				-- SELECT "error" AS mensaje
 			END;
-            DELETE FROM USUARIOS WHERE IDUsuario = 3;
-			DELETE FROM JUGADORES WHERE IDUsuario = 3;
-        
+			DELETE FROM JUGADORES WHERE IDUsuario = p_IDUsuario;
+            DELETE FROM USUARIOS WHERE IDUsuario = p_Usuarios AND Rol = 'jugador';
         
 		END $$
 
@@ -247,8 +246,10 @@ DELIMITER //
 CREATE PROCEDURE listarJugadores()
 BEGIN
     SELECT 
+		u.IDUsuario,
         u.NombreUsuario,
         u.Correo,
+		u.Rol,
         j.IDUsuario,
         j.FichasActuales,
         j.CantidadFichas,
@@ -267,35 +268,56 @@ CALL listarJugadores();
 DELIMITER //
 CREATE PROCEDURE listarAdmin()
 BEGIN
-    SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, a.BajaLogica
-                FROM ADMINISTRADORES a
-                INNER JOIN USUARIOS u ON a.IDUsuario = u.IDUsuario
-                WHERE a.BajaLogica = 0 AND u.BajaLogica = 0;
+    SELECT 
+		u.IDUsuario, 
+		u.Correo, 
+		u.Contra, 
+		u.NombreUsuario, 
+		a.BajaLogica
+      FROM ADMINISTRADORES a
+      INNER JOIN USUARIOS u ON a.IDUsuario = u.IDUsuario
+      WHERE a.BajaLogica = 0 AND u.BajaLogica = 0;
 END //
 DELIMITER ;
-CALL listarAdmin;
+CALL listarAdmin();
 
 DELIMITER //
-CREATE PROCEDURE buscarAdmin()
+CREATE PROCEDURE buscarAdmin(IN p_IDUsuario INT)
 BEGIN
-    SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol, a.BajaLogica
-                FROM ADMINISTRADORES a
-                INNER JOIN USUARIOS u ON a.IDUsuario = u.IDUsuario
-                WHERE a.IDUsuario = ? AND a.BajaLogica = 0 AND u.BajaLogica = 0
-                LIMIT 1;
+    SELECT 
+		u.IDUsuario, 
+		u.Correo, 
+		u.Contra, 
+		u.NombreUsuario, 
+		u.Rol, 
+		a.BajaLogica
+    FROM ADMINISTRADORES a
+    INNER JOIN USUARIOS u ON a.IDUsuario = u.IDUsuario
+    WHERE a.IDUsuario = p_IDUsuario AND a.BajaLogica = 0 AND u.BajaLogica = 0
+    LIMIT 1;
 END //
 DELIMITER ;
 CALL buscarAdmin();
 
 DELIMITER //
-CREATE PROCEDURE buscarJugador()
+CREATE PROCEDURE buscarJugador(IN p_IDUsuario INT)
 BEGIN
-    SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
-                       j.FichasActuales, j.CantidadFichas, j.PntsPartida, j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica
-                FROM JUGADORES j
-                INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
-                WHERE j.IDUsuario = ? AND j.BajaLogica = 0 AND u.BajaLogica = 0
-                LIMIT 1
+    SELECT 
+		u.IDUsuario, 
+		u.Correo, 
+		u.Contra, 
+		u.NombreUsuario, 
+		u.Rol,
+    	j.FichasActuales, 
+		j.CantidadFichas, 
+		j.PntsPartida, 
+		j.PartidasJugadas, 
+		j.PartidasGanadas, 
+		j.BajaLogica
+	FROM JUGADORES j
+    INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+    WHERE j.IDUsuario = p_IDUsuario AND j.BajaLogica = 0 AND u.BajaLogica = 0
+    LIMIT 1;
 END //
 DELIMITER ;
-CALL buscarJugador()
+CALL buscarJugador();
