@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../DTO/JugadorDTO.php');
-require_once(__DIR__ . '/--/DTO/UsuarioDTO.php');
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 
 interface IJugadorLogica
 {
