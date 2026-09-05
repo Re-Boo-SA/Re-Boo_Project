@@ -180,6 +180,7 @@ class JugadorLogica implements IJugadorLogica
             $persistenciaJugador = $this->fachadaPersistencia->retornoIPersistenciaJugador();
             return $persistenciaJugador->bajaLogicaJugador($idUsuario);
         }
+        return false;
     }
 
     public function modificarJugador()
