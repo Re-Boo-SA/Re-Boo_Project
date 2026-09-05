@@ -33,7 +33,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo ("Error de conexión en PersistenciaJugador: " . $e->getMessage());
+            echo "Error de conexión en PersistenciaJugador: " . $e->getMessage();
         }
     }
 
@@ -159,7 +159,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             return false;
         }
 
-        $sql = "CALL bajaugador(?)";
+        $sql = "CALL bajaJugador(?)";
 
         try {
             $stmt = $this->conn->prepare($sql);
@@ -173,7 +173,7 @@ class PersistenciaJugador implements IPersistenciaJugador
     }
 
     public function modificarJugador(Usuario $usuario, Jugador $jugador): bool // Si es una se declara solo DTO Jugador y si son las dos es como esta (con DTO Usuario y Jugador)
-    {
+    {     
         if ($this->conn === null) {
             return false;
         }
