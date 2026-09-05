@@ -1,15 +1,12 @@
 <?php
 
 require_once(__DIR__ . '/../DTO/AdministradorDTO.php');
-require_once('IPersistenciaAdmin.php');
+require_once(__DIR__ . '/IPersistenciaAdmin.php');
 require_once(__DIR__ . '/../Conexion/ConexionBD.php');
 
 class PersistenciaAdmin implements IPersistenciaAdmin
 {
-
-    private $conn;
-    private $res;
-
+    private $conn = null;
     private static ?PersistenciaAdmin $instancia = null;
 
     public static function getInstancia(): PersistenciaAdmin
@@ -24,9 +21,8 @@ class PersistenciaAdmin implements IPersistenciaAdmin
     {
     }
 
-    public function __wakeup()
+    private function __wakeup()
     {
-        throw new \Exception("No se puede deserializar el singletonAdmin");
     }
 
     private function __construct()
@@ -39,5 +35,62 @@ class PersistenciaAdmin implements IPersistenciaAdmin
         }
     }
 
+    public function buscarAdmin(int $idUsuario): ?Administrador
+    {
+        if ($this->conn === null) {
+            return null;
+        }
+
+        $sql = "CALL buscarAdmin(?);";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$idUsuario]);
+            $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($reader) {
+                return new Administrador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    $reader['Contra'],
+                    $reader['NombreUsuario'],
+                    (bool) $reader['BajaLogica']
+                );
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            print ("Error al buscar admin: " . $e->getMessage());
+        }
+
+        return null;
+    }
+
+    public function listarAdmins(): array
+    {
+        $admins = [];
+        if ($this->conn === null) {
+            return $admins;
+        }
+
+        $sql = "CALL listarAdmin();";
+
+        try {
+            $stmt = $this->conn->query($sql);
+            while ($reader = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                $admins[] = new Administrador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    $reader['Contra'],
+                    $reader['NombreUsuario'],
+                    (bool) $reader['BajaLogica']
+                );
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            print ("Error al listar admins: " . $e->getMessage());
+        }
+
+        return $admins;
+    }
 }
 ?>
