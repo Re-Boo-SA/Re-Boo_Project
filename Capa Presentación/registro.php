@@ -16,10 +16,10 @@ if (isset($_SESSION['rol'])) {
 $mensajeResultado = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombreUsuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
-    $correo = isset($_POST['email']) ? $_POST['email'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
-    $confirmarPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+    $nombreUsuario = ($_POST['usuario']) ?? '';
+    $correo = isset($_POST['email']) ?? '';
+    $password = isset($_POST['password']) ?? '';
+    $confirmarPassword = isset($_POST['confirm_password']) ?? '';
 
     $fachadaLogica = new FachadaLogica();
     $jugadorLogica = $fachadaLogica->retornoIJugadorLogica();
