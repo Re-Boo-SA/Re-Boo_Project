@@ -1,8 +1,10 @@
 <?php
 
+require_once(__DIR__ . '/../DTO/AdministradorDTO.php');
+
 interface IPersistenciaAdmin
 {
-    public function altaAdmin(AdministradorDTO $adminDTO): bool;
-    public function buscarAdmin(int $adminID): ?AdministradorDTO;
+    public function buscarAdmin(int $idUsuario): ?Administrador;
+    public function listarAdmins(): array;
 }
 ?>

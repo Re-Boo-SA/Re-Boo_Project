@@ -1,14 +1,13 @@
 <?php
 
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 require_once(__DIR__ . '/../DTO/JugadorDTO.php');
-require_once('IPersistenciaJugador.php');
+require_once(__DIR__ . '/IPersistenciaJugador.php');
 require_once(__DIR__ . '/../Conexion/ConexionBD.php');
 
 class PersistenciaJugador implements IPersistenciaJugador
 {
-    private $conn;
-    private $res;
-
+    private $conn = null;
     private static ?PersistenciaJugador $instancia = null;
 
     public static function getInstancia(): PersistenciaJugador
@@ -23,9 +22,9 @@ class PersistenciaJugador implements IPersistenciaJugador
     {
     }
 
-    public function __wakeup()
+    private function __wakeup()
     {
-        throw new \Exception("No se puede deserializar el singletonJugador");
+        throw new \Exception("No se puede deserializar el singleton de PersistenciaJugador");
     }
 
     private function __construct()
@@ -34,70 +33,163 @@ class PersistenciaJugador implements IPersistenciaJugador
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaJugador: " . $e->getMessage();
+            echo ("Error de conexión en PersistenciaJugador: " . $e->getMessage());
         }
     }
 
-
-    public function altaJugador(JugadorDTO $jugadorDTO): bool
+    public function altaJugador(Usuario $usuario, Jugador $jugador): bool
     {
-        if ($this->conn != null) {
-
-            if ($jugadorDTO != null) {
-                $sql = "INSERT INTO jugadores (NombreUsuario, Email, Contrasenia, CantidadFichas, PuntosPartida, PartidasJugadas, PartidasGanadas) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                $NombreUsuario = $jugadorDTO->getNombreUsuario();
-                $Email = $jugadorDTO->getEmail();
-                $Contrasenia = $jugadorDTO->getContrasenia();
-                $CantidadFichas = $jugadorDTO->getCantidadFichas();
-                $PuntosPartida = $jugadorDTO->getPuntosPartida();
-                $PartidasJugadas = $jugadorDTO->getPartidasJugadas();
-                $PartidasGanadas = $jugadorDTO->getPartidasGanadas();
-                try {
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->execute([$NombreUsuario, $Email, $Contrasenia, $CantidadFichas, $PuntosPartida, $PartidasJugadas, $PartidasGanadas]);
-                    $stmt->closeCursor();
-                    $res = true;
-                } catch (\PDOException $e) {
-                    print "Error al dar de alta jugador: " . $e->getMessage();
-                    $res = false;
-                }
-            }
+        if ($this->conn === null) {
+            return false;
         }
-        return $res;
-    }
-
-    public function buscarJugador(int $JugadorID): ?JugadorDTO
-    {
-        $jugadorEncontrado = null;
-        if ($this->conn != null) {
-
-            $sql = "SELECT * FROM jugadores WHERE JugadorID = ?";
+        if ($usuario !== null || $jugador !== null) {
             try {
-                $stmt = $this->conn->prepare($sql);
-                $stmt->execute([$JugadorID]);
+                $this->conn->beginTransaction(); // Usa transacciones porque se realizan dos INSERTS y si uno falla no queda un fantasma (sinedo fantasma una INSERT bien hecho y el otro no por lo que dio error, salió y quedo eso ahí)
 
-                $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
+                $sqlUsuario = "INSERT INTO USUARIOS (Correo, Contra, NombreUsuario, Rol, BajaLogica) 
+                           VALUES (:correo, :contra, :nombreUsuario, 'jugador', 0)";
+                $stmtUsuario = $this->conn->prepare($sqlUsuario);
+                $stmtUsuario->execute([
+                    ':correo' => $usuario->getCorreo(),
+                    ':contra' => $usuario->getContra(),
+                    ':nombreUsuario' => $usuario->getNombreUsuario()
+                ]);
 
-                if ($reader) {
-                    $JugadorIDx = $reader['JugadorID'];
-                    $NombreUsuario = $reader['NombreUsuario'];
-                    $Email = $reader['Email'];
-                    $Contrasenia = $reader['Contrasenia'];
-                    $CantidadFichas = $reader['CantidadFichas'];
-                    $PuntosPartida = $reader['PuntosPartida'];
-                    $PartidasJugadas = $reader['PartidasJugadas'];
-                    $PartidasGanadas = $reader['PartidasGanadas'];
+                $idGenerado = (int) $this->conn->lastInsertId();
+                $usuario->setIdUsuario($idGenerado);
+                $jugador->setIdUsuario($idGenerado);
 
-                    $jugadorEncontrado = new JugadorDTO($JugadorIDx, $NombreUsuario, $Email, $Contrasenia, $CantidadFichas, $PuntosPartida, $PartidasJugadas, $PartidasGanadas);
+                $sqlJugador = "INSERT INTO JUGADORES (IDUsuario, FichasActuales, CantidadFichas, PntsPartida, PartidasJugadas, PartidasGanadas, BajaLogica) 
+                           VALUES (:idUsuario, :fichasActuales, :cantidadFichas, :pntsPartida, :partidasJugadas, :partidasGanadas, 0)";
+                $stmtJugador = $this->conn->prepare($sqlJugador);
+                $stmtJugador->execute([
+                    ':idUsuario' => $idGenerado,
+                    ':fichasActuales' => $jugador->getFichasActuales(),
+                    ':cantidadFichas' => $jugador->getCantidadFichas(),
+                    ':pntsPartida' => $jugador->getPntsPartida(),
+                    ':partidasJugadas' => $jugador->getPartidasJugadas(),
+                    ':partidasGanadas' => $jugador->getPartidasGanadas()
+                ]);
+
+                $this->conn->commit();
+                return true;
+            } catch (\Exception $e) {
+                if ($this->conn->inTransaction()) {
+                    $this->conn->rollBack();
                 }
-                $stmt->closeCursor();
-                return $jugadorEncontrado;
-            } catch (\PDOException $e) {
-                print "Error al buscar jugador: " . $e->getMessage();
-                $jugadorEncontrado = null;
+                print ("Error al dar de alta jugador completo: " . $e->getMessage());
+                return false;
             }
         }
-        return $jugadorEncontrado;
+        return false;
+    }
+
+    public function buscarJugador(int $idUsuario): ?Jugador
+    {
+        if ($this->conn === null) {
+            return null;
+        }
+
+        $sql = "CALL buscarJugador(?)";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$idUsuario]);
+            $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($reader) {
+                return new Jugador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    $reader['Contra'],
+                    $reader['NombreUsuario'],
+                    (int) $reader['FichasActuales'],
+                    (int) $reader['CantidadFichas'],
+                    (int) $reader['PntsPartida'],
+                    (int) $reader['PartidasJugadas'],
+                    (int) $reader['PartidasGanadas'],
+                    (bool) $reader['BajaLogica']
+                );
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            print ("Error al buscar jugador: " . $e->getMessage());
+        }
+
+        return null;
+    }
+
+
+    public function listarJugadores(): array
+    {
+        $jugadores = [];
+        if ($this->conn === null) {
+            return $jugadores;
+        }
+
+        $sql = "CALL listarJugadores()";
+
+        try {
+            $stmt = $this->conn->query($sql);
+            while ($reader = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                $jugadores[] = new Jugador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    $reader['Contra'],
+                    $reader['NombreUsuario'],
+                    (int) $reader['FichasActuales'],
+                    (int) $reader['CantidadFichas'],
+                    (int) $reader['PntsPartida'],
+                    (int) $reader['PartidasJugadas'],
+                    (int) $reader['PartidasGanadas'],
+                    (bool) $reader['BajaLogica']
+                );
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            print ("Error al listar jugadores: " . $e->getMessage());
+        }
+
+        return $jugadores;
+    }
+
+    public function bajaLogicaJugador(int $idUsuario): bool
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+
+        $sql = "CALL bajaugador(?)";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$idUsuario]);
+            $stmt->closeCursor();
+            return true;
+        } catch (\PDOException $e) {
+            print ("Error al dar de baja jugador: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool // Si es una se declara solo DTO Jugador y si son las dos es como esta (con DTO Usuario y Jugador)
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+        if ($usuario !== null || $jugador !== null) {
+
+            try {
+                /* Depende de si se modifican las dos o solo una, 
+                si son las dos esto es una Transaction 
+                y si es una esto es solo de modificar JUGADOR sin Transaction 
+                */
+                return true;
+            } catch (\PDOException $e) {
+                return false;
+            }
+        }
+        return false;
     }
 }
 ?>

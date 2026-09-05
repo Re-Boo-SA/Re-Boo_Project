@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 require_once(__DIR__ . '/../DTO/AdministradorDTO.php');
 require_once(__DIR__ . '/../DTO/FichaDTO.php');
 require_once(__DIR__ . '/../DTO/JugadasDTO.php');
@@ -8,43 +9,49 @@ require_once(__DIR__ . '/../DTO/PartidasDTO.php');
 require_once(__DIR__ . '/../DTO/RecintoDTO.php');
 require_once(__DIR__ . '/../DTO/SkinsDTO.php');
 
-require_once('IAdminLogica.php');
-require_once('IFichaLogica.php');
-require_once('IJugadorLogica.php');
-require_once('IPartidasLogica.php');
-require_once('IRecintoLogica.php');
+require_once(__DIR__ . '/IUsuarioLogica.php');
+require_once(__DIR__ . '/UsuarioLogica.php');
+require_once(__DIR__ . '/IAdminLogica.php');
+require_once(__DIR__ . '/AdminLogica.php');
+require_once(__DIR__ . '/IJugadorLogica.php');
+require_once(__DIR__ . '/JugadorLogica.php');
+require_once(__DIR__ . '/IFichaLogica.php');
+require_once(__DIR__ . '/FichaLogica.php');
+require_once(__DIR__ . '/IPartidaLogica.php');
+require_once(__DIR__ . '/PartidaLogica.php');
+require_once(__DIR__ . '/IRecintoLogica.php');
+require_once(__DIR__ . '/RecintoLogica.php');
 
 class FachadaLogica
 {
-    public function retornoIAdminLogica(): IAdminLogica
+    public function retornoIUsuarioLogica(): IUsuarioLogica
     {
-        $unIAL = new AdminLogica();
-        return $unIAL;
+        return new UsuarioLogica();
     }
 
-    public function retornoIFichaLogica(): IFichaLogica
+    public function retornoIAdminLogica(): IAdminLogica
     {
-        $unIFL = new FichaLogica();
-        return $unIFL;
+        return new AdminLogica();
     }
 
     public function retornoIJugadorLogica(): IJugadorLogica
     {
-        $unIJL = new JugadorLogica();
-        return $unIJL;
+        return new JugadorLogica();
+    }
+
+    public function retornoIFichaLogica(): IFichaLogica
+    {
+        return new FichaLogica();
     }
 
     public function retornoIPartidaLogica(): IPartidaLogica
     {
-        $unIPL = new PartidaLogica();
-        return $unIPL;
+        return new PartidaLogica();
     }
 
     public function retornoIRecintoLogica(): IRecintoLogica
     {
-        $unIRL = new RecintoLogica();
-        return $unIRL;
+        return new RecintoLogica();
     }
 }
-
 ?>
