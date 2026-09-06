@@ -321,3 +321,25 @@ BEGIN
 END //
 DELIMITER ;
 CALL buscarJugador();
+
+START TRANSACTION;
+
+INSERT INTO USUARIOS
+    (Correo, Contra, NombreUsuario, Rol, BajaLogica)
+VALUES
+    (
+        'admin@reboo.com',
+        '$argon2id$v=19$m=65536,t=4,p=1$ZHJtVWttYlkyZHRvTnRmeg$i6TxXSgG+3r08A3V55ApxJ2/gF/AOmGpJnTe3LFITEQ',
+        'admin_prueba',
+        'administrador',
+        0
+    );
+
+SET @id_admin = LAST_INSERT_ID();
+
+INSERT INTO ADMINISTRADORES
+    (IDUsuario, BajaLogica)
+VALUES
+    (@id_admin, 0);
+
+COMMIT;

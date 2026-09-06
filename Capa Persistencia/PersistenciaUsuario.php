@@ -21,7 +21,7 @@ class PersistenciaUsuario implements IPersistenciaUsuario
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 

@@ -22,7 +22,7 @@ class PersistenciaJugador implements IPersistenciaJugador
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
         throw new \Exception("No se puede deserializar el singleton de PersistenciaJugador");
     }
@@ -135,7 +135,7 @@ class PersistenciaJugador implements IPersistenciaJugador
                 $jugadores[] = new Jugador(
                     (int) $reader['IDUsuario'],
                     $reader['Correo'],
-                    $reader['Contra'],
+                    '',
                     $reader['NombreUsuario'],
                     (int) $reader['FichasActuales'],
                     (int) $reader['CantidadFichas'],
