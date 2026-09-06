@@ -210,7 +210,7 @@ DELIMITER $$
 				-- SELECT "error" AS mensaje
 			END;
 			DELETE FROM JUGADORES WHERE IDUsuario = p_IDUsuario;
-            DELETE FROM USUARIOS WHERE IDUsuario = p_Usuarios AND Rol = 'jugador';
+            DELETE FROM USUARIOS WHERE IDUsuario = p_IDUsuario AND Rol = 'jugador';
         
 		END $$
 
