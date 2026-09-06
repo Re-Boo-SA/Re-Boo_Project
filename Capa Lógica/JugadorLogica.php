@@ -4,6 +4,7 @@ require_once(__DIR__ . '/IJugadorLogica.php');
 require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 require_once(__DIR__ . '/../DTO/JugadorDTO.php');
 require_once(__DIR__ . '/../Capa Persistencia/FachadaPersistencia.php');
+require_once(__DIR__ . '/SeguridadLogica.php');
 
 class JugadorLogica implements IJugadorLogica
 {
@@ -139,11 +140,11 @@ class JugadorLogica implements IJugadorLogica
             ];
         }
 
-        $contraHash = password_hash($password, PASSWORD_ARGON2ID);
+        $contraHash = SeguridadLogica::hashPassword($password);
 
-        $usuario = new Usuario($correo, $contraHash, $nombreUsuario, 'jugador', false);
+        $usuario = new Usuario(0, $correo, $contraHash, $nombreUsuario, 'jugador', false);
 
-        $jugador = new Jugador($correo, $contraHash, $nombreUsuario, 0, 0, 0, 0, 0, false);
+        $jugador = new Jugador(0, $correo, $contraHash, $nombreUsuario, 0, 0, 0, 0, 0, false);
 
 
         $persistenciaJugador = $this->fachadaPersistencia->retornoIPersistenciaJugador();
@@ -183,9 +184,10 @@ class JugadorLogica implements IJugadorLogica
         return false;
     }
 
-    public function modificarJugador()
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool
     {
         // Este método queda preparado para la futura modificación de jugadores.
+        return false;
     }
 }
 ?>

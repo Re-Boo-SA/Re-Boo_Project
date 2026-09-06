@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
 require_once(__DIR__ . '/../DTO/JugadorDTO.php');
 require_once(__DIR__ . '/../DTO/AdministradorDTO.php');
 require_once(__DIR__ . '/../Capa Persistencia/FachadaPersistencia.php');
+require_once(__DIR__ . '/SeguridadLogica.php');
 
 class UsuarioLogica implements IUsuarioLogica
 {
@@ -44,7 +45,7 @@ class UsuarioLogica implements IUsuarioLogica
         }
 
         $contraBD = $usuario->getContra();
-        $esValida = password_verify($password, $contraBD) || ($password === $contraBD);
+        $esValida = SeguridadLogica::verificarPassword($password, $contraBD);
 
         if (!$esValida) {
             return [

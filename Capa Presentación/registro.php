@@ -2,8 +2,9 @@
 session_start();
 
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
+require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 
-if (isset($_SESSION['rol'])) {
+/*if (isset($_SESSION['rol'])) {
     if ($_SESSION['rol'] === 'administrador') {
         header('Location: panel_admin.php');
         exit();
@@ -12,19 +13,46 @@ if (isset($_SESSION['rol'])) {
         exit();
     }
 }
-
+*/
 $mensajeResultado = '';
+$resultado = null;
+$viejo_nombre = '';
+$viejo_correo = '';
+$recaptchaSiteKey = getenv('REBOO_RECAPTCHA_SITE_KEY') ?: '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombreUsuario = ($_POST['usuario']) ?? '';
-    $correo = isset($_POST['email']) ?? '';
-    $password = isset($_POST['password']) ?? '';
-    $confirmarPassword = isset($_POST['confirm_password']) ?? '';
+    $nombreUsuario = $_POST['usuario'] ?? '';
+    $correo = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirmarPassword = $_POST['confirm_password'] ?? '';
 
-    $fachadaLogica = new FachadaLogica();
-    $jugadorLogica = $fachadaLogica->retornoIJugadorLogica();
+    try {
+        $recaptchaValido = SeguridadLogica::verificarRecaptcha(
+            $_POST['recaptcha_token'] ?? '',
+            'registro'
+        );
 
-    $resultado = $jugadorLogica->registrarJugador($nombreUsuario, $correo, $password, $confirmarPassword);
+        if (!$recaptchaValido) {
+            $resultado = [
+                'exito' => false,
+                'mensaje' => 'No se pudo validar la seguridad del formulario. Intenta nuevamente.'
+            ];
+        } else {
+            $fachadaLogica = new FachadaLogica();
+            $jugadorLogica = $fachadaLogica->retornoIJugadorLogica();
+            $resultado = $jugadorLogica->registrarJugador(
+                $nombreUsuario,
+                $correo,
+                $password,
+                $confirmarPassword
+            );
+        }
+    } catch (RuntimeException $e) {
+        $resultado = [
+            'exito' => false,
+            'mensaje' => 'La seguridad del servidor no está configurada correctamente.'
+        ];
+    }
 
     if (!$resultado['exito']) {
         $mensajeResultado = $resultado['mensaje'];
@@ -46,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Registro</title>
     <link rel="stylesheet" href="css/estilo.css" />
+    <?php if ($recaptchaSiteKey !== ''): ?>
+        <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
+    <?php endif; ?>
 </head>
 
 <body>
@@ -69,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="tarjeta-formulario">
                     <h2 class="titulo-formulario">REGISTRARSE</h2>
 
-                    <?php if (!$resultado['exito']): ?>
+                    <?php if ($resultado !== null && !$resultado['exito']): ?>
                         <div class="alerta alerta-error" id="alerta-registro-error">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($resultado['exito']): ?>
+                    <?php if ($resultado !== null && $resultado['exito']): ?>
                         <div class="alerta alerta-exito" id="alerta-registro-exito">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -93,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php endif; ?>
 
                     <form id="registro-form" class="formulario" action="registro.php" method="POST">
+                        <input type="hidden" name="recaptcha_token" id="recaptcha-token-registro" value="" />
                         <div class="grupo-entrada">
                             <label for="usuario-registro">Usuariardo</label>
                             <input type="text" id="usuario-registro" name="usuario"
@@ -136,5 +168,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
+
+<?php if ($recaptchaSiteKey !== ''): ?>
+    <script>
+        const registroForm = document.getElementById('registro-form');
+        let registroEnviado = false;
+
+        registroForm.addEventListener('submit', function (evento) {
+            if (registroEnviado) {
+                return;
+            }
+
+            evento.preventDefault();
+
+            if (typeof grecaptcha === 'undefined') {
+                alert('No se pudo cargar reCAPTCHA. Recarga la página e inténtalo nuevamente.');
+                return;
+            }
+
+            grecaptcha.ready(function () {
+                grecaptcha.execute(<?= json_encode($recaptchaSiteKey); ?>, { action: 'registro' })
+                    .then(function (token) {
+                        if (typeof token !== 'string' || token.trim() === '') {
+                            alert('reCAPTCHA se ejecutó, pero Google devolvió un token vacío. Verifica que la clave sea de tipo v3 y que localhost esté autorizado.');
+                            return;
+                        }
+
+                        document.getElementById('recaptcha-token-registro').value = token;
+                        registroEnviado = true;
+                        registroForm.submit();
+                    })
+                    .catch(function () {
+                        alert('Google no pudo validar reCAPTCHA. Revisa la configuración del dominio.');
+                    });
+            });
+        });
+    </script>
+<?php endif; ?>
 
 </html>
