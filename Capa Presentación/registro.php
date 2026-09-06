@@ -4,7 +4,7 @@ session_start();
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 
-/*if (isset($_SESSION['rol'])) {
+if (isset($_SESSION['rol'])) {
     if ($_SESSION['rol'] === 'administrador') {
         header('Location: panel_admin.php');
         exit();
@@ -13,7 +13,7 @@ require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
         exit();
     }
 }
-*/
+
 $mensajeResultado = '';
 $resultado = null;
 $viejo_nombre = '';
