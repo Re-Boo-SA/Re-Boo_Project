@@ -14,10 +14,6 @@ $fachada = new FachadaLogica();
 $jugador = $fachada->retornoIJugadorLogica()->obtenerJugador($idUsuario);
 
 $nombre = $jugador ? $jugador->getNombreUsuario() : ($_SESSION['nombre_usuario'] ?? 'Jugador');
-$correo = $jugador ? $jugador->getCorreo() : ($_SESSION['correo'] ?? '');
-$fichasActuales = $jugador ? $jugador->getFichasActuales() : ($_SESSION['fichas_actuales'] ?? 0);
-$cantidadFichas = $jugador ? $jugador->getCantidadFichas() : ($_SESSION['cantidad_fichas'] ?? 0);
-$pntsPartida = $jugador ? $jugador->getPntsPartida() : ($_SESSION['pnts_partida'] ?? 0);
 $partidasJugadas = $jugador ? $jugador->getPartidasJugadas() : ($_SESSION['partidas_jugadas'] ?? 0);
 $partidasGanadas = $jugador ? $jugador->getPartidasGanadas() : ($_SESSION['partidas_ganadas'] ?? 0);
 
@@ -36,36 +32,51 @@ $winrate = ($partidasJugadas > 0) ? round(($partidasGanadas / $partidasJugadas) 
     <link rel="stylesheet" href="css/estilo.css" />
 </head>
 
-<body>
-    <div class="contenedor-app fondo-inicio">
-        <div class="pantalla pantalla-inicio">
+<body class="cuerpo-home-pc">
 
-            <header class="tarjeta-usuario">
-                <div class="info-usuario">
-                    <span class="nombre-usuario"><?= htmlspecialchars($nombre) ?></span>
-                    <span class="skins-usuario">Skins: 0</span>
-                    <span class="puntos-usuario"><?= htmlspecialchars((string) $pntsPartida) ?> Puntos</span>
-                </div>
-            </header>
+    <header class="encabezado-home">
+        <button type="button" class="boton-menu" title="Configuración" onclick="alert('Abriendo menú de configuración...')">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-            <main class="menu-principal">
-                <button type="button" class="boton-principal" id="btn-crear-partida"
-                    onclick="alert('Iniciando creación de partida en el servidor Re-Boo...')">Crear partida</button>
-                <button type="button" class="boton-principal" id="btn-buscar-partida"
-                    onclick="alert('Buscando partida en el servidor Re-Boo...')">Buscar partida</button>
-                <button type="button" class="boton-secundario" id="btn-historial-partidas"
-                    onclick="alert('Historial de Jugador:\nPartidas jugadas: <?= $partidasJugadas ?>\nPartidas ganadas: <?= $partidasGanadas ?>\nPorcentaje de victorias: <?= $winrate ?>%')">Historial</button>
-            </main>
-
-            <footer class="navegacion-inferior">
-                <a href="logout.php" class="boton-enlace" id="btn-cerrar-sesion"
-                    style="color: #ffffff; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; height: 100%; font-family: 'Saira Stencil One', cursive, sans-serif; letter-spacing: 0.5px;">
-                    Cerrar sesión
-                </a>
-            </footer>
-
+        <div class="titulo-principal">
+            <h1>DRAFT DER MAUER</h1>
         </div>
-    </div>
+
+        <div class="icono-perfil" title="<?= htmlspecialchars($nombre) ?>"></div>
+    </header>
+
+    <!-- Tablero y botones laterales -->
+    <main class="panel-central">
+        
+        <div class="columna-botones">
+            <button type="button" class="btn-mauer btn-principal" id="btn-crear-partida"
+                onclick="alert('Iniciando creación de partida...')">CREAR PARTIDA</button>
+            <button type="button" class="btn-mauer btn-icono" id="btn-tienda"
+                onclick="alert('Tienda')">T</button>
+        </div>
+
+        <div class="seccion-tablero">
+            <img src="img/TABLERO.png" alt="Mapa de Draft Der Mauer" class="imagen-tablero" />
+        </div>
+
+        <div class="columna-botones">
+            <button type="button" class="btn-mauer btn-principal" id="btn-buscar-partida"
+                onclick="alert('Buscando partida...')">BUSCAR PARTIDA</button>
+            <button type="button" class="btn-mauer btn-icono" id="btn-info"
+                onclick="alert('Información')">I</button>
+        </div>
+
+    </main>
+
+    <!-- Pie con Historial -->
+    <footer class="pie-home">
+        <button type="button" class="btn-mauer btn-principal btn-historial" id="btn-historial-partidas"
+            onclick="alert('Historial:\nPartidas jugadas: <?= $partidasJugadas ?>\nGanadas: <?= $partidasGanadas ?>\nWinrate: <?= $winrate ?>%')">HISTORIAL</button>
+    </footer>
+
 </body>
 
 </html>

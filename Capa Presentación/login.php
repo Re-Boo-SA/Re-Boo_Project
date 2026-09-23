@@ -3,6 +3,7 @@ session_start();
 
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
+require_once(__DIR__ . '/../config.php');
 
 if (isset($_SESSION['rol'])) {
     if ($_SESSION['rol'] === 'administrador') {
@@ -17,7 +18,7 @@ if (isset($_SESSION['rol'])) {
 $mensajeResultado = '';
 $identificador = '';
 $resultado = null;
-$recaptchaSiteKey = getenv('REBOO_RECAPTCHA_SITE_KEY') ?: '';
+$recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identificador = $_POST['usuario'] ?? '';
@@ -80,13 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Login</title>
-    <link rel="stylesheet" href="css/estilo.css" />
+    <link rel="stylesheet" href="./css/estilo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
     <?php if ($recaptchaSiteKey !== ''): ?>
         <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
     <?php endif; ?>
 </head>
 
 <body>
+    <!-- Banderas laterales de fondo -->
+    <div class="bandera-izquierda"></div>
+    <div class="bandera-derecha"></div>
+
     <div class="contenedor-app">
         <div class="pantalla">
             <header class="encabezado">
@@ -95,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p class="subtitulo">ACCESO DE JUGADOR(A)</p>
                 </div>
             </header>
-
+            
             <div class="contenedor-pestanias">
                 <div class="envoltorio-pestanias">
                     <a href="login.php" class="boton-pestania activo">Ingresar</a>

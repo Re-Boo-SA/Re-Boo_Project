@@ -90,7 +90,15 @@ class PersistenciaJugador implements IPersistenciaJugador
             return null;
         }
 
-        $sql = "CALL buscarJugador(?)";
+                $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
+                                             j.FichasActuales, j.CantidadFichas, j.PntsPartida,
+                                             j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica
+                                FROM JUGADORES j
+                                INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+                                WHERE j.IDUsuario = ?
+                                    AND j.BajaLogica = 0
+                                    AND u.BajaLogica = 0
+                                LIMIT 1";
 
         try {
             $stmt = $this->conn->prepare($sql);
@@ -127,7 +135,12 @@ class PersistenciaJugador implements IPersistenciaJugador
             return $jugadores;
         }
 
-        $sql = "CALL listarJugadores()";
+        $sql = "SELECT u.IDUsuario, u.NombreUsuario, u.Correo, u.Rol,
+                   j.FichasActuales, j.CantidadFichas, j.PntsPartida,
+                   j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica
+            FROM JUGADORES j
+            INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+            WHERE j.BajaLogica = 0 AND u.BajaLogica = 0";
 
         try {
             $stmt = $this->conn->query($sql);
@@ -169,6 +182,73 @@ class PersistenciaJugador implements IPersistenciaJugador
         } catch (\PDOException $e) {
             print ("Error al dar de baja jugador: " . $e->getMessage());
             return false;
+        }
+    }
+
+    public function gestionarBajaJugador(int $idUsuario): string
+    {
+        if ($this->conn === null) {
+            return 'error';
+        }
+
+        try {
+            $this->conn->beginTransaction();
+
+            $stmtJugador = $this->conn->prepare(
+                "SELECT 1 FROM JUGADORES j
+                 INNER JOIN USUARIOS u ON u.IDUsuario = j.IDUsuario
+                 WHERE j.IDUsuario = ? AND j.BajaLogica = 0 AND u.BajaLogica = 0
+                 LIMIT 1"
+            );
+            $stmtJugador->execute([$idUsuario]);
+
+            if (!$stmtJugador->fetchColumn()) {
+                $this->conn->rollBack();
+                return 'no_encontrado';
+            }
+
+            $stmtJugadas = $this->conn->prepare(
+                "SELECT COUNT(*) FROM JUGADAS WHERE IDUsuario = ?"
+            );
+            $stmtJugadas->execute([$idUsuario]);
+            $tieneJugadas = (int) $stmtJugadas->fetchColumn() > 0;
+
+            if ($tieneJugadas) {
+                $stmtBajaJugador = $this->conn->prepare(
+                    "UPDATE JUGADORES SET BajaLogica = 1 WHERE IDUsuario = ?"
+                );
+                $stmtBajaJugador->execute([$idUsuario]);
+
+                $stmtBajaUsuario = $this->conn->prepare(
+                    "UPDATE USUARIOS SET BajaLogica = 1 WHERE IDUsuario = ? AND Rol = 'jugador'"
+                );
+                $stmtBajaUsuario->execute([$idUsuario]);
+                $this->conn->commit();
+                return 'baja';
+            }
+
+            $stmtAccesoTienda = $this->conn->prepare(
+                "DELETE FROM acceso_jugador_tienda WHERE IDUsuario = ?"
+            );
+            $stmtAccesoTienda->execute([$idUsuario]);
+
+            $stmtEliminarJugador = $this->conn->prepare(
+                "DELETE FROM JUGADORES WHERE IDUsuario = ?"
+            );
+            $stmtEliminarJugador->execute([$idUsuario]);
+
+            $stmtEliminarUsuario = $this->conn->prepare(
+                "DELETE FROM USUARIOS WHERE IDUsuario = ? AND Rol = 'jugador'"
+            );
+            $stmtEliminarUsuario->execute([$idUsuario]);
+            $this->conn->commit();
+            return 'eliminado';
+        } catch (\PDOException $e) {
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            print ("Error al gestionar la baja del jugador: " . $e->getMessage());
+            return 'error';
         }
     }
 
