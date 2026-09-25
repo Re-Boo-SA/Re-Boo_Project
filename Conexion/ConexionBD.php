@@ -1,11 +1,10 @@
-
 <?php
 
 class ConexionBD
 {
 
     private $host = 'localhost';
-    private $db_name = 'PROYECTO2026';
+    private $db_name = 'proyecto2026';
     private $username = 'root';
     private $password = 'root';
     private $conn;

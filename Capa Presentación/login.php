@@ -3,6 +3,7 @@ session_start();
 
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
+require_once(__DIR__ . '/../config.php');
 
 if (isset($_SESSION['rol'])) {
     if ($_SESSION['rol'] === 'administrador') {
@@ -17,7 +18,7 @@ if (isset($_SESSION['rol'])) {
 $mensajeResultado = '';
 $identificador = '';
 $resultado = null;
-$recaptchaSiteKey = getenv('REBOO_RECAPTCHA_SITE_KEY') ?: '';
+$recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identificador = $_POST['usuario'] ?? '';
@@ -67,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($rol === 'administrador') {
             $mensajeResultado = $resultado['mensaje'];
         }
-        
+
         header('Location: ' . $resultado['redirect']);
         exit();
     }
@@ -82,7 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Draft Der Mauer - Login</title>
     <link rel="stylesheet" href="css/estilo.css" />
     <?php if ($recaptchaSiteKey !== ''): ?>
-        <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
+        <script
+            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
     <?php endif; ?>
 </head>
 

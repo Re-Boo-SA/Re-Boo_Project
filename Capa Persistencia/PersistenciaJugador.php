@@ -90,11 +90,26 @@ class PersistenciaJugador implements IPersistenciaJugador
             return null;
         }
 
-        $sql = "CALL buscarJugador(?)";
+        $sql = "SELECT 
+		u.IDUsuario, 
+		u.Correo, 
+		u.Contra, 
+		u.NombreUsuario, 
+		u.Rol,
+    	j.FichasActuales, 
+		j.CantidadFichas, 
+		j.PntsPartida, 
+		j.PartidasJugadas, 
+		j.PartidasGanadas, 
+		j.BajaLogica
+	FROM JUGADORES j
+    INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+    WHERE j.IDUsuario = :iDUsuario AND j.BajaLogica = 0 AND u.BajaLogica = 0
+    LIMIT 1;";
 
         try {
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$idUsuario]);
+            $stmt->execute([':iDUsuario' => $idUsuario]);
             $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($reader) {
