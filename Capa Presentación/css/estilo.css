@@ -590,3 +590,79 @@ body {
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-main);
 }
+
+/* Tienda de skins: panel compacto inspirado en la maqueta del juego. */
+body.tienda-body {
+    display: block;
+    min-height: 100vh;
+    padding: 20px 12px;
+    background: #070612;
+    color: #f7f4f5;
+    font-family: 'Saira Stencil One', Arial, sans-serif;
+}
+
+.tienda-barra {
+    width: min(100%, 404px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tienda-marca {
+    color: #77727f;
+    text-decoration: none;
+    font: 500 .8rem Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+.tienda-marca span { display: none; }
+.tienda-enlaces { display: flex; gap: 14px; }
+.tienda-enlaces a { color: #8c8794; text-decoration: none; font: .72rem Arial, sans-serif; }
+.tienda-enlaces a:hover { color: #fff; }
+
+.tienda-contenido { width: min(100%, 404px); margin: 18px auto 0; }
+.tienda-titulo-pagina { color: #77727f; margin: 0 0 14px; font: .8rem Arial, sans-serif; text-transform: uppercase; }
+.tienda-panel { padding: 28px 20px 24px; background: #191719; border: 1px solid #292528; border-radius: 28px; box-shadow: 0 18px 48px rgba(0, 0, 0, .36); }
+.tienda-cabecera-panel { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.tienda-icono { height: 52px; color: #f5f2f3; font: 2.5rem Arial, sans-serif; line-height: 1; }
+.tienda-cabecera-panel h1 { margin: 6px 0 2px; color: #f5f2f3; font: 700 1.32rem 'Saira Stencil One', Arial, sans-serif; letter-spacing: 3px; }
+.tienda-cabecera-panel > p { margin: 0; color: #e32232; font: 700 .58rem Arial, sans-serif; letter-spacing: 4px; }
+.tienda-divisor { width: 100%; height: 1px; margin: 20px 0 16px; background: linear-gradient(90deg, transparent, #37282d, transparent); }
+.tienda-saldo { align-self: stretch; display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 9px 12px; background: #121012; border: 1px solid #282328; border-radius: 8px; text-align: left; font-family: Arial, sans-serif; }
+.tienda-saldo small { color: #938991; font-size: .68rem; }.tienda-saldo strong { color: #e55a61; font-size: .78rem; }
+.tienda-aviso { padding: 9px 11px; margin-bottom: 13px; background: #211a1d; border: 1px solid #513036; border-radius: 7px; color: #e9dfe1; font: .72rem Arial, sans-serif; }
+.tienda-aviso.error { border-color: #ba2c38; color: #ff9da5; }
+.tienda-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 10px; }
+.skin-card { grid-column: span 3; min-width: 0; }
+.skin-card:nth-child(n + 3) { grid-column: span 2; }
+.skin-imagen { position: relative; height: 154px; display: grid; place-items: center; overflow: hidden; background: #121112; border: 1px solid #302c2f; border-radius: 14px; }
+.skin-card:nth-child(n + 3) .skin-imagen { height: 120px; }
+.skin-imagen::before { content: ''; position: absolute; top: -1px; left: 36%; width: 28%; height: 3px; background: #a9101d; }
+.skin-imagen img { width: 100%; height: 100%; object-fit: contain; }
+.skin-silueta { color: #59545a; font: 700 4rem 'Saira Stencil One', Arial, sans-serif; text-shadow: 0 2px #252225; }
+.skin-especie { position: absolute; bottom: 12px; color: #625c63; font: 700 .48rem Arial, sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+.skin-info { padding: 7px 2px 0; text-align: center; }
+.skin-info h2 { overflow: hidden; margin: 0 0 5px; color: #aaa3a9; font: 600 .62rem Arial, sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+.skin-pie { display: flex; align-items: center; justify-content: center; }
+.skin-precio, .skin-comprada { display: inline-flex; min-height: 27px; align-items: center; justify-content: center; padding: 3px 11px; border: 1px solid #5c252b; border-radius: 18px; color: #e26a70; background: #211417; font: 700 .68rem Arial, sans-serif; white-space: nowrap; }
+.skin-comprada { border-color: #3d3a3c; color: #928b90; background: #201e20; }
+.tienda-boton { min-height: 27px; padding: 4px 12px; border: 1px solid #79232b; border-radius: 18px; background: #32151a; color: #f37b81; font: 700 .66rem Arial, sans-serif; cursor: pointer; }
+.tienda-boton:hover { background: #5a1a22; color: #fff; }
+.tienda-vacia { grid-column: 1 / -1; padding: 20px 10px; color: #8d858b; text-align: center; font: .75rem Arial, sans-serif; }
+
+@media (max-width: 420px) {
+    body.tienda-body { padding: 16px 10px; }
+    .tienda-panel { padding: 24px 14px 20px; border-radius: 24px; }
+    .skin-imagen { height: 132px; }
+    .skin-card:nth-child(n + 3) .skin-imagen { height: 105px; }
+}
+
+@media (min-width: 760px) {
+    body.tienda-body { padding-top: 34px; }
+    .tienda-barra, .tienda-contenido { width: min(100%, 760px); }
+    .tienda-panel { padding: 32px; }
+    .tienda-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px 14px; }
+    .skin-card, .skin-card:nth-child(n + 3) { grid-column: span 2; }
+    .skin-imagen, .skin-card:nth-child(n + 3) .skin-imagen { height: 160px; }
+}

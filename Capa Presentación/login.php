@@ -17,7 +17,12 @@ require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 $mensajeResultado = '';
 $identificador = '';
 $resultado = null;
-$recaptchaSiteKey = getenv('REBOO_RECAPTCHA_SITE_KEY') ?: '';
+// Usamos la clave configurada en el servidor o la de config.php para que el formulario pueda generar el token.
+try {
+    $recaptchaSiteKey = SeguridadLogica::obtenerClavePublicaRecaptcha();
+} catch (RuntimeException $e) {
+    $recaptchaSiteKey = '';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identificador = $_POST['usuario'] ?? '';

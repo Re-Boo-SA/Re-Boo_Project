@@ -18,7 +18,12 @@ $mensajeResultado = '';
 $resultado = null;
 $viejo_nombre = '';
 $viejo_correo = '';
-$recaptchaSiteKey = getenv('REBOO_RECAPTCHA_SITE_KEY') ?: '';
+// Usamos la clave configurada en el servidor o la de config.php para que el formulario pueda generar el token.
+try {
+    $recaptchaSiteKey = SeguridadLogica::obtenerClavePublicaRecaptcha();
+} catch (RuntimeException $e) {
+    $recaptchaSiteKey = '';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombreUsuario = $_POST['usuario'] ?? '';

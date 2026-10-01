@@ -124,6 +124,15 @@ CREATE TABLE IF NOT EXISTS tienda_skins (
     FOREIGN KEY (IDTienda) REFERENCES TIENDA(IDTienda),
     FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
 );
+.
+CREATE TABLE IF NOT EXISTS jugador_skins (
+    IDUsuario INT NOT NULL,
+    IDSkin INT NOT NULL,
+    IDFicha INT NOT NULL,
+    PRIMARY KEY (IDUsuario, IDSkin, IDFicha),
+    FOREIGN KEY (IDUsuario) REFERENCES JUGADORES(IDUsuario),
+    FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
+);
 
 INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (1, "hola@gmail.com", 123, "AURA", "jugador", 0);
 INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (2, "chau@gmail.com", 1234, "pepe", "administrador", 0);
@@ -138,8 +147,8 @@ INSERT INTO JUGADORES (IDUsuario, FichasActuales, CantidadFichas, PntsPartida, P
 INSERT INTO REPORTES (IDReportes, Motivo, BajaLogica) VALUES (1, "mala palabra", 0);
 INSERT INTO REPORTES (IDReportes, Motivo, BajaLogica) VALUES (2, "bugs", 0);
 
-INSERT INTO FICHAS (IDFicha, FichaEspecie, BajaLogica) VALUES (1, "obrero", 0);
-INSERT INTO FICHAS (IDFicha, FichaEspecie, BajaLogica) VALUES (2, "politico", 0);
+INSERT INTO FICHAS (IDFicha, FichaEspecie, BajaLogica) VALUES (1, "Espia", 0);
+INSERT INTO FICHAS (IDFicha, FichaEspecie, BajaLogica) VALUES (2, "Militar", 0);
 
 INSERT INTO SKINS (IDSkin, IDFicha, NombreSkin, Precio, URL, BajaLogica) VALUES (1, 1, "Espia azul", 150, "skin.png", 0);
 INSERT INTO SKINS (IDSkin, IDFicha, NombreSkin, Precio, URL, BajaLogica) VALUES (2, 2, "Militar rojo", 120, "skin.png", 0);
@@ -343,3 +352,71 @@ VALUES
     (@id_admin, 0);
 
 COMMIT;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE listarCatalogoSkins()
+BEGIN
+    SELECT s.IDSkin, s.IDFicha, s.NombreSkin, s.Precio, s.URL, f.FichaEspecie
+    FROM SKINS s
+    INNER JOIN FICHAS f ON f.IDFicha = s.IDFicha
+    INNER JOIN tienda_skins ts ON ts.IDSkin = s.IDSkin AND ts.IDFicha = s.IDFicha
+    WHERE s.BajaLogica = 0 AND f.BajaLogica = 0
+    ORDER BY s.IDFicha, s.IDSkin;
+END $$
+
+CREATE PROCEDURE comprarSkin(IN p_IDUsuario INT, IN p_IDSkin INT, IN p_IDFicha INT)
+BEGIN
+    DECLARE v_precio INT DEFAULT NULL;
+    DECLARE v_puntos INT DEFAULT NULL;
+    DECLARE v_posee INT DEFAULT 0;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 0 AS resultado, 'No se pudo completar la compra.' AS mensaje;
+    END;
+
+    START TRANSACTION;
+
+    SELECT Precio INTO v_precio
+    FROM SKINS
+    WHERE IDSkin = p_IDSkin AND IDFicha = p_IDFicha AND BajaLogica = 0
+    FOR UPDATE;
+
+    IF v_precio IS NULL THEN
+        ROLLBACK;
+        SELECT 0 AS resultado, 'La skin no esta disponible.' AS mensaje;
+    ELSE
+        SELECT COUNT(*) INTO v_posee
+        FROM jugador_skins
+        WHERE IDUsuario = p_IDUsuario AND IDSkin = p_IDSkin AND IDFicha = p_IDFicha;
+
+        IF v_posee > 0 THEN
+            ROLLBACK;
+            SELECT 0 AS resultado, 'Ya tienes esta skin.' AS mensaje;
+        ELSE
+            SELECT PntsPartida INTO v_puntos
+            FROM JUGADORES
+            WHERE IDUsuario = p_IDUsuario
+            FOR UPDATE;
+
+            IF v_puntos IS NULL OR v_puntos < v_precio THEN
+                ROLLBACK;
+                SELECT 0 AS resultado, 'No tienes puntos suficientes.' AS mensaje;
+            ELSE
+                UPDATE JUGADORES
+                SET PntsPartida = PntsPartida - v_precio
+                WHERE IDUsuario = p_IDUsuario;
+
+                INSERT INTO jugador_skins (IDUsuario, IDSkin, IDFicha)
+                VALUES (p_IDUsuario, p_IDSkin, p_IDFicha);
+
+                COMMIT;
+                SELECT 1 AS resultado, 'Skin comprada correctamente.' AS mensaje;
+            END IF;
+        END IF;
+    END IF;
+END $$
+DELIMITER ;

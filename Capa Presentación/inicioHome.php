@@ -53,6 +53,7 @@ $winrate = ($partidasJugadas > 0) ? round(($partidasGanadas / $partidasJugadas) 
                     onclick="alert('Iniciando creación de partida en el servidor Re-Boo...')">Crear partida</button>
                 <button type="button" class="boton-principal" id="btn-buscar-partida"
                     onclick="alert('Buscando partida en el servidor Re-Boo...')">Buscar partida</button>
+                <a href="tienda.php" class="boton-principal" id="btn-tienda">Tienda</a>
                 <button type="button" class="boton-secundario" id="btn-historial-partidas"
                     onclick="alert('Historial de Jugador:\nPartidas jugadas: <?= $partidasJugadas ?>\nPartidas ganadas: <?= $partidasGanadas ?>\nPorcentaje de victorias: <?= $winrate ?>%')">Historial</button>
             </main>
