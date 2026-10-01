@@ -1,4 +1,3 @@
-
 <?php
 
 require_once(__DIR__ . '/../config.php');
@@ -6,11 +5,10 @@ require_once(__DIR__ . '/../config.php');
 class ConexionBD
 {
 
-    private $host = BD_Host;
-    private $port = BD_Puerto;
-    private $db_name = BD_Nombre;
-    private $username = BD_Usuario;
-    private $password = BD_Contra;
+    private $host = 'localhost';
+    private $db_name = 'proyecto2026';
+    private $username = 'root';
+    private $password = 'root';
     private $conn;
 
     public function connect()

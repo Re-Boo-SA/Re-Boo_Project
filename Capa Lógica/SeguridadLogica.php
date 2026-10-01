@@ -11,6 +11,10 @@ class SeguridadLogica
 }
 
         if ($pepper === false || $pepper === '') {
+            $pepper = PEPPER_CONTRASENA;
+        }
+
+        if ($pepper === false || $pepper === '') {
             throw new RuntimeException('REBOO_PASSWORD_PEPPER no está configurada en el servidor.');
         }
 
@@ -22,8 +26,8 @@ class SeguridadLogica
         $clave = getenv('REBOO_RECAPTCHA_SECRET_KEY');
 
         if ($clave === false || $clave === '') {
-        $clave = RECAPTCHA_CLAVE_SECRETA;
-}
+            $clave = RECAPTCHA_CLAVE_SECRETA;
+        }
 
         if ($clave === false || $clave === '') {
             throw new RuntimeException('REBOO_RECAPTCHA_SECRET_KEY no está configurada en el servidor.');
@@ -37,8 +41,8 @@ class SeguridadLogica
         $clave = getenv('REBOO_RECAPTCHA_SITE_KEY');
 
         if ($clave === false || $clave === '') {
-         $clave = RECAPTCHA_CLAVE_SITIO;
-}
+            $clave = RECAPTCHA_CLAVE_SITIO;
+        }
 
         if ($clave === false || $clave === '') {
             throw new RuntimeException('REBOO_RECAPTCHA_SITE_KEY no está configurada en el servidor.');
@@ -87,7 +91,7 @@ class SeguridadLogica
         ];
 
         $respuesta = @file_get_contents(
-            'https://www.google.com/recaptcha/api/siteverify',
+            'https://www.recaptcha.net/recaptcha/api/siteverify',
             false,
             stream_context_create($opciones)
         );
