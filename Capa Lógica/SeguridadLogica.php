@@ -4,7 +4,11 @@ class SeguridadLogica
 {
     public static function obtenerPepper(): string
     {
-        $pepper = getenv('REBOO_PASSWORD_PEPPER');
+       $pepper = getenv('REBOO_PASSWORD_PEPPER');
+
+        if ($pepper === false || $pepper === '') {
+         $pepper = PEPPER_CONTRASENA;
+}
 
         if ($pepper === false || $pepper === '') {
             $pepper = PEPPER_CONTRASENA;

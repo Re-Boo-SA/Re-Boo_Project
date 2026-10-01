@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/../config.php');
+
 class ConexionBD
 {
 
@@ -14,8 +16,11 @@ class ConexionBD
         $this->conn = null;
 
         try {
-            $dsn = "mysql:host={$this->host};dbname={$this->db_name};charset=utf8";
-            $this->conn = new PDO($dsn, $this->username, $this->password);
+            $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->db_name};charset=utf8mb4";
+            $opciones = [
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_0900_ai_ci'
+            ];
+            $this->conn = new PDO($dsn, $this->username, $this->password, $opciones);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             // Lanza una excepción en lugar de solo mostrar el error.

@@ -164,6 +164,16 @@ INSERT INTO acceso_admin_tienda (IDUsuario, IDTienda, Ofertas) VALUES (2, 1, 15)
 INSERT INTO acceso_jugador_tienda (IDUsuario, IDTienda) VALUES (1, 1);
 
 
+INSERT INTO USUARIOS (Correo, Contra, NombreUsuario, Rol, BajaLogica)
+SELECT 'juan_admin@re-boo.com', '$2y$12$frxrag24/a0.xaAqc9i4A.n6ftrIH6yj3PxpsLk7pHWISKScoyui2', 'juan_admin', 'administrador', 0
+WHERE NOT EXISTS (SELECT 1 FROM USUARIOS WHERE NombreUsuario = 'juan_admin' OR Correo = 'juan_admin@re-boo.com');
+
+INSERT INTO ADMINISTRADORES (IDUsuario, BajaLogica)
+SELECT IDUsuario, 0 FROM USUARIOS
+WHERE NombreUsuario = 'juan_admin' AND Rol = 'administrador'
+    AND NOT EXISTS (SELECT 1 FROM ADMINISTRADORES a WHERE a.IDUsuario = USUARIOS.IDUsuario);
+
+
 INSERT INTO tienda_skins (IDTienda, IDSkin, IDFicha) VALUES (1, 1, 1);
 INSERT INTO tienda_skins (IDTienda, IDSkin, IDFicha) VALUES (1, 2, 2);
 
