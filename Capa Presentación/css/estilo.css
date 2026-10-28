@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-/* banderas costados */
+/* Banderas laterales */
 .bandera-izquierda {
     position: fixed;
     top: 0;
@@ -46,7 +46,7 @@ body {
     filter: drop-shadow(-4px 0 12px rgba(0, 0, 0, 0.8));
 }
 
-/* Login y regsitro */
+/* Login y registro */
 .contenedor-app {
     position: relative;
     z-index: 10;
@@ -235,8 +235,57 @@ body {
     color: #cbf3f0;
 }
 
+/* Selector de idioma */
+.contenedor-idioma {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
 
-  /* de aca para abajo home*/
+.contenedor-idioma form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label-idioma {
+    font-size: 0.85rem;
+    color: #edf2f4;
+}
+
+.select-personalizado {
+    position: relative;
+    display: inline-block;
+}
+
+.select-personalizado select {
+    appearance: none;
+    background-color: #0b132b;
+    border: 1px solid #d90429;
+    color: #ffffff;
+    padding: 6px 28px 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    outline: none;
+}
+
+.select-personalizado select:focus {
+    border-color: #ef233c;
+}
+
+.flecha-select {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    color: #d90429;
+    pointer-events: none;
+}
+
+/* Estilos Home */
 .cuerpo-home-pc {
     width: 100%;
     min-height: 100vh;
@@ -248,7 +297,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Header Home */
 .encabezado-home {
     position: relative;
     z-index: 10;
@@ -286,15 +334,42 @@ body {
     border-radius: 2px;
 }
 
+/* Círculo Avatar Icono */
 .icono-perfil {
-    width: 48px;
-    height: 48px;
-    background-color: #e0e0e0;
+    width: 52px;
+    height: 52px;
+    background-color: #2b2d42;
+    border: 2px solid #d90429;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-/* centro */
+.icono-perfil:hover {
+    transform: scale(1.08);
+    border-color: #ef233c;
+}
+
+.imagen-avatar-circulo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.svg-usuario-defecto {
+    width: 65%;
+    height: 65%;
+    color: #8d99ae;
+}
+
+/* Panel central */
 .panel-central {
     position: relative;
     z-index: 10;
@@ -315,7 +390,6 @@ body {
     gap: 20px;
 }
 
-/* Tablero central recto */
 .seccion-tablero {
     display: flex;
     justify-content: center;
@@ -328,7 +402,7 @@ body {
     height: auto;
     max-height: 55vh;
     object-fit: contain;
-    border-radius: 0; /* Recto sin bordes redondeados */
+    border-radius: 0;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
@@ -369,7 +443,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Pie de página */
 .pie-home {
     position: relative;
     z-index: 10;
@@ -383,22 +456,413 @@ body {
     width: 260px;
 }
 
-/* RESPONSIVE*/
+/* Modales */
+.modal-perfil-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-perfil-overlay.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tarjeta-perfil {
+    background-color: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+}
+
+.encabezado-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.encabezado-modal h2 {
+    font-size: 1.1rem;
+    color: #8d99ae;
+    font-weight: 500;
+}
+
+.btn-cerrar-modal {
+    background: transparent;
+    border: none;
+    color: #8d99ae;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.seccion-perfil {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.titulo-seccion-modal {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #8d99ae;
+    margin-bottom: 10px;
+}
+
+.contenido-foto-perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.preview-avatar {
+    width: 65px;
+    height: 65px;
+    background-color: #2b2d42;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+}
+
+.indicador-estado {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #1a1a1a;
+    z-index: 2;
+}
+
+.indicador-estado.ocupado, .punto-estado.ocupado { background-color: #ff9f1c; }
+.indicador-estado.en-linea, .indicador-estado.en_linea, .punto-estado.en-linea, .punto-estado.en_linea { background-color: #2ec4b6; }
+.indicador-estado.no-molestar, .indicador-estado.no_molestar, .punto-estado.no-molestar, .punto-estado.no_molestar { background-color: #d90429; }
+.indicador-estado.invisible, .punto-estado.invisible { background-color: #8d99ae; }
+
+.entradas-foto {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.input-archivo-oculto {
+    display: none;
+}
+
+.btn-modal-input {
+    background-color: #262626;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+    width: 100%;
+    display: inline-block;
+}
+
+.btn-modal-input:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.campo-bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.campo-bloque label {
+    font-size: 0.8rem;
+    color: #8d99ae;
+}
+
+.input-modal-texto {
+    background-color: #262626;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: #fff;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.area-texto {
+    resize: none;
+    height: 50px;
+}
+
+.grid-estados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.opcion-estado {
+    background-color: #262626;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.opcion-estado input {
+    display: none;
+}
+
+.opcion-estado.activo {
+    border-color: #ff9f1c;
+}
+
+.punto-estado {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.btn-guardar-perfil {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+/* Modal Crear Partida */
+.tarjeta-crear-partida {
+    background-color: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 440px;
+    padding: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.95);
+}
+
+.encabezado-crear-partida {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    position: relative;
+}
+
+.icono-espadas {
+    width: 44px;
+    height: 44px;
+    background-color: rgba(217, 4, 41, 0.15);
+    border: 1px solid #d90429;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.titulos-crear-partida h2 {
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 1.25rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.titulos-crear-partida p {
+    font-size: 0.8rem;
+    color: #7a7a7a;
+}
+
+.encabezado-crear-partida .btn-cerrar-modal {
+    position: absolute;
+    right: 0;
+    top: -2px;
+}
+
+.bloque-campo-partida {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.gap-pass {
+    margin-top: -6px;
+}
+
+.label-rojo {
+    font-size: 0.78rem;
+    color: #d90429;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.input-partida {
+    width: 100%;
+    background-color: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-partida::placeholder {
+    color: #5a5a5a;
+}
+
+.input-partida:focus {
+    border-color: #d90429;
+}
+
+.input-partida.error-borde {
+    border-color: #d90429 !important;
+    box-shadow: 0 0 8px rgba(217, 4, 41, 0.4);
+}
+
+.msj-error-pass {
+    display: none;
+    font-size: 0.75rem;
+    color: #ff6b6b;
+    margin-top: 2px;
+}
+
+.msj-error-pass.visible {
+    display: block;
+}
+
+.selector-tipo-partida {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.btn-tipo-partida {
+    background-color: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    color: #7a7a7a;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-tipo-partida.activo {
+    background-color: #d90429;
+    border-color: #ef233c;
+    color: #ffffff;
+}
+
+.grid-jugadores-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.tarjeta-num-jugadores {
+    background-color: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    padding: 14px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.num-grande {
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 1.8rem;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.lbl-jugadores {
+    font-size: 0.65rem;
+    color: #7a7a7a;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
+
+.tarjeta-num-jugadores.activo {
+    background-color: #d90429;
+    border-color: #ef233c;
+}
+
+.tarjeta-num-jugadores.activo .lbl-jugadores {
+    color: #ffffff;
+}
+
+.btn-enviar-crear-partida {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #7a7a7a;
+    border: 1px solid #2e2e2e;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.btn-enviar-crear-partida:hover {
+    background-color: #d90429;
+    color: #ffffff;
+    border-color: #ef233c;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
     .panel-central {
         flex-direction: column;
         gap: 20px;
     }
-
     .columna-botones {
         flex-direction: row;
     }
-
     .btn-principal {
         width: 180px;
         padding: 12px 15px;
     }
-
     .btn-icono {
         width: 50px;
         height: 50px;
@@ -410,8 +874,519 @@ body {
     .cuerpo-home-pc {
         padding: 15px;
     }
-
     .titulo-principal h1 {
         font-size: 1.6rem;
     }
+}
+
+.opcion-estado.activo {
+    background-color: #333333;
+    border: 1px solid #d90429;
+}
+
+/* Botón cerrar sesión */
+.contenedor-logout-modal {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.btn-logout-modal {
+    background: transparent;
+    border: none;
+    color: #d90429;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.btn-logout-modal:hover {
+    color: #ef233c;
+}
+
+/* Panel administración */
+:root {
+    --bg-dark: #0b132b;
+    --card-bg: #1c2541;
+    --border-card: #2b3a67;
+    --text-main: #ffffff;
+    --text-muted: #8d99ae;
+    --text-dim: #5c6b80;
+    --accent-cyan: #2ec4b6;
+    --accent-rose: #d90429;
+    --accent-rose-hover: #ef233c;
+    --accent-emerald: #2a9d8f;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-card);
+    color: #ffffff;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #ffffff;
+}
+
+.navbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #121a36;
+    border-bottom: 1px solid var(--border-card);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    background-color: var(--accent-rose);
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-text {
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.brand-badge {
+    background: rgba(217, 4, 41, 0.2);
+    color: #ffb4a2;
+    border: 1px solid var(--accent-rose);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.dashboard-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-identity {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.admin-avatar {
+    width: 54px;
+    height: 54px;
+    background-color: var(--accent-rose);
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-role-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+}
+
+.role-admin {
+    background-color: rgba(217, 4, 41, 0.15);
+    color: #ffb4a2;
+    border: 1px solid rgba(217, 4, 41, 0.4);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-title {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+}
+
+.stat-value.cyan { color: var(--accent-cyan); }
+.stat-value.rose { color: var(--accent-rose); }
+.stat-value.emerald { color: var(--accent-emerald); }
+
+.content-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.content-box h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* Sidebar y Modo Claro */
+.overlay-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-sidebar.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background-color: #050505;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.8);
+}
+
+.sidebar-menu.activo {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-header h2 {
+    font-size: 0.95rem;
+    color: #8d99ae;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.btn-cerrar-sidebar {
+    background: none;
+    border: none;
+    color: #8d99ae;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.modo-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toggle-modo {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 4px 8px;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.icono-modo {
+    font-size: 1rem;
+    opacity: 0.3;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.icono-modo.activo {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Modo Claro Crema */
+body.modo-claro {
+    background-color: #d8cbb5 !important;
+    color: #2b2319 !important;
+}
+
+body.modo-claro .cuerpo-home-pc {
+    background: linear-gradient(rgba(216, 203, 181, 0.82), rgba(216, 203, 181, 0.82)), url('../img/puerta-berlin.jpg') !important;
+    background-size: cover !important;
+}
+
+body.modo-claro .titulo-principal h1 {
+    color: #ffffff !important;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+body.modo-claro .boton-menu span {
+    background-color: #ffffff !important;
+}
+
+body.modo-claro .btn-mauer {
+    background: #c3b49e !important;
+    color: #2b2319 !important;
+    border-color: #a89880 !important;
+}
+
+body.modo-claro .btn-mauer:hover {
+    background: #b2a28b !important;
+}
+
+body.modo-claro .sidebar-menu {
+    background-color: #e5dac9 !important;
+    border-right-color: #c0b29d !important;
+}
+
+body.modo-claro .sidebar-item {
+    color: #2b2319 !important;
+}
+
+body.modo-claro .sidebar-item:hover {
+    background-color: rgba(43, 35, 25, 0.08) !important;
+}
+
+body.modo-claro .sidebar-header h2, 
+body.modo-claro .btn-cerrar-sidebar {
+    color: #6b5c49 !important;
+}
+
+body.modo-claro .toggle-modo {
+    background-color: #cbbeaa !important;
+    border-color: #a89880 !important;
+}
+
+body.modo-claro .tarjeta-perfil,
+body.modo-claro .tarjeta-crear-partida {
+    background-color: #e5dac9 !important;
+    border-color: #c0b29d !important;
+    color: #2b2319 !important;
+    box-shadow: 0 15px 35px rgba(43, 35, 25, 0.4) !important;
+}
+
+body.modo-claro .titulos-crear-partida h2 {
+    color: #2b2319 !important;
+}
+
+body.modo-claro .titulos-crear-partida p,
+body.modo-claro .lbl-jugadores {
+    color: #6b5c49 !important;
+}
+
+body.modo-claro .input-partida {
+    background-color: #e8ded0 !important;
+    border-color: #c0b29d !important;
+    color: #2b2319 !important;
+}
+
+body.modo-claro .btn-tipo-partida,
+body.modo-claro .tarjeta-num-jugadores {
+    background-color: #e8ded0 !important;
+    border-color: #c0b29d !important;
+    color: #6b5c49 !important;
+}
+
+body.modo-claro .tarjeta-num-jugadores .num-grande {
+    color: #2b2319 !important;
+}
+
+body.modo-claro .btn-tipo-partida.activo,
+body.modo-claro .tarjeta-num-jugadores.activo {
+    background-color: #d90429 !important;
+    color: #ffffff !important;
+}
+
+body.modo-claro .tarjeta-num-jugadores.activo .num-grande,
+body.modo-claro .tarjeta-num-jugadores.activo .lbl-jugadores {
+    color: #ffffff !important;
+}
+
+body.modo-claro .encabezado-modal h2,
+body.modo-claro .titulo-seccion-modal,
+body.modo-claro .campo-bloque label {
+    color: #6b5c49 !important;
+}
+
+body.modo-claro .seccion-perfil {
+    background-color: #d8cbb5 !important;
+}
+
+body.modo-claro .input-modal-texto {
+    background-color: #e8ded0 !important;
+    border-color: #c0b29d !important;
+    color: #2b2319 !important;
+}
+
+body.modo-claro .btn-modal-input {
+    background-color: #cbbeaa !important;
+    border-color: #a89880 !important;
+    color: #2b2319 !important;
+}
+
+body.modo-claro .opcion-estado {
+    background-color: #e8ded0 !important;
+    color: #2b2319 !important;
+}
+
+body.modo-claro .opcion-estado.activo {
+    background-color: #cbbeaa !important;
+    border-color: #d90429 !important;
+}
+
+.lista-partidas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.fila-partida {
+    background-color: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.fila-partida:hover {
+    border-color: #d90429;
+}
+.info-sala {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.nombre-sala {
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+.badge-jugadores {
+    font-size: 0.8rem;
+    color: #8d99ae;
+    background: #0b132b;
+    padding: 4px 8px;
+    border-radius: 4px;
 }

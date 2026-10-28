@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = $_POST['idioma'] === 'en' ? 'en' : 'es';
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
+$idiomaActual = $_SESSION['idioma'] ?? 'es';
+
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 require_once(__DIR__ . '/../config.php');
@@ -20,7 +27,7 @@ $identificador = '';
 $resultado = null;
 $recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     $identificador = $_POST['usuario'] ?? '';
     $password = $_POST['password'] ?? '';
 
@@ -64,6 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['pnts_partida'] = $usuario->getPntsPartida();
             $_SESSION['partidas_jugadas'] = $usuario->getPartidasJugadas();
             $_SESSION['partidas_ganadas'] = $usuario->getPartidasGanadas();
+            
+            if (method_exists($usuario, 'getBiografia')) {
+                $_SESSION['biografia'] = $usuario->getBiografia();
+            } else {
+                $_SESSION['biografia'] = '';
+            }
+
+            if (method_exists($usuario, 'getEstado')) {
+                $_SESSION['estado'] = $usuario->getEstado();
+            } else {
+                $_SESSION['estado'] = 'ocupado';
+            }
+
             $mensajeResultado = $resultado['mensaje'];
         } elseif ($rol === 'administrador') {
             $mensajeResultado = $resultado['mensaje'];
@@ -165,8 +185,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                 </div>
             </main>
+
+            <!-- Selector de Idioma -->
+            <div class="contenedor-idioma">
+                <form method="POST" id="form-idioma-login">
+                    <label for="select-idioma-login" class="label-idioma">Idioma</label>
+                    <div class="select-personalizado">
+                        <select name="idioma" id="select-idioma-login" onchange="document.getElementById('form-idioma-login').submit();">
+                            <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
+                            <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
+                        </select>
+                        <span class="flecha-select">▼</span>
+                    </div>
+                    <input type="hidden" name="cambiar_idioma" value="1">
+                </form>
+            </div>
         </div>
     </div>
+
+    <script src="./js/traduccion.js"></script>
+<script>
+    if ('<?= $_SESSION['idioma'] ?? "es" ?>' === 'en') {
+        document.addEventListener('DOMContentLoaded', aplicarTraduccionIngles);
+    }
+</script>
 </body>
 
 <?php if ($recaptchaSiteKey !== ''): ?>
