@@ -196,8 +196,8 @@ class JugadorLogica implements IJugadorLogica
 
     public function modificarJugador(Usuario $usuario, Jugador $jugador): bool
     {
-        // Este método queda preparado para la futura modificación de jugadores.
-        return false;
+    $persistenciaJugador = $this->fachadaPersistencia->retornoIPersistenciaJugador();
+        return $persistenciaJugador->modificarJugador($usuario, $jugador);
     }
 }
-?>
+?>  

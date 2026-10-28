@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = $_POST['idioma'] === 'en' ? 'en' : 'es';
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
+$idiomaActual = $_SESSION['idioma'] ?? 'es';
+
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 require_once(__DIR__ . '/../config.php');
@@ -21,7 +28,7 @@ $viejo_nombre = '';
 $viejo_correo = '';
 $recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     $nombreUsuario = $_POST['usuario'] ?? '';
     $correo = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -173,8 +180,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                 </div>
             </main>
+
+            <!-- Selector de Idioma -->
+            <div class="contenedor-idioma">
+                <form method="POST" id="form-idioma-registro">
+                    <label for="select-idioma-registro" class="label-idioma">Idioma</label>
+                    <div class="select-personalizado">
+                        <select name="idioma" id="select-idioma-registro" onchange="document.getElementById('form-idioma-registro').submit();">
+                            <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
+                            <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
+                        </select>
+                        <span class="flecha-select">▼</span>
+                    </div>
+                    <input type="hidden" name="cambiar_idioma" value="1">
+                </form>
+            </div>
         </div>
     </div>
+
+    <script src="./js/traduccion.js"></script>
+<script>
+    if ('<?= $_SESSION['idioma'] ?? "es" ?>' === 'en') {
+        document.addEventListener('DOMContentLoaded', aplicarTraduccionIngles);
+    }
+</script>
 </body>
 
 <?php if ($recaptchaSiteKey !== ''): ?>

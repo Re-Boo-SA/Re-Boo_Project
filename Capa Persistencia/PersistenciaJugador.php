@@ -44,7 +44,7 @@ class PersistenciaJugador implements IPersistenciaJugador
         }
         if ($usuario !== null || $jugador !== null) {
             try {
-                $this->conn->beginTransaction(); // Usa transacciones porque se realizan dos INSERTS y si uno falla no queda un fantasma (sinedo fantasma una INSERT bien hecho y el otro no por lo que dio error, salió y quedo eso ahí)
+                $this->conn->beginTransaction();
 
                 $sqlUsuario = "INSERT INTO USUARIOS (Correo, Contra, NombreUsuario, Rol, BajaLogica) 
                            VALUES (:correo, :contra, :nombreUsuario, 'jugador', 0)";
@@ -90,15 +90,16 @@ class PersistenciaJugador implements IPersistenciaJugador
             return null;
         }
 
-                $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
-                                             j.FichasActuales, j.CantidadFichas, j.PntsPartida,
-                                             j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica
-                                FROM JUGADORES j
-                                INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
-                                WHERE j.IDUsuario = ?
-                                    AND j.BajaLogica = 0
-                                    AND u.BajaLogica = 0
-                                LIMIT 1";
+        $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
+                       j.FichasActuales, j.CantidadFichas, j.PntsPartida,
+                       j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica,
+                       j.Biografia, j.Estado
+                FROM JUGADORES j
+                INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+                WHERE j.IDUsuario = ?
+                    AND j.BajaLogica = 0
+                    AND u.BajaLogica = 0
+                LIMIT 1";
 
         try {
             $stmt = $this->conn->prepare($sql);
@@ -106,7 +107,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($reader) {
-                return new Jugador(
+                $jugador = new Jugador(
                     (int) $reader['IDUsuario'],
                     $reader['Correo'],
                     $reader['Contra'],
@@ -116,8 +117,12 @@ class PersistenciaJugador implements IPersistenciaJugador
                     (int) $reader['PntsPartida'],
                     (int) $reader['PartidasJugadas'],
                     (int) $reader['PartidasGanadas'],
-                    (bool) $reader['BajaLogica']
+                    (bool) $reader['BajaLogica'],
+                    $reader['Biografia'] ?? '',
+                    $reader['Estado'] ?? 'ocupado'
                 );
+
+                return $jugador;
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
@@ -126,7 +131,6 @@ class PersistenciaJugador implements IPersistenciaJugador
 
         return null;
     }
-
 
     public function listarJugadores(): array
     {
@@ -252,24 +256,45 @@ class PersistenciaJugador implements IPersistenciaJugador
         }
     }
 
-    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool // Si es una se declara solo DTO Jugador y si son las dos es como esta (con DTO Usuario y Jugador)
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool
     {     
         if ($this->conn === null) {
             return false;
         }
-        if ($usuario !== null || $jugador !== null) {
 
-            try {
-                /* Depende de si se modifican las dos o solo una, 
-                si son las dos esto es una Transaction 
-                y si es una esto es solo de modificar JUGADOR sin Transaction 
-                */
-                return true;
-            } catch (\PDOException $e) {
-                return false;
+        try {
+            $this->conn->beginTransaction();
+
+            // 1. Actualizar NombreUsuario en la tabla USUARIOS
+            $sqlUsuario = "UPDATE USUARIOS 
+                           SET NombreUsuario = :nombreUsuario 
+                           WHERE IDUsuario = :idUsuario AND BajaLogica = 0";
+            $stmtUsuario = $this->conn->prepare($sqlUsuario);
+            $stmtUsuario->execute([
+                ':nombreUsuario' => $usuario->getNombreUsuario(),
+                ':idUsuario'     => $usuario->getIdUsuario()
+            ]);
+
+            // 2. Actualizar Biografía y Estado en la tabla JUGADORES
+            $sqlJugador = "UPDATE JUGADORES 
+                           SET Biografia = :biografia, Estado = :estado 
+                           WHERE IDUsuario = :idUsuario AND BajaLogica = 0";
+            $stmtJugador = $this->conn->prepare($sqlJugador);
+            $stmtJugador->execute([
+                ':biografia' => $jugador->getBiografia(),
+                ':estado'    => $jugador->getEstado(),
+                ':idUsuario' => $jugador->getIdUsuario()
+            ]);
+
+            $this->conn->commit();
+            return true;
+        } catch (\PDOException $e) {
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
             }
+            print("Error al modificar el jugador: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 }
 ?>

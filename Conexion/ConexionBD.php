@@ -1,4 +1,3 @@
-
 <?php
 
 require_once(__DIR__ . '/../config.php');
@@ -24,6 +23,20 @@ class ConexionBD
             ];
             $this->conn = new PDO($dsn, $this->username, $this->password, $opciones);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Parche automático para crear las columnas Biografia y Estado si no existen
+            try {
+                $this->conn->exec("ALTER TABLE JUGADORES ADD Biografia TEXT NULL;");
+            } catch (PDOException $e) {
+                // Si la columna ya existe, ignora el error
+            }
+
+            try {
+                $this->conn->exec("ALTER TABLE JUGADORES ADD Estado VARCHAR(20) DEFAULT 'ocupado';");
+            } catch (PDOException $e) {
+                // Si la columna ya existe, ignora el error
+            }
+
         } catch (PDOException $e) {
             // Lanza una excepción en lugar de solo mostrar el error.
             // Esto detiene la ejecución de forma controlada y avisa a las otras clases.
