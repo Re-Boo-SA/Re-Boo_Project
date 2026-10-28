@@ -7,16 +7,33 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
     $_SESSION['flash_error'] = 'Acceso restringido: Inicia sesión con tu cuenta de Jugador.';
     header('Location: login.php');
     exit();
-} 
+}
+
+if (isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = isset($_POST['idioma']) && $_POST['idioma'] === 'en' ? 'en' : 'es';
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+$idiomaActual = $_SESSION['idioma'] ?? 'es';
+$traduccionesCalculadora = [];
+if ($idiomaActual === 'en') {
+    $contenidoTraducciones = file_get_contents(__DIR__ . '/lang/en.json');
+    if ($contenidoTraducciones === false) {
+        throw new RuntimeException('No se pudo cargar el archivo de traducciones al inglés.');
+    }
+
+    $traduccionesCalculadora = json_decode($contenidoTraducciones, true, 512, JSON_THROW_ON_ERROR);
+}
 
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= htmlspecialchars($idiomaActual, ENT_QUOTES, 'UTF-8') ?>">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Draft Der Mauer - Calculadora</title>
+    <title><?= $idiomaActual === 'en' ? 'Draft Der Mauer - Calculator' : 'Draft Der Mauer - Calculadora' ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
@@ -29,9 +46,21 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
         <div class="titulo">
             <h1>DRAFT DER MAUER</h1>
             <p class="subtitulo">CALCULADORA OFICIAL DE PUNTOS</p>
-        </div> 
-        <div class ="boton-reglamento">
+        </div>
+        <div class="controles-encabezado">
             <a href="reglamento.php" class="boton-reglamento">Reglamento</a>
+            <button type="button" class="btn-modo-calculadora" id="btn-modo-calculadora" aria-label="Cambiar modo claro" title="Cambiar modo claro">
+                <span class="icono-modo luna" aria-hidden="true">🌙</span>
+                <span class="icono-modo sol" aria-hidden="true">☀️</span>
+            </button>
+            <form method="POST" class="form-idioma-calculadora">
+                <label class="sr-only" for="select-idioma-calculadora">Idioma</label>
+                <select name="idioma" id="select-idioma-calculadora" aria-label="Idioma" onchange="this.form.submit()">
+                    <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
+                    <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
+                </select>
+                <input type="hidden" name="cambiar_idioma" value="1">
+            </form>
         </div>
     </header>
 
@@ -447,6 +476,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
 
         </section>
     </div>
+    <script>
+        window.calculadoraIdioma = <?= json_encode($idiomaActual, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+        window.calculadoraTraducciones = <?= json_encode($traduccionesCalculadora, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
+    </script>
     <script src="js/app.js"></script>
 </body>
 </html>
