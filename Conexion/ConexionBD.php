@@ -6,6 +6,7 @@ class ConexionBD
 {
 
     private $host = 'localhost';
+    private $port = '3306';
     private $db_name = 'proyecto2026';
     private $username = 'root';
     private $password = 'root';

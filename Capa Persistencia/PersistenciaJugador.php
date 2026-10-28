@@ -90,35 +90,16 @@ class PersistenciaJugador implements IPersistenciaJugador
             return null;
         }
 
-<<<<<<< HEAD
         $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
                        j.FichasActuales, j.CantidadFichas, j.PntsPartida,
                        j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica,
                        j.Biografia, j.Estado
                 FROM JUGADORES j
                 INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
-                WHERE j.IDUsuario = ?
+                WHERE j.IDUsuario = :iDUsuario
                     AND j.BajaLogica = 0
                     AND u.BajaLogica = 0
                 LIMIT 1";
-=======
-        $sql = "SELECT 
-		u.IDUsuario, 
-		u.Correo, 
-		u.Contra, 
-		u.NombreUsuario, 
-		u.Rol,
-    	j.FichasActuales, 
-		j.CantidadFichas, 
-		j.PntsPartida, 
-		j.PartidasJugadas, 
-		j.PartidasGanadas, 
-		j.BajaLogica
-	FROM JUGADORES j
-    INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
-    WHERE j.IDUsuario = :iDUsuario AND j.BajaLogica = 0 AND u.BajaLogica = 0
-    LIMIT 1;";
->>>>>>> 2e33073b983255451c49d677aa500e34a74ec044
 
         try {
             $stmt = $this->conn->prepare($sql);

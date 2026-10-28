@@ -56,7 +56,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
                     <span class="icono-modo sol" id="btn-sol">☀️</span>
                 </div>
             </div>
-            <a href="#" class="sidebar-item" onclick="alert('Calculadora')">Calculadora</a>
+            <a href="CalculadoraT.php" class="sidebar-item">Calculadora</a>
         </nav>
     </aside>
 
