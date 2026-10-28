@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
         } elseif ($rol === 'administrador') {
             $mensajeResultado = $resultado['mensaje'];
         }
-        
+
         header('Location: ' . $resultado['redirect']);
         exit();
     }
@@ -106,7 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
     <?php if ($recaptchaSiteKey !== ''): ?>
-        <script src="https://www.google.com/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
+        <script
+            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
     <?php endif; ?>
 </head>
 
