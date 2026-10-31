@@ -1390,3 +1390,107 @@ body.modo-claro .opcion-estado.activo {
     padding: 4px 8px;
     border-radius: 4px;
 }
+/* ===== Seguridad: estilos que antes estaban en atributos style="" (la CSP no los permite) ===== */
+.btn-enlace-centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.boton-enlace-bloque {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.tarjeta-lista-partidas {
+    max-width: 600px;
+    margin: auto;
+}
+
+.titulos-con-margen {
+    margin-bottom: 15px;
+}
+
+/* Campo trampa del registro: invisible para personas, visible para bots que leen el HTML */
+.campo-trampa {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.alerta-home {
+    max-width: 600px;
+    margin: 10px auto;
+}
+
+/* ===== Páginas de seguridad de la cuenta y auditoría ===== */
+.contenedor-app.contenedor-ancho {
+    max-width: 1100px;
+}
+
+.tarjeta-ancha {
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.tabla-auditoria td:first-child {
+    white-space: nowrap;
+}
+
+.codigo-secreto {
+    font-family: Consolas, monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    word-break: break-all;
+    padding: 10px;
+    border: 1px dashed currentColor;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.lista-codigos {
+    font-family: Consolas, monospace;
+    columns: 2;
+    list-style: none;
+    padding: 0;
+}
+
+.tabla-auditoria-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-auditoria {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.tabla-auditoria th,
+.tabla-auditoria td {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.nivel-aviso {
+    color: #e67e22;
+}
+
+.nivel-critico {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.filtro-auditoria {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}

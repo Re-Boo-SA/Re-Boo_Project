@@ -1,7 +1,7 @@
 <?php
-session_start();
+require_once(__DIR__ . '/Seguridad/arranque.php');
 
-if (isset($_SESSION['rol'])) {
+if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
         header('Location: panel_admin.php');
         exit();

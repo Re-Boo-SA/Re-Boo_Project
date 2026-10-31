@@ -4,8 +4,17 @@ document.getElementById('btn-cerrar-perfil').addEventListener('click', () => doc
 document.getElementById('modal-perfil').addEventListener('click', (e) => { if (e.target === document.getElementById('modal-perfil')) document.getElementById('modal-perfil').classList.remove('mostrar'); });
 
 document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
-    if (confirm('¿Seguro que quieres cerrar sesión pa?')) window.location.href = 'logout.php';
+    if (confirm('¿Seguro que quieres cerrar sesión pa?')) document.getElementById('form-cerrar-sesion').submit();
 });
+
+document.querySelectorAll('[data-alerta]').forEach(elemento => {
+    elemento.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert(elemento.getAttribute('data-alerta'));
+    });
+});
+
+document.getElementById('subir-imagen').addEventListener('change', function () { previewFoto(this); });
 
 // Modal Crear Partida
 const modalCrearPartida = document.getElementById('modal-crear-partida');

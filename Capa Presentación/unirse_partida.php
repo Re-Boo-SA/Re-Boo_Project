@@ -1,11 +1,8 @@
 <?php
-session_start();
+require_once(__DIR__ . '/Seguridad/arranque.php');
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
-    header('Location: login.php');
-    exit();
-}
+SesionSegura::exigirRol('jugador');
 
 // Simulación de listado (reemplazar luego con tu lógica de BDD)
 $partidas = [
@@ -19,59 +16,73 @@ $partidas = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draft Der Mauer - Unirse</title>
+    <link rel="stylesheet" href="css/fuentes.css">
     <link rel="stylesheet" href="css/estilo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
 </head>
-<body class="cuerpo-home-pc">
+<body class="cuerpo-home-pc" data-idioma="<?= e($_SESSION['idioma'] ?? 'es') ?>">
     <div class="contenedor-app">
         <header class="encabezado">
             <h1 class="titulo">DRAFT DER MAUER</h1>
             <p class="subtitulo">UNIRSE A PARTIDA</p>
         </header>
 
-        <div class="tarjeta-formulario" style="max-width: 600px; margin: auto;">
+        <div class="tarjeta-formulario tarjeta-lista-partidas">
             <div class="lista-partidas">
                 <?php foreach ($partidas as $p): ?>
-                    <div class="fila-partida" onclick="seleccionarPartida(<?= $p['id'] ?>, '<?= $p['tipo'] ?>', '<?= htmlspecialchars($p['nombre']) ?>')">
+                    <div class="fila-partida" data-id="<?= (int) $p['id'] ?>" data-tipo="<?= e($p['tipo']) ?>" data-nombre="<?= e($p['nombre']) ?>">
                         <div class="info-sala">
                             <span class="icono-candado"><?= $p['tipo'] === 'privada' ? '🔒' : '🔓' ?></span>
-                            <span class="nombre-sala"><?= htmlspecialchars($p['nombre']) ?></span>
+                            <span class="nombre-sala"><?= e($p['nombre']) ?></span>
                         </div>
-                        <span class="badge-jugadores"><?= $p['jugadores'] ?></span>
+                        <span class="badge-jugadores"><?= e($p['jugadores']) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <a href="inicioHome.php" class="boton-enviar" style="display:block; text-align:center; text-decoration:none; margin-top:20px;">Volver</a>
+            <a href="inicioHome.php" class="boton-enviar boton-enlace-bloque">Volver</a>
         </div>
     </div>
 
     <!-- Modal Contraseña Sala Privada -->
     <div class="modal-perfil-overlay" id="modal-password">
         <div class="tarjeta-crear-partida">
-            <div class="titulos-crear-partida" style="margin-bottom:15px;">
+            <div class="titulos-crear-partida titulos-con-margen">
                 <h2>PARTIDA PRIVADA</h2>
                 <p id="nombre-sala-modal">Ingresa la contraseña</p>
             </div>
             <form action="procesar_unirse_partida.php" method="POST">
+                <?= SesionSegura::campoCsrf() ?>
                 <input type="hidden" name="id_partida" id="input-id-partida">
                 <div class="bloque-campo-partida">
-                    <input type="password" name="password" class="input-partida" placeholder="Contraseña" required>
+                    <input type="password" name="password" class="input-partida" placeholder="Contraseña" required maxlength="64">
                 </div>
                 <button type="submit" class="btn-mauer btn-enviar-crear-partida">UNIRSE</button>
             </form>
         </div>
     </div>
 
-    <script>
+    <!-- Unirse a una partida pública también va por POST con token CSRF -->
+    <form action="procesar_unirse_partida.php" method="POST" id="form-unirse-publica">
+        <?= SesionSegura::campoCsrf() ?>
+        <input type="hidden" name="id_partida" id="input-id-partida-publica">
+    </form>
+
+    <script src="js/comun.js"></script>
+    <script src="js/traduccion.js"></script>
+    <script nonce="<?= CabecerasSeguridad::nonce() ?>">
         function seleccionarPartida(id, tipo, nombre) {
             if (tipo === 'privada') {
                 document.getElementById('input-id-partida').value = id;
                 document.getElementById('nombre-sala-modal').innerText = nombre;
                 document.getElementById('modal-password').classList.add('mostrar');
             } else {
-                window.location.href = 'procesar_unirse_partida.php?id_partida=' + id;
+                document.getElementById('input-id-partida-publica').value = id;
+                document.getElementById('form-unirse-publica').submit();
             }
         }
+
+        document.querySelectorAll('.fila-partida').forEach(fila => {
+            fila.addEventListener('click', () => seleccionarPartida(fila.dataset.id, fila.dataset.tipo, fila.dataset.nombre));
+        });
     </script>
 </body>
 </html>

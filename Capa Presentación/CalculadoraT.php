@@ -1,17 +1,12 @@
 <?php
-session_start();
-
+require_once(__DIR__ . '/Seguridad/arranque.php');
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
-    $_SESSION['flash_error'] = 'Acceso restringido: Inicia sesión con tu cuenta de Jugador.';
-    header('Location: login.php');
-    exit();
-}
+SesionSegura::exigirRol('jugador');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = isset($_POST['idioma']) && $_POST['idioma'] === 'en' ? 'en' : 'es';
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    header('Location: CalculadoraT.php');
     exit();
 }
 
@@ -34,9 +29,7 @@ if ($idiomaActual === 'en') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $idiomaActual === 'en' ? 'Draft Der Mauer - Calculator' : 'Draft Der Mauer - Calculadora' ?></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/fuentes.css" />
     <link rel="stylesheet" href="css/CalculadoraEstilo.css" />
 </head>
 
@@ -54,8 +47,9 @@ if ($idiomaActual === 'en') {
                 <span class="icono-modo sol" aria-hidden="true">☀️</span>
             </button>
             <form method="POST" class="form-idioma-calculadora">
+                <?= SesionSegura::campoCsrf() ?>
                 <label class="sr-only" for="select-idioma-calculadora">Idioma</label>
-                <select name="idioma" id="select-idioma-calculadora" aria-label="Idioma" onchange="this.form.submit()">
+                <select name="idioma" id="select-idioma-calculadora" aria-label="Idioma" data-autoenviar>
                     <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
                     <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
                 </select>
@@ -71,7 +65,7 @@ if ($idiomaActual === 'en') {
                 <div class="titulo-seccion">
                     <h2>PUNTUACIÓN TOTAL</h2>
                 </div>
-                <div class="marcador-gigante"><?php echo $_SESSION['total']; ?></div>
+                <div class="marcador-gigante"><?= (int) ($_SESSION['total'] ?? 0) ?></div>
                 <p class="leyenda">PUNTUACIÓN TOTAL</p>
             </section>
             
@@ -400,7 +394,7 @@ if ($idiomaActual === 'en') {
                 </div> 
 
                 <div id="barra-turno">
-                    <div id="barra-turno-fill" style="width: 0%;"></div>
+                    <div id="barra-turno-fill"></div>
                 </div>
 
                 <button type="button" class="btn-siguiente-turno" id="btn-siguiente-turno">SIGUIENTE TURNO</button>
@@ -476,10 +470,11 @@ if ($idiomaActual === 'en') {
 
         </section>
     </div>
-    <script>
+    <script nonce="<?= CabecerasSeguridad::nonce() ?>">
         window.calculadoraIdioma = <?= json_encode($idiomaActual, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
         window.calculadoraTraducciones = <?= json_encode($traduccionesCalculadora, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
     </script>
+    <script src="js/comun.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

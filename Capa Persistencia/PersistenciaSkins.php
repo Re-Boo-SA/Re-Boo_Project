@@ -34,7 +34,7 @@ class PersistenciaSkins implements IPersistenciaSkins
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaSkins: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaSkins: "  . $e->getMessage());
         }
     }
 }

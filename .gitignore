@@ -1,3 +1,20 @@
+
 config.php
-logout.php
-Capa Presentación/panel_admin.php
+.env
+
+logs/*
+!logs/.htaccess
+Capa Presentación/img/perfiles/*
+!Capa Presentación/img/perfiles/.htaccess
+!Capa Presentación/img/perfiles/.gitkeep
+
+tools/generar_clave_cifrado.php
+tools/regenerar_hashes_prueba.php
+tools/.htaccess
+tools
+tests/pruebas_http.php
+tests/pruebas_seguridad.php
+tests/.htaccess
+tests
+
+MAPA_SEGURIDAD.md

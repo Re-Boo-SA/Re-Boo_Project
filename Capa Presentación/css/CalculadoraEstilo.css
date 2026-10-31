@@ -793,6 +793,7 @@ body:has(.calculadora-maxima-anashe) [hidden] {
 
 #barra-turno-fill {
     min-width: 0;
+    width: 0%; /* antes estaba en un style="" del HTML */
     height: 100%;
     background: linear-gradient(90deg, #a91524, var(--calc-red));
     border-radius: inherit;
