@@ -60,15 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
     if (!$resultado['exito']) {
         $mensajeResultado = $resultado['mensaje'];
-    } elseif ($resultado['requiere_2fa']) {
-        // Contraseña correcta, pero falta el segundo factor: todavía NO se inicia la sesión
-        session_regenerate_id(true);
-        $_SESSION['2fa_pendiente_id'] = $resultado['usuario']->getIdUsuario();
-        $_SESSION['2fa_pendiente_rol'] = $resultado['rol'];
-        $_SESSION['2fa_pendiente_desde'] = time();
-        $_SESSION['2fa_intentos'] = 0;
-        header('Location: verificar_2fa.php');
-        exit();
     } else {
         SesionSegura::iniciarSesionUsuario($resultado['usuario'], $resultado['rol']);
         header('Location: ' . $resultado['redirect']);

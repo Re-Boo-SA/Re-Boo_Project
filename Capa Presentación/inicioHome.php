@@ -44,7 +44,6 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
             <a href="#" class="sidebar-item" data-alerta="Configuración">Configuración</a>
             <a href="#" class="sidebar-item" data-alerta="Amistades">Amistades</a>
             <a href="#" class="sidebar-item" data-alerta="Añadir">Añadir</a>
-            <a href="seguridad_cuenta.php" class="sidebar-item">Seguridad de la cuenta</a>
             <div class="sidebar-item modo-selector">
                 <span>Modo</span>
                 <div class="toggle-modo" id="btn-toggle-modo">

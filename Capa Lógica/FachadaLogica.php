@@ -23,8 +23,6 @@ require_once(__DIR__ . '/IRecintoLogica.php');
 require_once(__DIR__ . '/RecintoLogica.php');
 require_once(__DIR__ . '/IAuditoriaLogica.php');
 require_once(__DIR__ . '/AuditoriaLogica.php');
-require_once(__DIR__ . '/IDosFactoresLogica.php');
-require_once(__DIR__ . '/DosFactoresLogica.php');
 
 class FachadaLogica
 {
@@ -63,9 +61,5 @@ class FachadaLogica
         return new AuditoriaLogica();
     }
 
-    public function retornoIDosFactoresLogica(): IDosFactoresLogica
-    {
-        return new DosFactoresLogica();
-    }
 }
 ?>

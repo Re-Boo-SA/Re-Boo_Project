@@ -7,7 +7,6 @@ require_once(__DIR__ . '/../DTO/AdministradorDTO.php');
 require_once(__DIR__ . '/../Capa Persistencia/FachadaPersistencia.php');
 require_once(__DIR__ . '/SeguridadLogica.php');
 require_once(__DIR__ . '/AuditoriaLogica.php');
-require_once(__DIR__ . '/DosFactoresLogica.php');
 
 class UsuarioLogica implements IUsuarioLogica
 {
@@ -33,8 +32,7 @@ class UsuarioLogica implements IUsuarioLogica
             'mensaje' => $mensaje,
             'rol' => '',
             'usuario' => null,
-            'redirect' => '',
-            'requiere_2fa' => false
+            'redirect' => ''
         ];
     }
 
@@ -99,11 +97,7 @@ class UsuarioLogica implements IUsuarioLogica
                 : 'El perfil del jugador se encuentra inactivo o no existe.');
         }
 
-        $requiere2fa = (new DosFactoresLogica())->estaActivo($usuario->getIdUsuario());
-
-        if (!$requiere2fa) {
-            $this->auditoria->registrar('login_exitoso', 'info', $usuario->getIdUsuario(), $identificadorLog);
-        }
+        $this->auditoria->registrar('login_exitoso', 'info', $usuario->getIdUsuario(), $identificadorLog);
 
         return [
             'exito' => true,
@@ -112,8 +106,7 @@ class UsuarioLogica implements IUsuarioLogica
                 : '¡Bienvenido Jugador ' . $perfil->getNombreUsuario() . '!',
             'rol' => $rol,
             'usuario' => $perfil,
-            'redirect' => $rol === 'administrador' ? 'panel_admin.php' : 'inicioHome.php',
-            'requiere_2fa' => $requiere2fa
+            'redirect' => $rol === 'administrador' ? 'panel_admin.php' : 'inicioHome.php'
         ];
     }
 

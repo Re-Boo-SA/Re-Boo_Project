@@ -9,11 +9,7 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
     NombreUsuario VARCHAR(30) NOT NULL UNIQUE,
     Rol VARCHAR(15) NOT NULL,
     BajaLogica BOOLEAN NOT NULL DEFAULT 0,
-    -- 2FA: secreto TOTP cifrado con AES-256-GCM y códigos de recuperación hasheados
-    SecretoTOTP VARCHAR(255) NULL,
-    CodigosRecuperacion TEXT NULL,
     PRIMARY KEY (IDUsuario),
-    -- Límites también en la base, por si fallan las validaciones de PHP
     CONSTRAINT chk_usuarios_rol CHECK (Rol IN ('jugador', 'administrador')),
     CONSTRAINT chk_usuarios_nombre CHECK (CHAR_LENGTH(NombreUsuario) >= 3)
 );
@@ -136,8 +132,6 @@ CREATE TABLE IF NOT EXISTS tienda_skins (
     FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
 );
 
--- Registro de eventos de seguridad (logins, bloqueos, acciones de admin, etc.).
--- No tiene FK a USUARIOS a propósito: el registro tiene que quedar aunque se borre la cuenta.
 CREATE TABLE IF NOT EXISTS AUDITORIA (
     IDEvento BIGINT AUTO_INCREMENT,
     Fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

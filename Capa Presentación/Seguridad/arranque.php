@@ -42,7 +42,7 @@ if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 3 * 1024 * 1024) {
 
 SesionSegura::iniciar();
 
-$paginasPublicas = ['index.php', 'login.php', 'registro.php', 'verificar_2fa.php', 'error.php', 'estado.php'];
+$paginasPublicas = ['index.php', 'login.php', 'registro.php', 'error.php', 'estado.php'];
 $paginaActual = basename($_SERVER['SCRIPT_NAME'] ?? '');
 
 if (!in_array($paginaActual, $paginasPublicas, true) && !SesionSegura::estaAutenticado()) {

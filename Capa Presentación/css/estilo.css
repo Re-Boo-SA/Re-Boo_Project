@@ -1428,7 +1428,7 @@ body.modo-claro .opcion-estado.activo {
     margin: 10px auto;
 }
 
-/* ===== Páginas de seguridad de la cuenta y auditoría ===== */
+/* ===== Páginas de auditoría ===== */
 .contenedor-app.contenedor-ancho {
     max-width: 1100px;
 }
@@ -1440,24 +1440,6 @@ body.modo-claro .opcion-estado.activo {
 
 .tabla-auditoria td:first-child {
     white-space: nowrap;
-}
-
-.codigo-secreto {
-    font-family: Consolas, monospace;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    word-break: break-all;
-    padding: 10px;
-    border: 1px dashed currentColor;
-    border-radius: 6px;
-    margin: 10px 0;
-}
-
-.lista-codigos {
-    font-family: Consolas, monospace;
-    columns: 2;
-    list-style: none;
-    padding: 0;
 }
 
 .tabla-auditoria-contenedor {

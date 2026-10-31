@@ -166,57 +166,6 @@ class SeguridadLogica
         return $_SERVER['REMOTE_ADDR'] ?? 'cli';
     }
 
-    private static function claveCifrado(): string
-    {
-        $hex = self::valorSecreto('REBOO_CLAVE_CIFRADO', 'CLAVE_CIFRADO');
-
-        if (!preg_match('/^[0-9a-fA-F]{64}$/', $hex)) {
-            throw new RuntimeException('CLAVE_CIFRADO debe tener 64 caracteres hexadecimales (256 bits).');
-        }
-
-        return hex2bin($hex);
-    }
-
-    public static function cifradoConfigurado(): bool
-    {
-        try {
-            self::claveCifrado();
-            return true;
-        } catch (RuntimeException $e) {
-            return false;
-        }
-    }
-
-    public static function cifrar(string $textoPlano): string
-    {
-        $iv = random_bytes(12);
-        $tag = '';
-        $cifrado = openssl_encrypt($textoPlano, 'aes-256-gcm', self::claveCifrado(), OPENSSL_RAW_DATA, $iv, $tag);
-
-        if ($cifrado === false) {
-            throw new RuntimeException('No se pudo cifrar el dato.');
-        }
-
-        return 'v1:' . base64_encode($iv . $tag . $cifrado);
-    }
-
-    public static function descifrar(string $datoCifrado): ?string
-    {
-        if (!str_starts_with($datoCifrado, 'v1:')) {
-            return null;
-        }
-
-        $crudo = base64_decode(substr($datoCifrado, 3), true);
-        if ($crudo === false || strlen($crudo) < 29) {
-            return null;
-        }
-
-        $plano = openssl_decrypt(substr($crudo, 28), 'aes-256-gcm', self::claveCifrado(), OPENSSL_RAW_DATA, substr($crudo, 0, 12), substr($crudo, 12, 16));
-
-        return $plano === false ? null : $plano;
-    }
-
-
     public static function verificarRecaptcha(string $token, string $accionEsperada): bool
     {
         if (self::modoDesarrollo() && self::valorSecreto('REBOO_RECAPTCHA_SECRET_KEY', 'RECAPTCHA_CLAVE_SECRETA') === '') {

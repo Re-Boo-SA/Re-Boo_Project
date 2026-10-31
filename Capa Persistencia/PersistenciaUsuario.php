@@ -106,40 +106,6 @@ class PersistenciaUsuario implements IPersistenciaUsuario
         }
     }
 
-    public function buscarPorId(int $idUsuario): ?Usuario
-    {
-        if ($this->conn === null) {
-            return null;
-        }
-
-        $sql = "SELECT IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica
-                FROM USUARIOS
-                WHERE IDUsuario = ?
-                LIMIT 1";
-
-        try {
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$idUsuario]);
-            $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
-
-            if ($reader) {
-                return new Usuario(
-                    (int) $reader['IDUsuario'],
-                    $reader['Correo'],
-                    $reader['Contra'],
-                    $reader['NombreUsuario'],
-                    $reader['Rol'],
-                    (bool) $reader['BajaLogica']
-                );
-            }
-        } catch (\PDOException $e) {
-            error_log("Error al buscar usuario por id: " . $e->getMessage());
-        }
-
-        return null;
-    }
-
     public function actualizarContra(int $idUsuario, string $contraHash): bool
     {
         if ($this->conn === null) {
@@ -155,41 +121,5 @@ class PersistenciaUsuario implements IPersistenciaUsuario
         }
     }
 
-    public function obtenerDosFactores(int $idUsuario): array
-    {
-        $vacio = ['secreto' => null, 'codigos' => null];
-        if ($this->conn === null) {
-            return $vacio;
-        }
-
-        try {
-            $stmt = $this->conn->prepare("SELECT SecretoTOTP, CodigosRecuperacion FROM USUARIOS WHERE IDUsuario = ? LIMIT 1");
-            $stmt->execute([$idUsuario]);
-            $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
-            if ($reader) {
-                return ['secreto' => $reader['SecretoTOTP'], 'codigos' => $reader['CodigosRecuperacion']];
-            }
-        } catch (\PDOException $e) {
-            error_log("Error al leer la configuración de 2FA: " . $e->getMessage());
-        }
-
-        return $vacio;
-    }
-
-    public function guardarDosFactores(int $idUsuario, ?string $secretoCifrado, ?string $codigosRecuperacion): bool
-    {
-        if ($this->conn === null) {
-            return false;
-        }
-
-        try {
-            $stmt = $this->conn->prepare("UPDATE USUARIOS SET SecretoTOTP = ?, CodigosRecuperacion = ? WHERE IDUsuario = ?");
-            return $stmt->execute([$secretoCifrado, $codigosRecuperacion, $idUsuario]);
-        } catch (\PDOException $e) {
-            error_log("Error al guardar la configuración de 2FA: " . $e->getMessage());
-            return false;
-        }
-    }
 }
 ?>

@@ -8,8 +8,7 @@ $tiposEvento = [
     'login_exitoso', 'login_fallido', 'login_bloqueado', 'cuenta_bloqueada', 'logout',
     'registro', 'registro_limitado', 'bot_detectado', 'sesion_expirada', 'sesion_revocada',
     'acceso_denegado', 'csrf_invalido', 'perfil_modificado', 'foto_subida', 'foto_rechazada',
-    'partida_creada', 'unirse_partida', '2fa_activado', '2fa_desactivado', '2fa_desactivar_fallido',
-    '2fa_fallido', '2fa_codigo_recuperacion', 'auditoria_consultada'
+    'partida_creada', 'unirse_partida', 'auditoria_consultada'
 ];
 
 $tipoElegido = in_array($_GET['tipo'] ?? '', $tiposEvento, true) ? $_GET['tipo'] : '';
