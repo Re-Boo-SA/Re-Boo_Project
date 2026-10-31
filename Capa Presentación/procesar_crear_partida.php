@@ -29,11 +29,11 @@ $valido = $nombrePartida !== ''
 
 if (!$valido) {
     SesionSegura::flash('flash_perfil', 'Los datos de la partida no son válidos.');
-    header('Location: inicioHome.php');
+    header('Location: inicio');
     exit();
 }
 
 $auditoria->registrar('partida_creada', 'info', $idUsuario, null, $tipoPartida . ', ' . $numJugadores . ' jugadores');
 
-header('Location: inicioHome.php');
+header('Location: inicio');
 exit();

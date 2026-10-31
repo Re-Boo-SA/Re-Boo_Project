@@ -23,4 +23,25 @@ Options -Indexes
     RewriteEngine On
     # Carpetas ocultas como .git/
     RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+    # Rutas públicas legibles; los archivos PHP permanecen dentro de Capa Presentación.
+    RewriteRule ^DraftDerMauer$ DraftDerMauer/ [R=301,L]
+    RewriteRule ^DraftDerMauer/$ Capa%20Presentaci%C3%B3n/index.php [END]
+    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida)/$ DraftDerMauer/$1 [R=301,L]
+    RewriteRule ^DraftDerMauer/login/?$ Capa%20Presentaci%C3%B3n/login.php [END]
+    RewriteRule ^DraftDerMauer/registro/?$ Capa%20Presentaci%C3%B3n/registro.php [END]
+    RewriteRule ^DraftDerMauer/inicio/?$ Capa%20Presentaci%C3%B3n/inicioHome.php [END]
+    RewriteRule ^DraftDerMauer/calculadora/?$ Capa%20Presentaci%C3%B3n/CalculadoraT.php [END]
+    RewriteRule ^DraftDerMauer/auditoria/?$ Capa%20Presentaci%C3%B3n/auditoria.php [END]
+    RewriteRule ^DraftDerMauer/panel-admin/?$ Capa%20Presentaci%C3%B3n/panel_admin.php [END]
+    RewriteRule ^DraftDerMauer/unirse/?$ Capa%20Presentaci%C3%B3n/unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/error/?$ Capa%20Presentaci%C3%B3n/error.php [END]
+    RewriteRule ^DraftDerMauer/estado/?$ Capa%20Presentaci%C3%B3n/estado.php [END]
+    RewriteRule ^DraftDerMauer/cerrar-sesion/?$ Capa%20Presentaci%C3%B3n/logout.php [END]
+    RewriteRule ^DraftDerMauer/perfil/?$ Capa%20Presentaci%C3%B3n/perfil.php [END]
+    RewriteRule ^DraftDerMauer/crear-partida/?$ Capa%20Presentaci%C3%B3n/procesar_crear_partida.php [END]
+    RewriteRule ^DraftDerMauer/unirse-partida/?$ Capa%20Presentaci%C3%B3n/procesar_unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/(css|fonts|img|js|lang)/(.+\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|otf|json))$ Capa%20Presentaci%C3%B3n/$1/$2 [END,NC]
+    RewriteRule ^DraftDerMauer/\.well-known/(.+)$ Capa%20Presentaci%C3%B3n/.well-known/$1 [END]
+    RewriteRule ^DraftDerMauer/robots\.txt$ Capa%20Presentaci%C3%B3n/robots.txt [END,NC]
 </IfModule>

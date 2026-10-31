@@ -5,7 +5,7 @@ require_once(__DIR__ . '/Seguridad/arranque.php');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
-    header('Location: login.php');
+    header('Location: login');
     exit();
 }
 $idiomaActual = $_SESSION['idioma'] ?? 'es';
@@ -16,10 +16,10 @@ require_once(__DIR__ . '/../config.php');
 
 if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
-        header('Location: panel_admin.php');
+        header('Location: panel-admin');
         exit();
     } else {
-        header('Location: inicioHome.php');
+        header('Location: inicio');
         exit();
     }
 }
@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Login</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="./css/estilo.css" />
     <link rel="stylesheet" href="./css/fuentes.css" />
     <?php if ($recaptchaSiteKey !== ''): ?>
@@ -98,8 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
             
             <div class="contenedor-pestanias">
                 <div class="envoltorio-pestanias">
-                    <a href="login.php" class="boton-pestania activo">Ingresar</a>
-                    <a href="registro.php" class="boton-pestania">Crear cuentarda</a>
+                    <a href="login" class="boton-pestania activo">Ingresar</a>
+                    <a href="registro" class="boton-pestania">Crear cuentarda</a>
                 </div>
             </div>
 
@@ -136,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
                         </div>
                     <?php endif; ?>
 
-                    <form id="login-form" class="formulario" action="login.php" method="POST">
+                    <form id="login-form" class="formulario" action="login" method="POST">
                         <?= SesionSegura::campoCsrf() ?>
                         <input type="hidden" name="recaptcha_token" id="recaptcha-token-login" value="" />
                         <div class="grupo-entrada">
@@ -158,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
                         <p class="texto-cambiar">
                             ¿No tenés cuentarda todavía?
-                            <a href="registro.php" class="boton-enlace">Registrate acá</a>
+                            <a href="registro" class="boton-enlace">Registrate acá</a>
                         </p>
                     </form>
                 </div>

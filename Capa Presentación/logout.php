@@ -10,5 +10,5 @@ $fachada->retornoIAuditoriaLogica()->registrar('logout', 'info', (int) $_SESSION
 
 SesionSegura::cerrar();
 
-header('Location: login.php');
+header('Location: login');
 exit();

@@ -6,7 +6,7 @@ SesionSegura::exigirRol('jugador');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = isset($_POST['idioma']) && $_POST['idioma'] === 'en' ? 'en' : 'es';
-    header('Location: CalculadoraT.php');
+    header('Location: calculadora');
     exit();
 }
 
@@ -29,6 +29,7 @@ if ($idiomaActual === 'en') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $idiomaActual === 'en' ? 'Draft Der Mauer - Calculator' : 'Draft Der Mauer - Calculadora' ?></title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="css/fuentes.css" />
     <link rel="stylesheet" href="css/CalculadoraEstilo.css" />
 </head>
