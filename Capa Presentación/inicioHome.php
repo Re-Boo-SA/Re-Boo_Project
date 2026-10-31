@@ -1,15 +1,11 @@
 <?php
-session_start();
-
+require_once(__DIR__ . '/Seguridad/arranque.php');
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'jugador') {
-    $_SESSION['flash_error'] = 'Acceso restringido: Inicia sesión con tu cuenta de Jugador.';
-    header('Location: login.php');
-    exit();
-}
+SesionSegura::exigirRol('jugador');
 
-$idUsuario = $_SESSION['usuario_id'] ?? 0;
+$idUsuario = (int) $_SESSION['usuario_id'];
+$mensajePerfil = SesionSegura::tomarFlash('flash_perfil');
 $fachada = new FachadaLogica();
 $jugador = $fachada->retornoIJugadorLogica()->obtenerJugador($idUsuario);
 
@@ -22,6 +18,7 @@ $partidasGanadas = $jugador ? $jugador->getPartidasGanadas() : ($_SESSION['parti
 
 $rutaFoto = 'img/perfiles/perfil_' . (int) $idUsuario . '.png';
 $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
+$versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,13 +27,11 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Inicio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/fuentes.css" />
     <link rel="stylesheet" href="css/estilo.css" />
 </head>
 
-<body class="cuerpo-home-pc">
+<body class="cuerpo-home-pc" data-idioma="<?= e($_SESSION['idioma'] ?? 'es') ?>">
 
     <div id="overlay-sidebar" class="overlay-sidebar"></div>
 
@@ -46,9 +41,9 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
             <button type="button" class="btn-cerrar-sidebar" id="btn-cerrar-sidebar">×</button>
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="sidebar-item" onclick="alert('Configuración')">Configuración</a>
-            <a href="#" class="sidebar-item" onclick="alert('Amistades')">Amistades</a>
-            <a href="#" class="sidebar-item" onclick="alert('Añadir')">Añadir</a>
+            <a href="#" class="sidebar-item" data-alerta="Configuración">Configuración</a>
+            <a href="#" class="sidebar-item" data-alerta="Amistades">Amistades</a>
+            <a href="#" class="sidebar-item" data-alerta="Añadir">Añadir</a>
             <div class="sidebar-item modo-selector">
                 <span>Modo</span>
                 <div class="toggle-modo" id="btn-toggle-modo">
@@ -71,7 +66,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
 
         <div class="icono-perfil" id="btn-abrir-perfil" title="Editar Perfil">
             <?php if ($existeFoto): ?>
-                <img src="<?= $rutaFoto ?>?v=<?= time() ?>" alt="Perfil" class="imagen-avatar-circulo" />
+                <img src="<?= e($rutaFoto) ?>?v=<?= $versionFoto ?>" alt="Perfil" class="imagen-avatar-circulo" />
             <?php else: ?>
                 <svg class="svg-usuario-defecto" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
@@ -80,10 +75,16 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
         </div>
     </header>
 
+    <?php if ($mensajePerfil !== ''): ?>
+        <div class="alerta alerta-error alerta-home" id="alerta-perfil">
+            <span><?= e($mensajePerfil) ?></span>
+        </div>
+    <?php endif; ?>
+
     <main class="panel-central">
         <div class="columna-botones">
             <button type="button" class="btn-mauer btn-principal" id="btn-abrir-crear-partida">CREAR PARTIDA</button>
-            <button type="button" class="btn-mauer btn-icono" onclick="alert('Tienda')">T</button>
+            <button type="button" class="btn-mauer btn-icono" data-alerta="Tienda">T</button>
         </div>
 
         <div class="seccion-tablero">
@@ -91,13 +92,13 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
         </div>
 
         <div class="columna-botones">
-            <a href="unirse_partida.php" class="btn-mauer btn-principal" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">UNIRSE A PARTIDA</a>
-            <button type="button" class="btn-mauer btn-icono" onclick="alert('Info')">I</button>
+            <a href="unirse_partida.php" class="btn-mauer btn-principal btn-enlace-centrado">UNIRSE A PARTIDA</a>
+            <button type="button" class="btn-mauer btn-icono" data-alerta="Info">I</button>
         </div>
     </main>
 
     <footer class="pie-home">
-        <button type="button" class="btn-mauer btn-principal btn-historial" onclick="alert('Jugadas: <?= $partidasJugadas ?>\nGanadas: <?= $partidasGanadas ?>')">HISTORIAL</button>
+        <button type="button" class="btn-mauer btn-principal btn-historial" data-alerta="Jugadas: <?= (int) $partidasJugadas ?>&#10;Ganadas: <?= (int) $partidasGanadas ?>">HISTORIAL</button>
     </footer>
 
     <!-- Modal Crear Partida -->
@@ -113,9 +114,10 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
             </div>
 
             <form action="procesar_crear_partida.php" method="POST" id="form-crear-partida">
+                <?= SesionSegura::campoCsrf() ?>
                 <div class="bloque-campo-partida">
                     <label class="label-rojo">NOMBRE DE LA PARTIDA</label>
-                    <input type="text" name="nombre_partida" id="input-nombre-partida" class="input-partida" placeholder="Ej: La Batalla del Norte" required />
+                    <input type="text" name="nombre_partida" id="input-nombre-partida" class="input-partida" placeholder="Ej: La Batalla del Norte" required maxlength="40" />
                 </div>
 
                 <div class="bloque-campo-partida">
@@ -128,7 +130,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
                 </div>
 
                 <div class="bloque-campo-partida gap-pass">
-                    <input type="password" name="password" id="input-pass-partida" class="input-partida" placeholder="Contraseña de la sala (Obligatoria si es privada)" />
+                    <input type="password" name="password" id="input-pass-partida" class="input-partida" maxlength="64" placeholder="Contraseña de la sala (Obligatoria si es privada)" />
                     <span class="msj-error-pass" id="msj-error-pass">Para una partida privada la contraseña es obligatoria.</span>
                 </div>
 
@@ -156,21 +158,22 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
             </div>
 
             <form action="./perfil.php" method="POST" enctype="multipart/form-data">
+                <?= SesionSegura::campoCsrf() ?>
                 <div class="seccion-perfil">
                     <div class="titulo-seccion-modal">Foto de perfil</div>
                     <div class="contenido-foto-perfil">
                         <div class="preview-avatar">
                             <?php if ($existeFoto): ?>
-                                <img src="<?= $rutaFoto ?>?v=<?= time() ?>" alt="Preview" id="img-preview" class="imagen-avatar-circulo" />
+                                <img src="<?= e($rutaFoto) ?>?v=<?= $versionFoto ?>" alt="Preview" id="img-preview" class="imagen-avatar-circulo" />
                             <?php else: ?>
                                 <svg class="svg-usuario-defecto" id="svg-preview" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                                 </svg>
                             <?php endif; ?>
-                            <span class="indicador-estado <?= htmlspecialchars($estadoActual) ?>" id="indicador-preview"></span>
+                            <span class="indicador-estado <?= e($estadoActual) ?>" id="indicador-preview"></span>
                         </div>
                         <div class="entradas-foto">
-                            <input type="file" name="foto_perfil" id="subir-imagen" class="input-archivo-oculto" accept="image/*" onchange="previewFoto(this)">
+                            <input type="file" name="foto_perfil" id="subir-imagen" class="input-archivo-oculto" accept="image/png, image/jpeg, image/gif, image/webp">
                             <label for="subir-imagen" class="btn-modal-input" id="lbl-subir">Subir imagen...</label>
                         </div>
                     </div>
@@ -180,11 +183,11 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
                     <div class="titulo-seccion-modal">Información</div>
                     <div class="campo-bloque">
                         <label>Usuario</label>
-                        <input type="text" name="nombre_usuario" value="<?= htmlspecialchars($nombre) ?>" class="input-modal-texto" required />
+                        <input type="text" name="nombre_usuario" value="<?= e($nombre) ?>" class="input-modal-texto" required minlength="3" maxlength="30" />
                     </div>
                     <div class="campo-bloque">
                         <label>Biografía</label>
-                        <textarea name="biografia" placeholder="Escribe algo sobre ti..." class="input-modal-texto area-texto"><?= htmlspecialchars($biografia) ?></textarea>
+                        <textarea name="biografia" placeholder="Escribe algo sobre ti..." class="input-modal-texto area-texto" maxlength="300"><?= e($biografia) ?></textarea>
                     </div>
                 </div>
 
@@ -214,17 +217,17 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
             </form>
 
             <div class="contenedor-logout-modal">
-                <button type="button" class="btn-logout-modal" id="btn-cerrar-sesion">Cerrar sesión</button>
+                <!-- El logout va por POST con token CSRF -->
+                <form action="logout.php" method="POST" id="form-cerrar-sesion">
+                    <?= SesionSegura::campoCsrf() ?>
+                    <button type="button" class="btn-logout-modal" id="btn-cerrar-sesion">Cerrar sesión</button>
+                </form>
             </div>
         </div>
     </div>
 
+    <script src="js/comun.js"></script>
     <script src="js/home.js"></script>
     <script src="js/traduccion.js"></script>
-    <script>
-        if ('<?= $_SESSION['idioma'] ?? "es" ?>' === 'en') {
-            document.addEventListener('DOMContentLoaded', aplicarTraduccionIngles);
-        }
-    </script>
 </body>
 </html>

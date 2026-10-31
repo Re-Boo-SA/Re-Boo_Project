@@ -1,0 +1,34 @@
+# Sin listado de directorios
+Options -Indexes
+
+# Tamaño máximo de un pedido: 3 MB (la foto de perfil puede pesar hasta 2 MB)
+LimitRequestBody 3145728
+
+# Archivos ocultos (salvo .well-known/security.txt)
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    # Cabeceras también para los archivos estáticos (CSS, JS, imágenes), que no pasan por PHP
+    Header always unset X-Powered-By
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "same-origin"
+</IfModule>
+
+# Si PHP corre como módulo de Apache, estos valores aplican aunque una página no use el arranque
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag session.cookie_httponly On
+    php_flag session.use_strict_mode On
+    php_value upload_max_filesize 2M
+    php_value post_max_size 3M
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_flag session.cookie_httponly On
+    php_flag session.use_strict_mode On
+    php_value upload_max_filesize 2M
+    php_value post_max_size 3M
+</IfModule>

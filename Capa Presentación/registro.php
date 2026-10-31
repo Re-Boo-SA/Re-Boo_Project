@@ -1,9 +1,11 @@
 <?php
-session_start();
+// reCAPTCHA necesita permisos extra en la CSP solo en esta página
+define('PAGINA_USA_RECAPTCHA', true);
+require_once(__DIR__ . '/Seguridad/arranque.php');
 
 if (isset($_POST['cambiar_idioma'])) {
-    $_SESSION['idioma'] = $_POST['idioma'] === 'en' ? 'en' : 'es';
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
+    header('Location: registro.php');
     exit();
 }
 $idiomaActual = $_SESSION['idioma'] ?? 'es';
@@ -12,7 +14,7 @@ require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 require_once(__DIR__ . '/../config.php');
 
-if (isset($_SESSION['rol'])) {
+if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
         header('Location: panel_admin.php');
         exit();
@@ -26,27 +28,33 @@ $mensajeResultado = '';
 $resultado = null;
 $viejo_nombre = '';
 $viejo_correo = '';
-$recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
+$recaptchaSiteKey = SeguridadLogica::obtenerClavePublicaRecaptcha();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
-    $nombreUsuario = $_POST['usuario'] ?? '';
-    $correo = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $confirmarPassword = $_POST['confirm_password'] ?? '';
+    $nombreUsuario = is_string($_POST['usuario'] ?? null) ? $_POST['usuario'] : '';
+    $correo = is_string($_POST['email'] ?? null) ? $_POST['email'] : '';
+    $password = is_string($_POST['password'] ?? null) ? $_POST['password'] : '';
+    $confirmarPassword = is_string($_POST['confirm_password'] ?? null) ? $_POST['confirm_password'] : '';
+
+    $fachadaLogica = new FachadaLogica();
 
     try {
-        $recaptchaValido = SeguridadLogica::verificarRecaptcha(
-            $_POST['recaptcha_token'] ?? '',
+        // Campo trampa (honeypot): está oculto, una persona nunca lo completa; un bot sí.
+        if (($_POST['sitio_web'] ?? '') !== '') {
+            $fachadaLogica->retornoIAuditoriaLogica()->registrar('bot_detectado', 'aviso', null, $correo, 'Honeypot del registro');
+            $resultado = [
+                'exito' => false,
+                'mensaje' => 'No se pudo validar la seguridad del formulario. Intenta nuevamente.'
+            ];
+        } elseif (!SeguridadLogica::verificarRecaptcha(
+            is_string($_POST['recaptcha_token'] ?? null) ? $_POST['recaptcha_token'] : '',
             'registro'
-        );
-
-        if (!$recaptchaValido) {
+        )) {
             $resultado = [
                 'exito' => false,
                 'mensaje' => 'No se pudo validar la seguridad del formulario. Intenta nuevamente.'
             ];
         } else {
-            $fachadaLogica = new FachadaLogica();
             $jugadorLogica = $fachadaLogica->retornoIJugadorLogica();
             $resultado = $jugadorLogica->registrarJugador(
                 $nombreUsuario,
@@ -56,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
             );
         }
     } catch (RuntimeException $e) {
+        error_log('Registro: ' . $e->getMessage());
         $resultado = [
             'exito' => false,
             'mensaje' => 'La seguridad del servidor no está configurada correctamente.'
@@ -64,14 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
     if (!$resultado['exito']) {
         $mensajeResultado = $resultado['mensaje'];
-        $_SESSION['viejo_nombre'] = $nombreUsuario;
-        $_SESSION['viejo_correo'] = $correo;
-        $viejo_nombre = $_SESSION['viejo_nombre'];
-        $viejo_correo = $_SESSION['viejo_correo'];
+        $viejo_nombre = $nombreUsuario;
+        $viejo_correo = $correo;
     } else {
         $mensajeResultado = $resultado['mensaje'];
     }
-    unset($_SESSION['viejo_nombre'], $_SESSION['viejo_correo']);
 }
 ?>
 <!DOCTYPE html>
@@ -82,16 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Registro</title>
     <link rel="stylesheet" href="./css/estilo.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/fuentes.css" />
     <?php if ($recaptchaSiteKey !== ''): ?>
         <script
-            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
+            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= e($recaptchaSiteKey) ?>"></script>
     <?php endif; ?>
 </head>
 
-<body>
+<body data-idioma="<?= e($idiomaActual) ?>">
     <!-- Banderas laterales de fondo -->
     <div class="bandera-izquierda"></div>
     <div class="bandera-derecha"></div>
@@ -140,33 +144,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
                     <?php endif; ?>
 
                     <form id="registro-form" class="formulario" action="registro.php" method="POST">
+                        <?= SesionSegura::campoCsrf() ?>
+                        <!-- Campo trampa para bots: oculto con CSS y fuera del orden de tabulación -->
+                        <div class="campo-trampa" aria-hidden="true">
+                            <label for="sitio-web">No completar este campo</label>
+                            <input type="text" id="sitio-web" name="sitio_web" value="" tabindex="-1" autocomplete="off" />
+                        </div>
                         <input type="hidden" name="recaptcha_token" id="recaptcha-token-registro" value="" />
                         <div class="grupo-entrada">
                             <label for="usuario-registro">Usuariardo</label>
                             <input type="text" id="usuario-registro" name="usuario"
                                 placeholder="Elegí un nombre de usuario ~😉"
-                                value="<?= htmlspecialchars($viejo_nombre); ?>" required minlength="3" maxlength="67"
+                                value="<?= e($viejo_nombre) ?>" required minlength="3" maxlength="30"
                                 autocomplete="username" />
                         </div>
 
                         <div class="grupo-entrada">
                             <label for="email-registro">Correo electronico</label>
                             <input type="email" id="email-registro" name="email" placeholder="nombre@correo.com"
-                                value="<?= htmlspecialchars($viejo_correo); ?>" required maxlength="100"
+                                value="<?= e($viejo_correo) ?>" required maxlength="100"
                                 autocomplete="email" />
                         </div>
 
                         <div class="grupo-entrada">
                             <label for="pass-registro">Contraseñarda</label>
                             <input type="password" id="pass-registro" name="password"
-                                placeholder="Ingresá una contraseñarda" required minlength="8"
+                                placeholder="Ingresá una contraseñarda" required minlength="10" maxlength="128"
                                 autocomplete="new-password" />
                         </div>
 
                         <div class="grupo-entrada">
                             <label for="confirmar-pass">Confirmar contraseñarda</label>
                             <input type="password" id="confirmar-pass" name="confirm_password"
-                                placeholder="Repetí la contraseñarda" required minlength="8"
+                                placeholder="Repetí la contraseñarda" required minlength="10" maxlength="128"
                                 autocomplete="new-password" />
                         </div>
 
@@ -185,9 +195,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
             <!-- Selector de Idioma -->
             <div class="contenedor-idioma">
                 <form method="POST" id="form-idioma-registro">
+                    <?= SesionSegura::campoCsrf() ?>
                     <label for="select-idioma-registro" class="label-idioma">Idioma</label>
                     <div class="select-personalizado">
-                        <select name="idioma" id="select-idioma-registro" onchange="document.getElementById('form-idioma-registro').submit();">
+                        <select name="idioma" id="select-idioma-registro" data-autoenviar>
                             <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
                             <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
                         </select>
@@ -199,16 +210,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
         </div>
     </div>
 
+    <script src="./js/comun.js"></script>
     <script src="./js/traduccion.js"></script>
-<script>
-    if ('<?= $_SESSION['idioma'] ?? "es" ?>' === 'en') {
-        document.addEventListener('DOMContentLoaded', aplicarTraduccionIngles);
-    }
-</script>
-</body>
 
 <?php if ($recaptchaSiteKey !== ''): ?>
-    <script>
+    <script nonce="<?= CabecerasSeguridad::nonce() ?>">
         const registroForm = document.getElementById('registro-form');
         let registroEnviado = false;
 
@@ -225,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
             }
 
             grecaptcha.ready(function () {
-                grecaptcha.execute(<?= json_encode($recaptchaSiteKey); ?>, { action: 'registro' })
+                grecaptcha.execute(<?= json_encode($recaptchaSiteKey, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>, { action: 'registro' })
                     .then(function (token) {
                         if (typeof token !== 'string' || token.trim() === '') {
                             alert('reCAPTCHA se ejecutó, pero Google devolvió un token vacío. Verifica que la clave sea de tipo v3 y que localhost esté autorizado.');
@@ -243,5 +249,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
         });
     </script>
 <?php endif; ?>
+</body>
 
 </html>

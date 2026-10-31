@@ -6,10 +6,12 @@ CREATE TABLE IF NOT EXISTS USUARIOS (
     IDUsuario INT AUTO_INCREMENT,
     Correo VARCHAR(100) NOT NULL UNIQUE,
     Contra VARCHAR(255) NOT NULL,
-    NombreUsuario VARCHAR(50) NOT NULL,
+    NombreUsuario VARCHAR(30) NOT NULL UNIQUE,
     Rol VARCHAR(15) NOT NULL,
     BajaLogica BOOLEAN NOT NULL DEFAULT 0,
-    PRIMARY KEY (IDUsuario)
+    PRIMARY KEY (IDUsuario),
+    CONSTRAINT chk_usuarios_rol CHECK (Rol IN ('jugador', 'administrador')),
+    CONSTRAINT chk_usuarios_nombre CHECK (CHAR_LENGTH(NombreUsuario) >= 3)
 );
 
 CREATE TABLE IF NOT EXISTS ADMINISTRADORES (
@@ -23,12 +25,17 @@ CREATE TABLE IF NOT EXISTS JUGADORES (
     IDUsuario INT NOT NULL,
     FichasActuales INT NOT NULL DEFAULT 0,
     CantidadFichas INT NOT NULL DEFAULT 0,
-	PntsPartida INT NOT NULL DEFAULT 0,
+    PntsPartida INT NOT NULL DEFAULT 0,
     PartidasJugadas INT NOT NULL DEFAULT 0,
-	PartidasGanadas INT NOT NULL DEFAULT 0,
+    PartidasGanadas INT NOT NULL DEFAULT 0,
     BajaLogica BOOLEAN NOT NULL DEFAULT 0,
+    Biografia VARCHAR(300) NULL,
+    Estado VARCHAR(20) NOT NULL DEFAULT 'ocupado',
     PRIMARY KEY (IDUsuario),
-    FOREIGN KEY (IDUsuario) REFERENCES USUARIOS (IDUsuario)
+    FOREIGN KEY (IDUsuario) REFERENCES USUARIOS (IDUsuario),
+    CONSTRAINT chk_jugadores_estado CHECK (Estado IN ('en_linea', 'ocupado', 'no_molestar', 'invisible')),
+    CONSTRAINT chk_jugadores_positivos CHECK (FichasActuales >= 0 AND CantidadFichas >= 0 AND PntsPartida >= 0
+        AND PartidasJugadas >= 0 AND PartidasGanadas >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS REPORTES (
@@ -125,9 +132,27 @@ CREATE TABLE IF NOT EXISTS tienda_skins (
     FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
 );
 
-INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (1, "hola@gmail.com", 123, "AURA", "jugador", 0);
-INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (2, "chau@gmail.com", 1234, "pepe", "administrador", 0);
-INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (3, "TESTEO@gmail.com", 12345, "pepe", "TESTEO", 0);
+CREATE TABLE IF NOT EXISTS AUDITORIA (
+    IDEvento BIGINT AUTO_INCREMENT,
+    Fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Tipo VARCHAR(40) NOT NULL,
+    Nivel VARCHAR(10) NOT NULL DEFAULT 'info',
+    IDUsuario INT NULL,
+    Identificador VARCHAR(100) NULL,
+    IP VARCHAR(45) NOT NULL,
+    Detalle VARCHAR(255) NULL,
+    PRIMARY KEY (IDEvento),
+    INDEX idx_auditoria_tipo_fecha (Tipo, Fecha),
+    INDEX idx_auditoria_ip_fecha (IP, Fecha),
+    INDEX idx_auditoria_identificador (Identificador, Fecha),
+    CONSTRAINT chk_auditoria_nivel CHECK (Nivel IN ('info', 'aviso', 'critico'))
+);
+
+-- Usuarios de prueba: la contraseña es "Prueba2026!" hasheada con Argon2id y la pimienta de config.example.php.
+-- Si su config.php usa otra pimienta, correr: php tools/regenerar_hashes_prueba.php
+INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (1, "hola@gmail.com", '$argon2id$v=19$m=65536,t=4,p=1$cExTazQyTThDRWtybXYyUg$5ClKfPf4sUL24dKq5dCLHACn/8mzz6MubCLdEu1Ts7w', "AURA", "jugador", 0);
+INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (2, "chau@gmail.com", '$argon2id$v=19$m=65536,t=4,p=1$cExTazQyTThDRWtybXYyUg$5ClKfPf4sUL24dKq5dCLHACn/8mzz6MubCLdEu1Ts7w', "pepe", "administrador", 0);
+INSERT INTO USUARIOS (IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica) VALUES (3, "TESTEO@gmail.com", '$argon2id$v=19$m=65536,t=4,p=1$cExTazQyTThDRWtybXYyUg$5ClKfPf4sUL24dKq5dCLHACn/8mzz6MubCLdEu1Ts7w', "testeo", "jugador", 0);
 
 INSERT INTO ADMINISTRADORES (IDUsuario, BajaLogica) VALUES (2, 0);
 INSERT INTO JUGADORES (IDUsuario, FichasActuales, CantidadFichas, PntsPartida, PartidasJugadas, PartidasGanadas, BajaLogica) VALUES (1, 6, 12, 120, 20, 15, 0);
@@ -191,7 +216,6 @@ CREATE PROCEDURE bajaAdmin(IN p_IDUsuario INT)
 		END $$
 
 DELIMITER ;
-CALL bajaAdmin();
 
 
 DELIMITER $$
@@ -208,7 +232,6 @@ CREATE PROCEDURE bajaJugador(IN p_IDUsuario INT)
 		END $$
 
 DELIMITER ;
-CALL bajaJugador();
 
 DELIMITER $$
 
@@ -225,9 +248,7 @@ DELIMITER $$
 		END $$
 
 DELIMITER ;
-CALL eliminarJugador();
 
-SELECT * FROM JUGADORES;
 
 DELIMITER //
 CREATE PROCEDURE modificarJugador(
@@ -250,7 +271,6 @@ BEGIN
     WHERE IDUsuario = p_IDUsuario;
 END //
 DELIMITER ;
-CALL modificarJugador();
 
 DELIMITER //
 CREATE PROCEDURE listarJugadores()
@@ -272,7 +292,6 @@ BEGIN
     WHERE j.BajaLogica = 0 AND u.BajaLogica = 0;
 END //
 DELIMITER ;
-CALL listarJugadores();
 
 
 DELIMITER //
@@ -289,7 +308,6 @@ BEGIN
       WHERE a.BajaLogica = 0 AND u.BajaLogica = 0;
 END //
 DELIMITER ;
-CALL listarAdmin();
 
 DELIMITER //
 CREATE PROCEDURE buscarAdmin(IN p_IDUsuario INT)
@@ -307,7 +325,6 @@ BEGIN
     LIMIT 1;
 END //
 DELIMITER ;
-CALL buscarAdmin();
 
 DELIMITER //
 CREATE PROCEDURE buscarJugador(IN p_IDUsuario INT)
@@ -330,7 +347,6 @@ BEGIN
     LIMIT 1;
 END //
 DELIMITER ;
-CALL buscarJugador();
 
 START TRANSACTION;
 
@@ -353,3 +369,43 @@ VALUES
     (@id_admin, 0);
 
 COMMIT;
+
+-- =====================================================================
+-- RETENCIÓN DE LOGS: el scheduler de MySQL borra los eventos viejos.
+--   info/aviso: 180 días. critico (acciones de admin, bajas): 5 años.
+--   En MariaDB hay que activarlo: SET GLOBAL event_scheduler = ON;
+-- =====================================================================
+DROP EVENT IF EXISTS purgarAuditoria;
+CREATE EVENT purgarAuditoria
+    ON SCHEDULE EVERY 1 DAY
+    DO
+        DELETE FROM AUDITORIA
+        WHERE (Nivel <> 'critico' AND Fecha < NOW() - INTERVAL 180 DAY)
+           OR (Nivel = 'critico' AND Fecha < NOW() - INTERVAL 5 YEAR);
+
+-- =====================================================================
+-- USUARIO DE LA APLICACIÓN (principio del mínimo privilegio)
+--   La app no puede crear, alterar ni borrar tablas.
+--   AUDITORIA queda de solo agregar: la app inserta y lee, pero no puede
+--   modificar ni borrar registros (nadie "limpia" los logs desde la app).
+--   Cambiar la contraseña acá y en config.php (BD_CONTRA).
+-- =====================================================================
+DROP USER IF EXISTS 'reboo_app'@'localhost';
+CREATE USER 'reboo_app'@'localhost' IDENTIFIED BY 'CambiarEstaClave_2026!';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.USUARIOS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.ADMINISTRADORES TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.JUGADORES TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.REPORTES TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.FICHAS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.SKINS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.TIENDA TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.PARTIDAS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.RECINTOS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.JUGADAS TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.administra_reportes TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.acceso_admin_tienda TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.acceso_jugador_tienda TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.tienda_skins TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT ON proyecto2026.AUDITORIA TO 'reboo_app'@'localhost';
+GRANT EXECUTE ON proyecto2026.* TO 'reboo_app'@'localhost';
+FLUSH PRIVILEGES;

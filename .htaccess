@@ -1,0 +1,26 @@
+# ======================================================================
+#  Raíz del proyecto (por ejemplo, cuando está dentro de htdocs en XAMPP)
+#  En el servidor lo ideal es que el DocumentRoot apunte directo a
+#  "Capa Presentación" y que el resto del proyecto quede fuera de la web.
+# ======================================================================
+
+# Sin listado de directorios
+Options -Indexes
+
+# Archivos que nunca se sirven: configuración, scripts SQL, documentación, backups, logs
+<FilesMatch "^(config\.php|config\.example\.php)$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "\.(sql|md|zip|log|ini|bak|lock|env)$">
+    Require all denied
+</FilesMatch>
+# Archivos ocultos (.git, .env, .htaccess, etc.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Carpetas ocultas como .git/
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+</IfModule>
