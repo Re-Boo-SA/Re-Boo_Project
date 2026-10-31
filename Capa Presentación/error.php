@@ -28,6 +28,7 @@ http_response_code($codigo);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - <?= e($tituloError) ?></title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="./css/fuentes.css" />
     <link rel="stylesheet" href="./css/estilo.css" />
 </head>
@@ -49,7 +50,7 @@ http_response_code($codigo);
                 <div class="tarjeta-formulario">
                     <h2 class="titulo-formulario"><?= e($tituloError) ?></h2>
                     <p class="texto-cambiar"><?= e($mensajeError) ?></p>
-                    <a href="index.php" class="boton-enviar boton-enlace-bloque">Volver al inicio</a>
+                    <a href="./" class="boton-enviar boton-enlace-bloque">Volver al inicio</a>
                 </div>
             </main>
         </div>

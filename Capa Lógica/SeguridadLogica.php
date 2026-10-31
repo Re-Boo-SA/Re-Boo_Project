@@ -172,6 +172,11 @@ class SeguridadLogica
             return true;
         }
 
+        if (!extension_loaded('openssl') || !in_array('https', stream_get_wrappers(), true)) {
+            error_log('reCAPTCHA: PHP necesita OpenSSL y el wrapper HTTPS para verificar tokens.');
+            return false;
+        }
+
         if ($token === '' || strlen($token) > 4096) {
             return false;
         }
@@ -200,19 +205,35 @@ class SeguridadLogica
         );
 
         if ($respuesta === false) {
+            error_log('reCAPTCHA: no se pudo contactar el servicio de verificación HTTPS.');
             return false;
         }
 
         $resultado = json_decode($respuesta, true);
 
         if (!is_array($resultado)) {
+            error_log('reCAPTCHA: el servicio devolvió una respuesta JSON inválida.');
             return false;
         }
 
-        $valido = ($resultado['success'] ?? false) === true
-            && ($resultado['action'] ?? '') === $accionEsperada
-            && (float) ($resultado['score'] ?? 0) >= 0.5;
+        if (($resultado['success'] ?? false) !== true) {
+            $errores = $resultado['error-codes'] ?? [];
+            $errores = is_array($errores) ? array_filter($errores, 'is_string') : [];
+            error_log('reCAPTCHA rechazó el token. Códigos: ' . ($errores === [] ? 'sin detalle' : implode(', ', $errores)));
+            return false;
+        }
 
-        return $valido;
+        $accionRecibida = $resultado['action'] ?? '';
+        $puntaje = (float) ($resultado['score'] ?? 0);
+        if ($accionRecibida !== $accionEsperada || $puntaje < 0.5) {
+            error_log(
+                'reCAPTCHA no superó la validación de acción o puntaje. Acción: ' .
+                (is_string($accionRecibida) ? $accionRecibida : 'inválida') .
+                '; puntaje: ' . $puntaje
+            );
+            return false;
+        }
+
+        return true;
     }
 }

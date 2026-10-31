@@ -25,5 +25,5 @@ if ($idPartida === false || mb_strlen($password) > 64) {
 
 $auditoria->registrar('unirse_partida', 'info', $idUsuario, null, 'Partida ' . $idPartida);
 
-header('Location: inicioHome.php');
+header('Location: inicio');
 exit();

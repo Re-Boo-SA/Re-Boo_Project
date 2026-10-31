@@ -27,6 +27,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Inicio</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="css/fuentes.css" />
     <link rel="stylesheet" href="css/estilo.css" />
 </head>
@@ -51,7 +52,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
                     <span class="icono-modo sol" id="btn-sol">☀️</span>
                 </div>
             </div>
-            <a href="CalculadoraT.php" class="sidebar-item">Calculadora</a>
+            <a href="calculadora" class="sidebar-item">Calculadora</a>
         </nav>
     </aside>
 
@@ -92,7 +93,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
         </div>
 
         <div class="columna-botones">
-            <a href="unirse_partida.php" class="btn-mauer btn-principal btn-enlace-centrado">UNIRSE A PARTIDA</a>
+            <a href="unirse" class="btn-mauer btn-principal btn-enlace-centrado">UNIRSE A PARTIDA</a>
             <button type="button" class="btn-mauer btn-icono" data-alerta="Info">I</button>
         </div>
     </main>
@@ -113,7 +114,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
                 <button type="button" class="btn-cerrar-modal" id="btn-cerrar-crear-partida">×</button>
             </div>
 
-            <form action="procesar_crear_partida.php" method="POST" id="form-crear-partida">
+            <form action="crear-partida" method="POST" id="form-crear-partida">
                 <?= SesionSegura::campoCsrf() ?>
                 <div class="bloque-campo-partida">
                     <label class="label-rojo">NOMBRE DE LA PARTIDA</label>
@@ -157,7 +158,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
                 <button type="button" class="btn-cerrar-modal" id="btn-cerrar-perfil">×</button>
             </div>
 
-            <form action="./perfil.php" method="POST" enctype="multipart/form-data">
+            <form action="perfil" method="POST" enctype="multipart/form-data">
                 <?= SesionSegura::campoCsrf() ?>
                 <div class="seccion-perfil">
                     <div class="titulo-seccion-modal">Foto de perfil</div>
@@ -218,7 +219,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 
             <div class="contenedor-logout-modal">
                 <!-- El logout va por POST con token CSRF -->
-                <form action="logout.php" method="POST" id="form-cerrar-sesion">
+                <form action="cerrar-sesion" method="POST" id="form-cerrar-sesion">
                     <?= SesionSegura::campoCsrf() ?>
                     <button type="button" class="btn-logout-modal" id="btn-cerrar-sesion">Cerrar sesión</button>
                 </form>

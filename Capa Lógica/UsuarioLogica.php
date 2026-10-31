@@ -106,7 +106,7 @@ class UsuarioLogica implements IUsuarioLogica
                 : '¡Bienvenido Jugador ' . $perfil->getNombreUsuario() . '!',
             'rol' => $rol,
             'usuario' => $perfil,
-            'redirect' => $rol === 'administrador' ? 'panel_admin.php' : 'inicioHome.php'
+            'redirect' => $rol === 'administrador' ? 'panel-admin' : 'inicio'
         ];
     }
 

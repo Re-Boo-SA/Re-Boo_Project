@@ -17,6 +17,75 @@ LimitRequestBody 3145728
     Header always set Referrer-Policy "same-origin"
 </IfModule>
 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Rutas limpias cuando Capa Presentación es el DocumentRoot.
+    RewriteRule ^DraftDerMauer$ DraftDerMauer/ [R=301,L]
+    RewriteRule ^DraftDerMauer/$ index.php [END]
+    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida)/$ DraftDerMauer/$1 [R=301,L]
+    RewriteRule ^DraftDerMauer/login/?$ login.php [END]
+    RewriteRule ^DraftDerMauer/registro/?$ registro.php [END]
+    RewriteRule ^DraftDerMauer/inicio/?$ inicioHome.php [END]
+    RewriteRule ^DraftDerMauer/calculadora/?$ CalculadoraT.php [END]
+    RewriteRule ^DraftDerMauer/auditoria/?$ auditoria.php [END]
+    RewriteRule ^DraftDerMauer/panel-admin/?$ panel_admin.php [END]
+    RewriteRule ^DraftDerMauer/unirse/?$ unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/error/?$ error.php [END]
+    RewriteRule ^DraftDerMauer/estado/?$ estado.php [END]
+    RewriteRule ^DraftDerMauer/cerrar-sesion/?$ logout.php [END]
+    RewriteRule ^DraftDerMauer/perfil/?$ perfil.php [END]
+    RewriteRule ^DraftDerMauer/crear-partida/?$ procesar_crear_partida.php [END]
+    RewriteRule ^DraftDerMauer/unirse-partida/?$ procesar_unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/(css|fonts|img|js|lang)/(.+\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|otf|json))$ $1/$2 [END,NC]
+    RewriteRule ^DraftDerMauer/\.well-known/(.+)$ .well-known/$1 [END]
+    RewriteRule ^DraftDerMauer/robots\.txt$ robots.txt [END,NC]
+
+    # Canonicaliza las URLs antiguas que exponen el nombre del archivo PHP.
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^index\.php$ ../DraftDerMauer/ [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^login\.php$ ../DraftDerMauer/login [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^registro\.php$ ../DraftDerMauer/registro [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^inicioHome\.php$ ../DraftDerMauer/inicio [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^CalculadoraT\.php$ ../DraftDerMauer/calculadora [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^auditoria\.php$ ../DraftDerMauer/auditoria [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^panel_admin\.php$ ../DraftDerMauer/panel-admin [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^unirse_partida\.php$ ../DraftDerMauer/unirse [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^error\.php$ ../DraftDerMauer/error [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^estado\.php$ ../DraftDerMauer/estado [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^logout\.php$ ../DraftDerMauer/cerrar-sesion [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^perfil\.php$ ../DraftDerMauer/perfil [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^procesar_crear_partida\.php$ ../DraftDerMauer/crear-partida [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^procesar_unirse_partida\.php$ ../DraftDerMauer/unirse-partida [R=301,L,NE]
+</IfModule>
+
 # Si PHP corre como módulo de Apache, estos valores aplican aunque una página no use el arranque
 <IfModule mod_php.c>
     php_flag display_errors Off

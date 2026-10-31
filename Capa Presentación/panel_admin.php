@@ -21,6 +21,7 @@ $admins = $fachada->retornoIAdminLogica()->listarAdmins();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración | Re-Boo</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png">
     <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
@@ -31,7 +32,7 @@ $admins = $fachada->retornoIAdminLogica()->listarAdmins();
             <span class="brand-badge">Admin Core</span>
         </div>
         <div>
-            <form method="post" action="logout.php">
+            <form method="post" action="cerrar-sesion">
                 <input
                     type="hidden"
                     name="csrf_token"

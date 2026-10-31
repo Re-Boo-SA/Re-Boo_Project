@@ -24,6 +24,7 @@ $eventos = $auditoria->listar(200, $tipoElegido);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Auditoría</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="./css/fuentes.css" />
     <link rel="stylesheet" href="./css/estilo.css" />
 </head>
@@ -40,7 +41,7 @@ $eventos = $auditoria->listar(200, $tipoElegido);
 
             <main class="contenedor-formulario">
                 <div class="tarjeta-formulario tarjeta-ancha">
-                    <form method="GET" action="auditoria.php" class="filtro-auditoria">
+                    <form method="GET" action="auditoria" class="filtro-auditoria">
                         <label for="filtro-tipo">Tipo de evento</label>
                         <select name="tipo" id="filtro-tipo" data-autoenviar>
                             <option value="">Todos</option>
@@ -80,7 +81,7 @@ $eventos = $auditoria->listar(200, $tipoElegido);
                         </table>
                     </div>
 
-                    <a href="panel_admin.php" class="boton-enviar boton-enlace-bloque">Volver al panel</a>
+                    <a href="panel-admin" class="boton-enviar boton-enlace-bloque">Volver al panel</a>
                 </div>
             </main>
         </div>

@@ -1,11 +1,10 @@
 <?php
-// reCAPTCHA necesita permisos extra en la CSP solo en esta página
 define('PAGINA_USA_RECAPTCHA', true);
 require_once(__DIR__ . '/Seguridad/arranque.php');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
-    header('Location: registro.php');
+    header('Location: registro');
     exit();
 }
 $idiomaActual = $_SESSION['idioma'] ?? 'es';
@@ -16,10 +15,10 @@ require_once(__DIR__ . '/../config.php');
 
 if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
-        header('Location: panel_admin.php');
+        header('Location: panel-admin');
         exit();
     } else {
-        header('Location: inicioHome.php');
+        header('Location: inicio');
         exit();
     }
 }
@@ -39,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     $fachadaLogica = new FachadaLogica();
 
     try {
-        // Campo trampa (honeypot): está oculto, una persona nunca lo completa; un bot sí.
         if (($_POST['sitio_web'] ?? '') !== '') {
             $fachadaLogica->retornoIAuditoriaLogica()->registrar('bot_detectado', 'aviso', null, $correo, 'Honeypot del registro');
             $resultado = [
@@ -87,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Registro</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="./css/estilo.css" />
     <link rel="stylesheet" href="./css/fuentes.css" />
     <?php if ($recaptchaSiteKey !== ''): ?>
@@ -111,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
             <div class="contenedor-pestanias">
                 <div class="envoltorio-pestanias">
-                    <a href="login.php" class="boton-pestania">Ingresar</a>
-                    <a href="registro.php" class="boton-pestania activo">Crear cuentarda</a>
+                    <a href="login" class="boton-pestania">Ingresar</a>
+                    <a href="registro" class="boton-pestania activo">Crear cuentarda</a>
                 </div>
             </div>
 
@@ -143,9 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
                         </div>
                     <?php endif; ?>
 
-                    <form id="registro-form" class="formulario" action="registro.php" method="POST">
+                    <form id="registro-form" class="formulario" action="registro" method="POST">
                         <?= SesionSegura::campoCsrf() ?>
-                        <!-- Campo trampa para bots: oculto con CSS y fuera del orden de tabulación -->
                         <div class="campo-trampa" aria-hidden="true">
                             <label for="sitio-web">No completar este campo</label>
                             <input type="text" id="sitio-web" name="sitio_web" value="" tabindex="-1" autocomplete="off" />
@@ -186,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
                         <p class="texto-cambiar">
                             ¿Ya tenés cuentarda?
-                            <a href="login.php" class="boton-enlace">Iniciá sesión</a>
+                            <a href="login" class="boton-enlace">Iniciá sesión</a>
                         </p>
                     </form>
                 </div>

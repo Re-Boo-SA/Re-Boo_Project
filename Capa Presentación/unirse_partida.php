@@ -16,6 +16,7 @@ $partidas = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draft Der Mauer - Unirse</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png">
     <link rel="stylesheet" href="css/fuentes.css">
     <link rel="stylesheet" href="css/estilo.css">
 </head>
@@ -38,7 +39,7 @@ $partidas = [
                     </div>
                 <?php endforeach; ?>
             </div>
-            <a href="inicioHome.php" class="boton-enviar boton-enlace-bloque">Volver</a>
+            <a href="inicio" class="boton-enviar boton-enlace-bloque">Volver</a>
         </div>
     </div>
 
@@ -49,7 +50,7 @@ $partidas = [
                 <h2>PARTIDA PRIVADA</h2>
                 <p id="nombre-sala-modal">Ingresa la contraseña</p>
             </div>
-            <form action="procesar_unirse_partida.php" method="POST">
+            <form action="unirse-partida" method="POST">
                 <?= SesionSegura::campoCsrf() ?>
                 <input type="hidden" name="id_partida" id="input-id-partida">
                 <div class="bloque-campo-partida">
@@ -61,7 +62,7 @@ $partidas = [
     </div>
 
     <!-- Unirse a una partida pública también va por POST con token CSRF -->
-    <form action="procesar_unirse_partida.php" method="POST" id="form-unirse-publica">
+    <form action="unirse-partida" method="POST" id="form-unirse-publica">
         <?= SesionSegura::campoCsrf() ?>
         <input type="hidden" name="id_partida" id="input-id-partida-publica">
     </form>
