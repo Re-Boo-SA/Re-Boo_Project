@@ -2,12 +2,10 @@
 session_start();
 
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
+require_once __DIR__ . '/../Capa Negocio/SesionSegura.php';
 
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'administrador') {
-    $_SESSION['flash_error'] = 'Acceso denegado: Esta sección es exclusiva para Administradores.';
-    header('Location: login.php');
-    exit();
-}
+SesionSegura::iniciar();
+SesionSegura::exigirRol('administrador');
 
 $nombreAdmin = $_SESSION['nombre_usuario'] ?? 'Administrador';
 $correoAdmin = $_SESSION['correo'] ?? '';
@@ -33,14 +31,13 @@ $admins = $fachada->retornoIAdminLogica()->listarAdmins();
             <span class="brand-badge">Admin Core</span>
         </div>
         <div>
-            <a href="logout.php" class="btn btn-outline" style="width: auto; padding: 0.5rem 1.25rem;" id="btn-admin-logout">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                <span>Cerrar Sesión</span>
-            </a>
+            <form method="post" action="logout.php">
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                <button type="submit">Cerrar sesión</button>
+            </form>
         </div>
     </header>
 
