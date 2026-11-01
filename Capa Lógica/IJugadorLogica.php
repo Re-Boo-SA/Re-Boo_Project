@@ -13,6 +13,8 @@ interface IJugadorLogica
 
     public function bajaJugador(int $idUsuario): bool;
 
+    public function gestionarBajaJugador(int $idUsuario): string;
+
     public function modificarJugador(Usuario $usuario, Jugador $jugador): bool;
 }
 ?>

@@ -184,6 +184,16 @@ class JugadorLogica implements IJugadorLogica
         return false;
     }
 
+    public function gestionarBajaJugador(int $idUsuario): string
+    {
+        if ($idUsuario <= 0) {
+            return 'error';
+        }
+
+        $persistenciaJugador = $this->fachadaPersistencia->retornoIPersistenciaJugador();
+        return $persistenciaJugador->gestionarBajaJugador($idUsuario);
+    }
+
     public function modificarJugador(Usuario $usuario, Jugador $jugador): bool
     {
         // Este método queda preparado para la futura modificación de jugadores.

@@ -41,7 +41,13 @@ class PersistenciaAdmin implements IPersistenciaAdmin
             return null;
         }
 
-        $sql = "CALL buscarAdmin(?);";
+        $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, a.BajaLogica
+            FROM ADMINISTRADORES a
+            INNER JOIN USUARIOS u ON u.IDUsuario = a.IDUsuario
+            WHERE a.IDUsuario = ?
+              AND u.Rol = 'administrador'
+              AND u.BajaLogica = 0
+            LIMIT 1";
 
         try {
             $stmt = $this->conn->prepare($sql);
@@ -72,7 +78,12 @@ class PersistenciaAdmin implements IPersistenciaAdmin
             return $admins;
         }
 
-        $sql = "CALL listarAdmin();";
+        $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, a.BajaLogica
+            FROM ADMINISTRADORES a
+            INNER JOIN USUARIOS u ON u.IDUsuario = a.IDUsuario
+            WHERE u.Rol = 'administrador'
+              AND u.BajaLogica = 0
+              AND a.BajaLogica = 0";
 
         try {
             $stmt = $this->conn->query($sql);

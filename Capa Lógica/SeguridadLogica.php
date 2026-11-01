@@ -1,12 +1,14 @@
 <?php
-
 require_once(__DIR__ . '/../config.php');
-
 class SeguridadLogica
 {
     public static function obtenerPepper(): string
     {
-        $pepper = getenv('REBOO_PASSWORD_PEPPER');
+       $pepper = getenv('REBOO_PASSWORD_PEPPER');
+
+        if ($pepper === false || $pepper === '') {
+         $pepper = PEPPER_CONTRASENA;
+}
 
         if ($pepper === false || $pepper === '') {
             $pepper = PEPPER_CONTRASENA;
@@ -89,7 +91,7 @@ class SeguridadLogica
         ];
 
         $respuesta = @file_get_contents(
-            'https://www.google.com/recaptcha/api/siteverify',
+            'https://www.recaptcha.net/recaptcha/api/siteverify',
             false,
             stream_context_create($opciones)
         );

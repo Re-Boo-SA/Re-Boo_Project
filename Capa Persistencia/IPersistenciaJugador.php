@@ -10,5 +10,7 @@ interface IPersistenciaJugador
     public function listarJugadores(): array;
 
     public function bajaLogicaJugador(int $idUsuario): bool;
+
+    public function gestionarBajaJugador(int $idUsuario): string;
 }
 ?>
