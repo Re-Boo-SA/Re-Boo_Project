@@ -1,26 +1,77 @@
-/* ======================================================================
-   DRAFT DER MAUER - CALCULADORA
-   Versión para principiantes: variables claras, arrays, if/else y for.
-
-   IMPORTANTE:
-   - El dado se tira físicamente. Aquí se elige la cara que salió.
-   - Se coloca una ficha por turno, o se mueve una ficha si corresponde.
-   - El progreso se guarda en localStorage.
-   ====================================================================== */
 
 "use strict";
 
-/* ----------------------------------------------------------------------
-   1. DATOS GENERALES DEL JUEGO
-   ---------------------------------------------------------------------- */
+var IDIOMA_CALCULADORA = window.calculadoraIdioma === "en" ? "en" : "es";
+var TRADUCCIONES_CALCULADORA = window.calculadoraTraducciones || {};
 
+function traducir(texto) {
+    return IDIOMA_CALCULADORA === "en" && TRADUCCIONES_CALCULADORA[texto]
+        ? TRADUCCIONES_CALCULADORA[texto]
+        : texto;
+}
+
+function aplicarIdiomaCalculadora() {
+    var caminador;
+    var nodo;
+    var texto;
+    var atributos = ["alt", "title", "data-nombre", "data-descripcion"];
+    var elementos;
+    var i;
+    var j;
+    var valor;
+
+    if (IDIOMA_CALCULADORA !== "en") {
+        return;
+    }
+
+    document.documentElement.lang = "en";
+    caminador = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while ((nodo = caminador.nextNode())) {
+        texto = nodo.nodeValue.trim();
+        if (TRADUCCIONES_CALCULADORA[texto]) {
+            nodo.nodeValue = nodo.nodeValue.replace(texto, traducir(texto));
+        }
+    }
+
+    elementos = document.querySelectorAll("*");
+    for (i = 0; i < elementos.length; i++) {
+        for (j = 0; j < atributos.length; j++) {
+            valor = elementos[i].getAttribute(atributos[j]);
+            if (valor && TRADUCCIONES_CALCULADORA[valor]) {
+                elementos[i].setAttribute(atributos[j], traducir(valor));
+            }
+        }
+    }
+}
+
+function aplicarModoClaro(activar) {
+    var boton = document.getElementById("btn-modo-calculadora");
+    var luna;
+    var sol;
+
+    document.body.classList.toggle("modo-claro", activar);
+    localStorage.setItem("modo_claro", activar ? "true" : "false");
+    if (boton) {
+        luna = boton.querySelector(".luna");
+        sol = boton.querySelector(".sol");
+        if (luna) {
+            luna.classList.toggle("activo", !activar);
+        }
+        if (sol) {
+            sol.classList.toggle("activo", activar);
+        }
+    }
+}
+
+aplicarIdiomaCalculadora();
+aplicarModoClaro(localStorage.getItem("modo_claro") === "true");
+
+/*   1. DATOS GENERALES DEL JUEGO  */
 var CLAVE_GUARDADO = "draftDerMauer.calculadora.v1";
 var TOTAL_RONDAS = 2;
 var TURNOS_POR_RONDA = 6;
-var CAPACIDAD_MURO = 12; // Capacidad de reserva para el muro central.
+var CAPACIDAD_MURO = 12;
 
-/* Cada ficha tiene nombre, familia e imagen. Los identificadores coinciden
-   con los valores data-ficha escritos en el HTML. */
 var FICHAS = {
     tropa: { nombre: "Tropa", familia: "militares", imagen: "../Imagenes/TropaDraftDerMauer.png" },
     Oficial: { nombre: "Oficial Militar", familia: "militares", imagen: "../Imagenes/OficialDraftDerMauer.png" },
@@ -33,8 +84,6 @@ var FICHAS = {
     Politico: { nombre: "Político", familia: "politicos", imagen: "../Imagenes/PoliticoDraftDerMauer.png" }
 };
 
-/* Los recintos tienen un identificador, un nombre, el ID de su contenedor,
-   una capacidad y el lado del tablero al que pertenecen. */
 var RECINTOS = {
     OesteR: { nombre: "Oeste", contenedor: "fichas-oeste", capacidad: 6, lado: "izquierdo", regla: "libre" },
     FabricaR: { nombre: "Fábrica", contenedor: "fichas-fabrica", capacidad: 3, lado: "izquierdo", regla: "solo-obreros" },
@@ -45,7 +94,6 @@ var RECINTOS = {
     MuroR: { nombre: "Muro central", contenedor: "fichas-muro", capacidad: CAPACIDAD_MURO, lado: "centro", regla: "libre" }
 };
 
-/* Información de las caras del dado. Las imágenes son las que usa el HTML. */
 var CARAS_DADO = {
     "lado-izquierdo": {
         nombre: "Bloqueo del lado izquierdo",
@@ -79,8 +127,7 @@ var CARAS_DADO = {
     }
 };
 
-/* Estado de la partida. Cada ficha colocada tiene también ronda y turno,
-   para saber si todavía se puede corregir con la X. */
+
 function crearPartidaNueva() {
     return {
         ronda: 1,
@@ -100,9 +147,7 @@ function crearPartidaNueva() {
 
 var estado = crearPartidaNueva();
 
-/* ----------------------------------------------------------------------
-   2. ELEMENTOS DE LA PÁGINA
-   ---------------------------------------------------------------------- */
+/* 2. ELEMENTOS DE LA PÁGINA */
 
 var recintosHTML = document.querySelectorAll(".recinto-juego, .recinto-muro");
 var botonesFicha = document.querySelectorAll(".btn-ficha");
@@ -125,9 +170,7 @@ var botonCerrarCalculadora = document.getElementById("btn-cerrar-calculadora");
 var etiquetaRecinto = document.getElementById("recinto-seleccionado");
 var marcadorGigante = document.querySelector(".marcador-gigante");
 
-/* ----------------------------------------------------------------------
-   3. FUNCIONES BÁSICAS PARA BUSCAR Y GUARDAR FICHAS
-   ---------------------------------------------------------------------- */
+/*  3. FUNCIONES BÁSICAS PARA BUSCAR Y GUARDAR FICHAS */
 
 function obtenerRecinto(idRecinto) {
     return RECINTOS[idRecinto];
@@ -165,8 +208,7 @@ function contarFichasEnRecinto(idRecinto) {
 }
 
 function hayPoliticoEnSuRecinto() {
-    /* La regla se cumple una vez que ya se colocó allí un político.
-       Aunque después se mueva, el requisito histórico sigue cumplido. */
+    
     return estado.politicoYaColocadoEnPoliticos;
 }
 
@@ -177,8 +219,6 @@ function mostrarAviso(mensaje) {
     console.log(mensaje);
 }
 
-/* Guarda toda la partida como texto. Si el navegador no permite guardar,
-   la calculadora sigue funcionando mientras la página permanezca abierta. */
 function guardarPartida() {
     try {
         localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(estado));
@@ -187,7 +227,6 @@ function guardarPartida() {
     }
 }
 
-/* Recupera una partida guardada anteriormente. */
 function cargarPartida() {
     var textoGuardado;
     var partidaGuardada;
@@ -216,7 +255,7 @@ function cargarPartida() {
         estado.politicoYaColocadoEnPoliticos = partidaGuardada.politicoYaColocadoEnPoliticos === true;
         estado.colocaciones = partidaGuardada.colocaciones;
 
-        /* Añade un ID y turno seguro a fichas de partidas antiguas si faltaban. */
+       
         for (i = 0; i < estado.colocaciones.length; i++) {
             if (!estado.colocaciones[i].id) {
                 estado.colocaciones[i].id = "ficha-recuperada-" + i + "-" + new Date().getTime();
@@ -229,14 +268,13 @@ function cargarPartida() {
             }
         }
 
-        /* En partidas guardadas antiguas, reconstruimos este dato desde las fichas. */
-        for (i = 0; i < estado.colocaciones.length; i++) {
+       for (i = 0; i < estado.colocaciones.length; i++) {
             if (estado.colocaciones[i].recinto === "PoliticosR" && estado.colocaciones[i].ficha === "Politico") {
                 estado.politicoYaColocadoEnPoliticos = true;
             }
         }
 
-        /* Si la ficha que se iba a mover ya no existe, cancelamos ese movimiento. */
+        
         if (estado.fichaAMover && !buscarColocacionPorId(estado.fichaAMover)) {
             estado.fichaAMover = "";
         }
@@ -246,9 +284,7 @@ function cargarPartida() {
     }
 }
 
-/* ----------------------------------------------------------------------
-   4. CREAR LOS ESPACIOS DEL TABLERO
-   ---------------------------------------------------------------------- */
+/* 4. CREAR LOS ESPACIOS DEL TABLERO */
 
 function prepararEspacios() {
     var idRecinto;
@@ -267,18 +303,17 @@ function prepararEspacios() {
 
         espacios = contenedor.querySelectorAll(".sector-recinto");
 
-        /* Si el HTML no tiene todos los espacios, los creamos. */
+    
         for (i = espacios.length + 1; i <= recinto.capacidad; i++) {
             boton = document.createElement("button");
             boton.type = "button";
             boton.className = "sector-recinto";
             boton.dataset.posicion = String(i);
             boton.dataset.recinto = idRecinto;
-            boton.setAttribute("aria-label", recinto.nombre + ", espacio " + i);
             contenedor.appendChild(boton);
         }
 
-        /* Añadimos los datos a espacios que ya estaban escritos en el HTML. */
+       
         espacios = contenedor.querySelectorAll(".sector-recinto");
         for (i = 0; i < espacios.length; i++) {
             espacios[i].dataset.recinto = idRecinto;
@@ -289,9 +324,7 @@ function prepararEspacios() {
     }
 }
 
-/* ----------------------------------------------------------------------
-   5. REGLAS DE RECINTOS Y DADO
-   ---------------------------------------------------------------------- */
+/* 5. REGLAS DE RECINTOS Y DADO */
 
 function dadoPermiteRecinto(idRecinto) {
     var recinto = obtenerRecinto(idRecinto);
@@ -332,7 +365,6 @@ function fichaPuedeIrAlRecinto(idFicha, idRecinto) {
         return false;
     }
 
-    /* Un político solo puede salir del recinto Políticos si ya hay uno allí. */
     if (ficha.familia === "politicos") {
         if (idRecinto !== "PoliticosR" && !hayPoliticoEnSuRecinto()) {
             return false;
@@ -340,7 +372,6 @@ function fichaPuedeIrAlRecinto(idFicha, idRecinto) {
         return true;
     }
 
-    /* Los demás tipos respetan la familia normal del recinto. */
     if (recinto.regla === "solo-obreros" && ficha.familia !== "obreros") {
         return false;
     }
@@ -369,7 +400,6 @@ function buscarEspacioLibre(idRecinto, idFichaQueSeMueve) {
         posicion = Number(espacios[i].dataset.posicion);
         ocupacion = buscarFichaEnEspacio(idRecinto, posicion);
 
-        /* Al mover una ficha, su propio espacio no cuenta como ocupado por otra. */
         if (!ocupacion || (idFichaQueSeMueve && ocupacion.id === idFichaQueSeMueve)) {
             return posicion;
         }
@@ -378,9 +408,7 @@ function buscarEspacioLibre(idRecinto, idFichaQueSeMueve) {
     return 0;
 }
 
-/* ----------------------------------------------------------------------
-   6. DIBUJAR EL TABLERO Y LAS FICHAS DISPONIBLES
-   ---------------------------------------------------------------------- */
+/* 6. DIBUJAR EL TABLERO Y LAS FICHAS DISPONIBLES */
 
 function dibujarTablero() {
     var i;
@@ -419,12 +447,12 @@ function dibujarTablero() {
             ficha = FICHAS[colocacion.ficha];
             imagen = document.createElement("img");
             imagen.src = ficha.imagen;
-            imagen.alt = ficha.nombre;
+            imagen.alt = traducir(ficha.nombre);
             imagen.draggable = false;
 
             nombre = document.createElement("span");
             nombre.className = "nombre-ficha-colocada";
-            nombre.textContent = ficha.nombre;
+            nombre.textContent = traducir(ficha.nombre);
 
             espacio.appendChild(imagen);
             espacio.appendChild(nombre);
@@ -436,7 +464,6 @@ function dibujarTablero() {
                 espacio.classList.add("ficha-seleccionada");
             }
 
-            /* La X aparece únicamente en la ficha del turno actual. */
             fichaEsDelTurno = colocacion.ronda === estado.ronda && colocacion.turno === estado.turno;
             if (fichaEsDelTurno && !estado.partidaFinalizada) {
                 botonQuitar = document.createElement("span");
@@ -444,7 +471,6 @@ function dibujarTablero() {
                 botonQuitar.textContent = "×";
                 botonQuitar.setAttribute("role", "button");
                 botonQuitar.setAttribute("tabindex", "0");
-                botonQuitar.setAttribute("aria-label", "Quitar " + ficha.nombre + " del turno actual");
                 botonQuitar.dataset.quitarColocacion = colocacion.id;
                 espacio.appendChild(botonQuitar);
             }
@@ -487,9 +513,7 @@ function actualizarFichasDisponibles() {
     }
 }
 
-/* ----------------------------------------------------------------------
-   7. SELECCIONAR RECINTO, COLOCAR, QUITAR Y MOVER FICHAS
-   ---------------------------------------------------------------------- */
+/* 7. SELECCIONAR RECINTO, COLOCAR, QUITAR Y MOVER FICHAS */
 
 function seleccionarRecinto(idRecinto) {
     var recinto = RECINTOS[idRecinto];
@@ -498,15 +522,14 @@ function seleccionarRecinto(idRecinto) {
         return;
     }
     if (!estado.caraDado) {
-        mostrarAviso("Primero seleccioná la cara que salió en el dado físico.");
+        mostrarAviso(traducir("Primero seleccioná la cara que salió en el dado físico."));
         return;
     }
     if (!dadoPermiteRecinto(idRecinto)) {
-        mostrarAviso("El dado no permite colocar en " + recinto.nombre + ".");
+        mostrarAviso(traducir("El dado no permite colocar en ") + traducir(recinto.nombre) + ".");
         return;
     }
 
-    /* Si ya elegimos una ficha para mover, este recinto será su destino. */
     if (estado.fichaAMover) {
         moverFichaAlRecinto(idRecinto);
         return;
@@ -514,7 +537,7 @@ function seleccionarRecinto(idRecinto) {
 
     estado.recintoSeleccionado = idRecinto;
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Recinto seleccionado: " + recinto.nombre;
+        etiquetaRecinto.textContent = traducir("Recinto seleccionado: ") + traducir(recinto.nombre);
     }
     actualizarPantalla();
     guardarPartida();
@@ -526,56 +549,55 @@ function colocarFicha(idFicha) {
     var nuevaFicha;
 
     if (!idRecinto) {
-        mostrarAviso("Seleccioná primero un recinto del tablero.");
+        mostrarAviso(traducir("Seleccioná primero un recinto del tablero."));
         return;
     }
     if (!estado.caraDado) {
-        mostrarAviso("Primero seleccioná la cara del dado.");
+        mostrarAviso(traducir("Primero seleccioná la cara del dado."));
         return;
     }
     if (estado.partidaFinalizada) {
-        mostrarAviso("La partida ya terminó.");
+        mostrarAviso(traducir("La partida ya terminó."));
         return;
     }
     if (estado.accionRealizada) {
-        mostrarAviso("Ya hiciste la acción de este turno. Podés corregirla con la X.");
+        mostrarAviso(traducir("Ya hiciste la acción de este turno. Podés corregirla con la X."));
         return;
     }
     if (estado.caraDado === "cambiar-ficha" && estado.esMiTurnoDado) {
         if (!estado.movioFicha) {
-            mostrarAviso("Primero tenés que mover una ficha que ya esté colocada.");
+            mostrarAviso(traducir("Primero tenés que mover una ficha que ya esté colocada."));
             return;
         }
 
         if (estado.colocoFichaNueva) {
-            mostrarAviso("Ya moviste una ficha y colocaste una nueva durante este turno.");
+            mostrarAviso(traducir("Ya moviste una ficha y colocaste una nueva durante este turno."));
             return;
         }
     }
     if (!dadoPermiteRecinto(idRecinto)) {
-        mostrarAviso("El dado no permite colocar en ese recinto.");
+        mostrarAviso(traducir("El dado no permite colocar en ese recinto."));
         return;
     }
     if (!fichaPuedeIrAlRecinto(idFicha, idRecinto)) {
         if (idFicha === "Politico" && !hayPoliticoEnSuRecinto() && idRecinto !== "PoliticosR") {
-            mostrarAviso("Primero tenés que colocar un político en el recinto Políticos.");
+            mostrarAviso(traducir("Primero tenés que colocar un político en el recinto Políticos."));
         } else {
-            mostrarAviso("Esa ficha no puede colocarse en ese recinto.");
+            mostrarAviso(traducir("Esa ficha no puede colocarse en ese recinto."));
         }
         return;
     }
     if (contarFichasEnRecinto(idRecinto) >= RECINTOS[idRecinto].capacidad) {
-        mostrarAviso(RECINTOS[idRecinto].nombre + " está completo.");
+        mostrarAviso(traducir(RECINTOS[idRecinto].nombre) + traducir(" está completo."));
         return;
     }
 
     posicion = buscarEspacioLibre(idRecinto, "");
     if (posicion === 0) {
-        mostrarAviso("No hay un espacio libre en ese recinto.");
+        mostrarAviso(traducir("No hay un espacio libre en ese recinto."));
         return;
     }
 
-    /* Registramos una nueva colocación. Se pueden repetir tipos de ficha. */
     nuevaFicha = {
         id: "ficha-" + new Date().getTime() + "-" + Math.floor(Math.random() * 1000000),
         ficha: idFicha,
@@ -586,8 +608,6 @@ function colocarFicha(idFicha) {
     };
     estado.colocaciones.push(nuevaFicha);
 
-    /* Recordamos que ya se cumplió el requisito de colocar un político
-       en su recinto, incluso si más adelante se mueve esa ficha. */
     if (idFicha === "Politico" && idRecinto === "PoliticosR") {
         estado.politicoYaColocadoEnPoliticos = true;
     }
@@ -608,7 +628,7 @@ function quitarFichaDelTurno(idColocacion) {
     var ficha;
 
     if (estado.partidaFinalizada) {
-        mostrarAviso("La partida ya terminó.");
+        mostrarAviso(traducir("La partida ya terminó."));
         return;
     }
 
@@ -623,7 +643,7 @@ function quitarFichaDelTurno(idColocacion) {
         return;
     }
     if (ficha.ronda !== estado.ronda || ficha.turno !== estado.turno) {
-        mostrarAviso("Solo podés corregir la ficha colocada durante el turno actual.");
+        mostrarAviso(traducir("Solo podés corregir la ficha colocada durante el turno actual."));
         return;
     }
 
@@ -631,7 +651,7 @@ function quitarFichaDelTurno(idColocacion) {
     estado.accionRealizada = false;
     estado.recintoSeleccionado = ficha.recinto;
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Elegí la ficha correcta para " + RECINTOS[ficha.recinto].nombre;
+        etiquetaRecinto.textContent = traducir("Elegí la ficha correcta para ") + traducir(RECINTOS[ficha.recinto].nombre);
     }
 
     actualizarPantalla();
@@ -642,22 +662,22 @@ function comenzarMovimiento(idColocacion) {
     var ficha = buscarColocacionPorId(idColocacion);
 
     if (estado.caraDado !== "cambiar-ficha" || !estado.esMiTurnoDado) {
-        mostrarAviso("Solo podés mover una ficha cuando salió Cambio de ficha y vos tiraste el dado.");
+        mostrarAviso(traducir("Solo podés mover una ficha cuando salió Cambio de ficha y vos tiraste el dado."));
         return;
     }
     if (estado.movioFicha) {
-        mostrarAviso("Ya moviste una ficha durante este turno.");
+        mostrarAviso(traducir("Ya moviste una ficha durante este turno."));
         return;
     }
     if (!ficha) {
-        mostrarAviso("No se encontró esa ficha.");
+        mostrarAviso(traducir("No se encontró esa ficha."));
         return;
     }
 
     estado.fichaAMover = idColocacion;
     estado.recintoSeleccionado = "";
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Elegiste " + FICHAS[ficha.ficha].nombre + ". Ahora seleccioná el recinto de destino.";
+        etiquetaRecinto.textContent = traducir("Elegiste ") + traducir(FICHAS[ficha.ficha].nombre) + traducir(". Ahora seleccioná el recinto de destino.");
     }
     actualizarPantalla();
     guardarPartida();
@@ -669,29 +689,29 @@ function moverFichaAlRecinto(idRecintoDestino) {
 
     if (!ficha) {
         estado.fichaAMover = "";
-        mostrarAviso("No se encontró la ficha que querías mover.");
+        mostrarAviso(traducir("No se encontró la ficha que querías mover."));
         return;
     }
     if (ficha.recinto === idRecintoDestino) {
-        mostrarAviso("Elegí un recinto diferente para mover la ficha.");
+        mostrarAviso(traducir("Elegí un recinto diferente para mover la ficha."));
         return;
     }
     if (!dadoPermiteRecinto(idRecintoDestino)) {
-        mostrarAviso("El dado no permite mover la ficha a ese recinto.");
+        mostrarAviso(traducir("El dado no permite mover la ficha a ese recinto."));
         return;
     }
     if (!fichaPuedeIrAlRecinto(ficha.ficha, idRecintoDestino)) {
-        mostrarAviso("Esa ficha no puede colocarse en " + RECINTOS[idRecintoDestino].nombre + ".");
+        mostrarAviso(traducir("Esa ficha no puede colocarse en ") + traducir(RECINTOS[idRecintoDestino].nombre) + ".");
         return;
     }
     if (contarFichasEnRecinto(idRecintoDestino) >= RECINTOS[idRecintoDestino].capacidad && ficha.recinto !== idRecintoDestino) {
-        mostrarAviso(RECINTOS[idRecintoDestino].nombre + " está completo.");
+        mostrarAviso(traducir(RECINTOS[idRecintoDestino].nombre) + traducir(" está completo."));
         return;
     }
 
     nuevaPosicion = buscarEspacioLibre(idRecintoDestino, ficha.id);
     if (nuevaPosicion === 0) {
-        mostrarAviso("No hay espacio libre en el recinto de destino.");
+        mostrarAviso(traducir("No hay espacio libre en el recinto de destino."));
         return;
     }
 
@@ -703,15 +723,13 @@ function moverFichaAlRecinto(idRecintoDestino) {
     estado.accionRealizada = false;
 
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Ficha movida a " + RECINTOS[idRecintoDestino].nombre + ". Ahora elegí una ficha nueva para colocar.";
+        etiquetaRecinto.textContent = traducir("Ficha movida a ") + traducir(RECINTOS[idRecintoDestino].nombre) + traducir(". Ahora elegí una ficha nueva para colocar.");
     }
     actualizarPantalla();
     guardarPartida();
 }
 
-/* ----------------------------------------------------------------------
-   8. SELECCIÓN DEL DADO Y CONTROL DE TURNOS
-   ---------------------------------------------------------------------- */
+/* 8. SELECCIÓN DEL DADO Y CONTROL DE TURNOS */
 
 function seleccionarCara(idCara) {
     var cara = CARAS_DADO[idCara];
@@ -728,20 +746,20 @@ function seleccionarCara(idCara) {
 
     if (imagenCaraActiva) {
         imagenCaraActiva.src = cara.imagen;
-        imagenCaraActiva.alt = "Cara del dado: " + cara.nombre;
+        imagenCaraActiva.alt = traducir("Cara del dado: ") + traducir(cara.nombre);
     }
     if (nombreCaraActiva) {
-        nombreCaraActiva.textContent = cara.nombre;
+        nombreCaraActiva.textContent = traducir(cara.nombre);
     }
     if (subCaraActiva) {
-        subCaraActiva.textContent = "Cara seleccionada del dado físico";
+        subCaraActiva.textContent = traducir("Cara seleccionada del dado físico");
     }
     if (textoEfectoDado) {
         textoEfectoDado.innerHTML = "";
         titulo = document.createElement("h4");
-        titulo.textContent = cara.nombre;
+        titulo.textContent = traducir(cara.nombre);
         descripcion = document.createElement("p");
-        descripcion.textContent = cara.descripcion;
+        descripcion.textContent = traducir(cara.descripcion);
         textoEfectoDado.appendChild(titulo);
         textoEfectoDado.appendChild(descripcion);
     }
@@ -749,7 +767,7 @@ function seleccionarCara(idCara) {
         menuCaras.hidden = true;
     }
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Ahora seleccioná un recinto permitido.";
+        etiquetaRecinto.textContent = traducir("Ahora seleccioná un recinto permitido.");
     }
 
     actualizarPantalla();
@@ -761,10 +779,10 @@ function actualizarProgreso() {
     var porcentaje;
 
     if (textoRonda) {
-        textoRonda.textContent = "Ronda: " + estado.ronda + " / " + TOTAL_RONDAS;
+        textoRonda.textContent = traducir("Ronda: ") + estado.ronda + " / " + TOTAL_RONDAS;
     }
     if (textoTurno) {
-        textoTurno.textContent = "Turno: " + estado.turno + " / " + TURNOS_POR_RONDA;
+        textoTurno.textContent = traducir("Turno: ") + estado.turno + " / " + TURNOS_POR_RONDA;
     }
 
     turnosTerminados = (estado.ronda - 1) * TURNOS_POR_RONDA + (estado.turno - 1);
@@ -784,11 +802,11 @@ function actualizarProgreso() {
 
     if (botonSiguiente) {
         if (estado.ronda === TOTAL_RONDAS && estado.turno === TURNOS_POR_RONDA) {
-            botonSiguiente.textContent = "PUNTUACIÓN FINAL";
+            botonSiguiente.textContent = traducir("PUNTUACIÓN FINAL");
         } else if (estado.turno === TURNOS_POR_RONDA) {
-            botonSiguiente.textContent = "SIGUIENTE RONDA";
+            botonSiguiente.textContent = traducir("SIGUIENTE RONDA");
         } else {
-            botonSiguiente.textContent = "SIGUIENTE TURNO";
+            botonSiguiente.textContent = traducir("SIGUIENTE TURNO");
         }
         botonSiguiente.disabled = estado.partidaFinalizada || !estado.caraDado || !estado.accionRealizada || estado.fichaAMover !== "";
     }
@@ -799,15 +817,15 @@ function avanzarTurno() {
         return;
     }
     if (!estado.caraDado) {
-        mostrarAviso("Elegí la cara del dado antes de avanzar.");
+        mostrarAviso(traducir("Elegí la cara del dado antes de avanzar."));
         return;
     }
     if (!estado.accionRealizada) {
-        mostrarAviso("Primero tenés que colocar o mover una ficha.");
+        mostrarAviso(traducir("Primero tenés que colocar o mover una ficha."));
         return;
     }
     if (estado.fichaAMover) {
-        mostrarAviso("Primero elegí el destino de la ficha que estás moviendo.");
+        mostrarAviso(traducir("Primero elegí el destino de la ficha que estás moviendo."));
         return;
     }
 
@@ -832,32 +850,27 @@ function avanzarTurno() {
     }
     if (imagenCaraActiva) {
         imagenCaraActiva.src = "../Imagenes/CaraVaciaDadoDraftDerMauer.png";
-        imagenCaraActiva.alt = "Dado sin cara seleccionada";
+        imagenCaraActiva.alt = traducir("Dado sin cara seleccionada");
     }
     if (nombreCaraActiva) {
-        nombreCaraActiva.textContent = "Seleccionar la cara que salió en el dado";
+        nombreCaraActiva.textContent = traducir("Seleccionar la cara que salió en el dado");
     }
     if (subCaraActiva) {
-        subCaraActiva.textContent = "Elegí el resultado del dado físico";
+        subCaraActiva.textContent = traducir("Elegí el resultado del dado físico");
     }
     if (textoEfectoDado) {
-        textoEfectoDado.innerHTML = "<h4>Sin cara seleccionada</h4><p>Seleccioná la cara que salió en el dado físico para consultar su efecto.</p>";
+        textoEfectoDado.innerHTML = "<h4>" + traducir("Sin cara seleccionada") + "</h4><p>" + traducir("Seleccioná la cara que salió en el dado físico para consultar su efecto y las restricciones correspondientes.") + "</p>";
     }
     if (etiquetaRecinto) {
-        etiquetaRecinto.textContent = "Seleccioná un recinto del tablero";
+        etiquetaRecinto.textContent = traducir("Seleccioná un recinto del tablero");
     }
 
     actualizarPantalla();
     guardarPartida();
 }
 
-/* ----------------------------------------------------------------------
-   9. PUNTUACIÓN
-   ---------------------------------------------------------------------- */
+/* 9. PUNTUACIÓN */
 
-/* Calcula qué valor recibe cada tipo diferente en Fábrica o Militares.
-   El orden es el de los espacios: izquierda a derecha. Las repeticiones
-   conservan el valor asignado la primera vez que apareció su tipo. */
 function obtenerPuntosPorTipo(idRecinto, tiposPermitidos) {
     var valores = {};
     var valoresPosibles = [1, 3, 7];
@@ -875,7 +888,6 @@ function obtenerPuntosPorTipo(idRecinto, tiposPermitidos) {
         }
     }
 
-    /* Ordenamos la lista por posición usando un método simple de comparación. */
     for (i = 0; i < fichasRecinto.length; i++) {
         for (j = i + 1; j < fichasRecinto.length; j++) {
             if (fichasRecinto[j].posicion < fichasRecinto[i].posicion) {
@@ -926,7 +938,6 @@ function calcularPuntuacion() {
     var nombreRecinto;
     var puntosFicha;
 
-    /* Comprueba si están los dos espías. */
     for (i = 0; i < estado.colocaciones.length; i++) {
         if (estado.colocaciones[i].recinto === "EspiasR" && estado.colocaciones[i].ficha === "Markus") {
             hayMarkus = true;
@@ -960,7 +971,6 @@ function calcularPuntuacion() {
             }
         }
 
-        /* Cada político agrega un punto en cualquier recinto. */
         if (fichaDatos.familia === "politicos") {
             puntosFicha++;
         }
@@ -999,7 +1009,7 @@ function actualizarPuntuacion() {
     for (idRecinto in ids) {
         elemento = document.getElementById(ids[idRecinto]);
         if (elemento) {
-            elemento.textContent = resultado.puntos[idRecinto] + " pts";
+            elemento.textContent = resultado.puntos[idRecinto] + traducir(" pts");
         }
     }
     if (marcadorGigante) {
@@ -1031,7 +1041,7 @@ function mostrarPuntuacionFinal() {
     for (idRecinto in idsFinales) {
         elemento = document.getElementById(idsFinales[idRecinto]);
         if (elemento) {
-            elemento.textContent = resultado.puntos[idRecinto] + " pts";
+            elemento.textContent = resultado.puntos[idRecinto] + traducir(" pts");
         }
     }
 
@@ -1039,12 +1049,12 @@ function mostrarPuntuacionFinal() {
     if (lista) {
         lista.innerHTML = "";
         if (resultado.detalle.length === 0) {
-            lista.textContent = "No se colocaron fichas.";
+            lista.textContent = traducir("No se colocaron fichas.");
         } else {
             for (i = 0; i < resultado.detalle.length; i++) {
                 linea = document.createElement("p");
                 linea.className = "detalle-puntuacion-ficha";
-                linea.textContent = resultado.detalle[i].ficha + " — " + resultado.detalle[i].recinto + ", espacio " + resultado.detalle[i].posicion + ": " + resultado.detalle[i].puntos + " pts";
+                linea.textContent = traducir(resultado.detalle[i].ficha) + traducir(" — ") + traducir(resultado.detalle[i].recinto) + traducir(", espacio ") + resultado.detalle[i].posicion + ": " + resultado.detalle[i].puntos + traducir(" pts");
                 lista.appendChild(linea);
             }
         }
@@ -1055,12 +1065,10 @@ function mostrarPuntuacionFinal() {
     }
 }
 
-/* ----------------------------------------------------------------------
-   10. SALIR Y BORRAR EL GUARDADO
-   ---------------------------------------------------------------------- */
+/* 10. SALIR Y BORRAR EL GUARDADO */
 
 function salirDeCalculadora() {
-    var confirmar = window.confirm("¿Querés cerrar la calculadora y borrar la partida guardada en este dispositivo?");
+    var confirmar = window.confirm(traducir("¿Querés cerrar la calculadora y borrar la partida guardada en este dispositivo?"));
     if (!confirmar) {
         return;
     }
@@ -1083,12 +1091,11 @@ function actualizarPantalla() {
     }
 }
 
-/* ----------------------------------------------------------------------
-   12. CONECTAR LOS CLICS Y CONTROLES
-   ---------------------------------------------------------------------- */
+/* 12. CONECTAR LOS CLICS Y CONTROLES */
 
 function conectarEventos() {
     var i;
+    var botonModo = document.getElementById("btn-modo-calculadora");
 
     /* Clics en recintos y fichas ya colocadas. */
     for (i = 0; i < recintosHTML.length; i++) {
@@ -1104,7 +1111,6 @@ function conectarEventos() {
                 return;
             }
 
-            /* En la cara especial, tocar una ficha inicia el movimiento. */
             if (espacio && espacio.classList.contains("ocupado") && estado.caraDado === "cambiar-ficha" && estado.esMiTurnoDado) {
                 comenzarMovimiento(espacio.dataset.colocacionId);
                 return;
@@ -1121,18 +1127,16 @@ function conectarEventos() {
         });
     }
 
-    /* Clics en los botones de fichas disponibles. */
     for (i = 0; i < botonesFicha.length; i++) {
         botonesFicha[i].addEventListener("click", function () {
             if (estado.fichaAMover) {
-                mostrarAviso("Elegí un recinto de destino para la ficha que estás moviendo.");
+                mostrarAviso(traducir("Elegí un recinto de destino para la ficha que estás moviendo."));
                 return;
             }
             colocarFicha(this.dataset.ficha);
         });
     }
 
-    /* Abrir o cerrar el menú del dado. */
     if (botonAbrirDado && menuCaras) {
         botonAbrirDado.addEventListener("click", function () {
             menuCaras.hidden = !menuCaras.hidden;
@@ -1146,7 +1150,6 @@ function conectarEventos() {
         });
     }
 
-    /* Indicar si el dado lo tiró el jugador que está usando la calculadora. */
     if (casillaMiTurnoDado) {
         casillaMiTurnoDado.addEventListener("change", function () {
             estado.esMiTurnoDado = casillaMiTurnoDado.checked;
@@ -1165,6 +1168,11 @@ function conectarEventos() {
     if (botonCerrarCalculadora) {
         botonCerrarCalculadora.addEventListener("click", salirDeCalculadora);
     }
+    if (botonModo) {
+        botonModo.addEventListener("click", function () {
+            aplicarModoClaro(!document.body.classList.contains("modo-claro"));
+        });
+    }
 
     /* Cerrar el menú del dado si se hace clic fuera de él. */
     document.addEventListener("click", function (evento) {
@@ -1174,9 +1182,7 @@ function conectarEventos() {
     });
 }
 
-/* ----------------------------------------------------------------------
-   13. INICIAR LA CALCULADORA
-   ---------------------------------------------------------------------- */
+/* 13. INICIAR LA CALCULADORA */
 
 function iniciarCalculadora() {
     prepararEspacios();
@@ -1186,8 +1192,8 @@ function iniciarCalculadora() {
 
     if (estado.caraDado && CARAS_DADO[estado.caraDado]) {
         imagenCaraActiva.src = CARAS_DADO[estado.caraDado].imagen;
-        nombreCaraActiva.textContent = CARAS_DADO[estado.caraDado].nombre;
-        subCaraActiva.textContent = "Cara seleccionada del dado físico";
+        nombreCaraActiva.textContent = traducir(CARAS_DADO[estado.caraDado].nombre);
+        subCaraActiva.textContent = traducir("Cara seleccionada del dado físico");
     }
     if (estado.partidaFinalizada) {
         mostrarPuntuacionFinal();

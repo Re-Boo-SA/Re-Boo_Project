@@ -9,6 +9,8 @@ class Jugador extends Usuario
     private int $pntsPartida;
     private int $partidasJugadas;
     private int $partidasGanadas;
+    private string $biografia;
+    private string $estado;
 
     public function __construct(
         int $idUsuario = 0,
@@ -20,7 +22,9 @@ class Jugador extends Usuario
         int $pntsPartida = 0,
         int $partidasJugadas = 0,
         int $partidasGanadas = 0,
-        bool $bajaLogica = false
+        bool $bajaLogica = false,
+        string $biografia = '',
+        string $estado = 'ocupado'
     ) {
         parent::__construct($idUsuario, $correo, $contra, $nombreUsuario, 'jugador', $bajaLogica);
         $this->fichasActuales = $fichasActuales;
@@ -28,6 +32,8 @@ class Jugador extends Usuario
         $this->pntsPartida = $pntsPartida;
         $this->partidasJugadas = $partidasJugadas;
         $this->partidasGanadas = $partidasGanadas;
+        $this->biografia = $biografia;
+        $this->estado = $estado;
     }
 
     public function getFichasActuales(): int
@@ -78,6 +84,27 @@ class Jugador extends Usuario
     public function setPartidasGanadas(int $partidasGanadas): void
     {
         $this->partidasGanadas = $partidasGanadas;
+    }
+
+    // Getters y Setters para Biografía y Estado
+    public function getBiografia(): string
+    {
+        return $this->biografia;
+    }
+
+    public function setBiografia(string $biografia): void
+    {
+        $this->biografia = $biografia;
+    }
+
+    public function getEstado(): string
+    {
+        return $this->estado;
+    }
+
+    public function setEstado(string $estado): void
+    {
+        $this->estado = $estado;
     }
 
     // Métodos de compatibilidad con versiones anteriores

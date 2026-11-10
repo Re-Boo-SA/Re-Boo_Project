@@ -1,16 +1,25 @@
 <?php
-session_start();
+// reCAPTCHA necesita permisos extra en la CSP solo en esta página
+define('PAGINA_USA_RECAPTCHA', true);
+require_once(__DIR__ . '/Seguridad/arranque.php');
+
+if (isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
+    header('Location: login');
+    exit();
+}
+$idiomaActual = $_SESSION['idioma'] ?? 'es';
 
 require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 require_once(__DIR__ . '/../Capa Lógica/SeguridadLogica.php');
 require_once(__DIR__ . '/../config.php');
 
-if (isset($_SESSION['rol'])) {
+if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
-        header('Location: panel_admin.php');
+        header('Location: panel-admin');
         exit();
     } else {
-        header('Location: inicioHome.php');
+        header('Location: inicio');
         exit();
     }
 }
@@ -18,15 +27,16 @@ if (isset($_SESSION['rol'])) {
 $mensajeResultado = '';
 $identificador = '';
 $resultado = null;
-$recaptchaSiteKey = RECAPTCHA_CLAVE_SITIO;
+$recaptchaSiteKey = SeguridadLogica::obtenerClavePublicaRecaptcha();
+$mensajeFlash = SesionSegura::tomarFlash('flash_error');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $identificador = $_POST['usuario'] ?? '';
-    $password = $_POST['password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
+    $identificador = is_string($_POST['usuario'] ?? null) ? $_POST['usuario'] : '';
+    $password = is_string($_POST['password'] ?? null) ? $_POST['password'] : '';
 
     try {
         $recaptchaValido = SeguridadLogica::verificarRecaptcha(
-            $_POST['recaptcha_token'] ?? '',
+            is_string($_POST['recaptcha_token'] ?? null) ? $_POST['recaptcha_token'] : '',
             'login'
         );
 
@@ -41,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultado = $usuarioLogica->iniciarSesion($identificador, $password);
         }
     } catch (RuntimeException $e) {
+        error_log('Login: ' . $e->getMessage());
         $resultado = [
             'exito' => false,
             'mensaje' => 'La seguridad del servidor no está configurada correctamente.'
@@ -50,25 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$resultado['exito']) {
         $mensajeResultado = $resultado['mensaje'];
     } else {
-        $usuario = $resultado['usuario'];
-        $rol = $resultado['rol'];
-
-        $_SESSION['usuario_id'] = $usuario->getIdUsuario();
-        $_SESSION['nombre_usuario'] = $usuario->getNombreUsuario();
-        $_SESSION['correo'] = $usuario->getCorreo();
-        $_SESSION['rol'] = $rol;
-
-        if ($rol === 'jugador') {
-            $_SESSION['fichas_actuales'] = $usuario->getFichasActuales();
-            $_SESSION['cantidad_fichas'] = $usuario->getCantidadFichas();
-            $_SESSION['pnts_partida'] = $usuario->getPntsPartida();
-            $_SESSION['partidas_jugadas'] = $usuario->getPartidasJugadas();
-            $_SESSION['partidas_ganadas'] = $usuario->getPartidasGanadas();
-            $mensajeResultado = $resultado['mensaje'];
-        } elseif ($rol === 'administrador') {
-            $mensajeResultado = $resultado['mensaje'];
-        }
-
+        SesionSegura::iniciarSesionUsuario($resultado['usuario'], $resultado['rol']);
         header('Location: ' . $resultado['redirect']);
         exit();
     }
@@ -81,17 +74,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draft Der Mauer - Login</title>
+    <link rel="icon" type="image/png" href="./img/imgPestaña/LogoBabyDraftDerMauer.png" />
     <link rel="stylesheet" href="./css/estilo.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/fuentes.css" />
     <?php if ($recaptchaSiteKey !== ''): ?>
         <script
-            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>"></script>
+            src="https://www.recaptcha.net/recaptcha/api.js?render=<?= e($recaptchaSiteKey) ?>"></script>
     <?php endif; ?>
 </head>
 
-<body>
+<body data-idioma="<?= e($idiomaActual) ?>">
     <!-- Banderas laterales de fondo -->
     <div class="bandera-izquierda"></div>
     <div class="bandera-derecha"></div>
@@ -107,14 +99,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="contenedor-pestanias">
                 <div class="envoltorio-pestanias">
-                    <a href="login.php" class="boton-pestania activo">Ingresar</a>
-                    <a href="registro.php" class="boton-pestania">Crear cuentarda</a>
+                    <a href="login" class="boton-pestania activo">Ingresar</a>
+                    <a href="registro" class="boton-pestania">Crear cuentarda</a>
                 </div>
             </div>
 
             <main class="contenedor-formulario">
                 <div class="tarjeta-formulario">
                     <h2 class="titulo-formulario">INICIAR SESIÓN</h2>
+
+                    <?php if ($mensajeFlash !== '' && $resultado === null): ?>
+                        <div class="alerta alerta-error" id="alerta-login-flash">
+                            <span><?= e($mensajeFlash) ?></span>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if ($resultado !== null && !$resultado['exito']): ?>
                         <div class="alerta alerta-error" id="alerta-login-error">
@@ -139,19 +137,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     <?php endif; ?>
 
-                    <form id="login-form" class="formulario" action="login.php" method="POST">
+                    <form id="login-form" class="formulario" action="login" method="POST">
+                        <?= SesionSegura::campoCsrf() ?>
                         <input type="hidden" name="recaptcha_token" id="recaptcha-token-login" value="" />
                         <div class="grupo-entrada">
                             <label for="usuario-ingreso">Nombre de usuariardo o email</label>
                             <input type="text" id="usuario-ingreso" name="usuario" placeholder="Ingresá tu usuario"
-                                value="<?php echo htmlspecialchars($identificador); ?>" required
+                                value="<?= e($identificador) ?>" required maxlength="100"
                                 autocomplete="username" />
                         </div>
 
                         <div class="grupo-entrada">
                             <label for="pass-ingreso">Contraseñarda</label>
                             <input type="password" id="pass-ingreso" name="password" placeholder="Ingresá tu contraseña"
-                                required autocomplete="current-password" />
+                                required maxlength="128" autocomplete="current-password" />
                         </div>
 
                         <button type="submit" class="boton-enviar" id="btn-login-submit">
@@ -160,17 +159,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <p class="texto-cambiar">
                             ¿No tenés cuentarda todavía?
-                            <a href="registro.php" class="boton-enlace">Registrate acá</a>
+                            <a href="registro" class="boton-enlace">Registrate acá</a>
                         </p>
                     </form>
                 </div>
             </main>
+
+            <!-- Selector de Idioma -->
+            <div class="contenedor-idioma">
+                <form method="POST" id="form-idioma-login">
+                    <?= SesionSegura::campoCsrf() ?>
+                    <label for="select-idioma-login" class="label-idioma">Idioma</label>
+                    <div class="select-personalizado">
+                        <select name="idioma" id="select-idioma-login" data-autoenviar>
+                            <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
+                            <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
+                        </select>
+                        <span class="flecha-select">▼</span>
+                    </div>
+                    <input type="hidden" name="cambiar_idioma" value="1">
+                </form>
+            </div>
         </div>
     </div>
-</body>
+
+    <script src="./js/comun.js"></script>
+    <script src="./js/traduccion.js"></script>
 
 <?php if ($recaptchaSiteKey !== ''): ?>
-    <script>
+    <script nonce="<?= CabecerasSeguridad::nonce() ?>">
         const loginForm = document.getElementById('login-form');
         let loginEnviado = false;
 
@@ -187,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             grecaptcha.ready(function () {
-                grecaptcha.execute(<?= json_encode($recaptchaSiteKey); ?>, { action: 'login' })
+                grecaptcha.execute(<?= json_encode($recaptchaSiteKey, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>, { action: 'login' })
                     .then(function (token) {
                         if (typeof token !== 'string' || token.trim() === '') {
                             alert('reCAPTCHA se ejecutó, pero Google devolvió un token vacío. Verifica que la clave sea de tipo v3 y que localhost esté autorizado.');
@@ -205,5 +222,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 <?php endif; ?>
+</body>
 
 </html>

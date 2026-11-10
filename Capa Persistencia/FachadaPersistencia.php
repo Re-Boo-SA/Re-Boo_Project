@@ -25,6 +25,8 @@ require_once('IPersistenciaRecinto.php');
 require_once('PersistenciaRecinto.php');
 require_once('IPersistenciaSkins.php');
 require_once('PersistenciaSkins.php');
+require_once('IPersistenciaAuditoria.php');
+require_once('PersistenciaAuditoria.php');
 
 class FachadaPersistencia
 {
@@ -66,6 +68,11 @@ class FachadaPersistencia
     public function retornoIPersistenciaSkins(): IPersistenciaSkins
     {
         return PersistenciaSkins::getInstancia();
+    }
+
+    public function retornoIPersistenciaAuditoria(): IPersistenciaAuditoria
+    {
+        return PersistenciaAuditoria::getInstancia();
     }
 }
 ?>
