@@ -42,6 +42,58 @@ if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 3 * 1024 * 1024) {
 
 SesionSegura::iniciar();
 
+function urlAplicacion(string $ruta = ''): string
+{
+    $rutaActual = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    $rutaActual = is_string($rutaActual) ? $rutaActual : '/';
+
+    if (preg_match('~^(.*?)/DraftDerMauer(?:/|$)~', $rutaActual, $coincidencias)) {
+        $base = $coincidencias[1] . '/DraftDerMauer';
+    } else {
+        $directorio = dirname(rawurldecode($rutaActual));
+        $segmentos = array_map('rawurlencode', array_filter(explode('/', trim($directorio, '/')), 'strlen'));
+        $base = $segmentos === [] ? '' : '/' . implode('/', $segmentos);
+
+        $rutasDirectas = [
+            'login' => 'login.php',
+            'registro' => 'registro.php',
+            'inicio' => 'inicioHome.php',
+            'calculadora' => 'CalculadoraT.php',
+            'auditoria' => 'auditoria.php',
+            'panel-admin' => 'panel_admin.php',
+            'unirse' => 'unirse_partida.php',
+            'tienda' => 'tienda.php',
+            'error' => 'error.php',
+            'estado' => 'estado.php',
+            'cerrar-sesion' => 'logout.php',
+            'perfil' => 'perfil.php',
+            'crear-partida' => 'procesar_crear_partida.php',
+            'unirse-partida' => 'procesar_unirse_partida.php'
+        ];
+
+        $ruta = trim($ruta, '/');
+        if ($ruta === '') {
+            return $base . '/';
+        }
+        if (!isset($rutasDirectas[$ruta])) {
+            throw new InvalidArgumentException('La ruta de la aplicación no es válida.');
+        }
+
+        return $base . '/' . rawurlencode($rutasDirectas[$ruta]);
+    }
+
+    if ($base === 'DraftDerMauer') {
+        $base = '/' . $base;
+    }
+
+    $ruta = trim($ruta, '/');
+    if ($ruta !== '' && !preg_match('/\A[a-z0-9-]+\z/i', $ruta)) {
+        throw new InvalidArgumentException('La ruta de la aplicación no es válida.');
+    }
+
+    return $base . ($ruta === '' ? '/' : '/' . $ruta);
+}
+
 $paginasPublicas = [
     'index.php',
     'login.php',

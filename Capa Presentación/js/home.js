@@ -7,11 +7,20 @@ document.getElementById('btn-cerrar-sesion').addEventListener('click', () => {
     if (confirm('¿Seguro que quieres cerrar sesión pa?')) document.getElementById('form-cerrar-sesion').submit();
 });
 
-document.querySelectorAll('[data-alerta]').forEach(elemento => {
-    elemento.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert(elemento.getAttribute('data-alerta'));
-    });
+const modalInfo = document.getElementById('modal-info');
+const cerrarModalInfo = () => {
+    modalInfo.classList.remove('mostrar');
+    modalInfo.setAttribute('aria-hidden', 'true');
+    modalInfo.hidden = true;
+};
+document.querySelector('.btn-info').addEventListener('click', () => {
+    modalInfo.hidden = false;
+    modalInfo.classList.add('mostrar');
+    modalInfo.setAttribute('aria-hidden', 'false');
+});
+document.getElementById('btn-cerrar-info').addEventListener('click', cerrarModalInfo);
+modalInfo.addEventListener('click', event => {
+    if (event.target === modalInfo) cerrarModalInfo();
 });
 
 document.getElementById('subir-imagen').addEventListener('change', function () { previewFoto(this); });
@@ -76,21 +85,36 @@ document.getElementById('btn-abrir-sidebar').addEventListener('click', toggleSid
 document.getElementById('btn-cerrar-sidebar').addEventListener('click', toggleSidebar);
 overlaySidebar.addEventListener('click', toggleSidebar);
 
-const btnLuna = document.getElementById('btn-luna');
-const btnSol = document.getElementById('btn-sol');
-
-function aplicarModoClaro(activar) {
-    document.body.classList.toggle('modo-claro', activar);
-    btnLuna.classList.toggle('activo', !activar);
-    btnSol.classList.toggle('activo', activar);
-    localStorage.setItem('modo_claro', activar ? 'true' : 'false');
-}
-
-document.getElementById('btn-toggle-modo').addEventListener('click', () => {
-    aplicarModoClaro(!document.body.classList.contains('modo-claro'));
+const controlesVolumen = document.querySelectorAll('.configuracion-control input[type="range"]');
+controlesVolumen.forEach(control => {
+    const salida = document.querySelector(`output[for="${control.id}"]`);
+    const clave = `config_${control.id}`;
+    const guardado = localStorage.getItem(clave);
+    if (guardado !== null) control.value = guardado;
+    salida.value = `${control.value}%`;
+    control.addEventListener('input', () => {
+        salida.value = `${control.value}%`;
+        localStorage.setItem(clave, control.value);
+    });
 });
 
-if (localStorage.getItem('modo_claro') === 'true') aplicarModoClaro(true);
+const calidadGuardada = localStorage.getItem('config_calidad') || 'media';
+const botonesCalidad = document.querySelectorAll('[data-calidad]');
+botonesCalidad.forEach(boton => {
+    boton.classList.toggle('activo', boton.dataset.calidad === calidadGuardada);
+    boton.addEventListener('click', () => {
+        botonesCalidad.forEach(opcion => opcion.classList.toggle('activo', opcion === boton));
+        localStorage.setItem('config_calidad', boton.dataset.calidad);
+    });
+});
+
+const animaciones = document.getElementById('config-animaciones');
+animaciones.checked = localStorage.getItem('config_animaciones') !== 'false';
+document.body.classList.toggle('sin-animaciones', !animaciones.checked);
+animaciones.addEventListener('change', () => {
+    document.body.classList.toggle('sin-animaciones', !animaciones.checked);
+    localStorage.setItem('config_animaciones', animaciones.checked ? 'true' : 'false');
+});
 
 const opcionesEstado = document.querySelectorAll('.opcion-estado');
 const indicadorPreview = document.getElementById('indicador-preview');

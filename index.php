@@ -71,6 +71,7 @@ if (PHP_SAPI === 'cli-server') {
         '/DraftDerMauer/auditoria' => 'auditoria.php',
         '/DraftDerMauer/panel-admin' => 'panel_admin.php',
         '/DraftDerMauer/unirse' => 'unirse_partida.php',
+        '/DraftDerMauer/tienda' => 'tienda.php',
         '/DraftDerMauer/cerrar-sesion' => 'logout.php',
         '/DraftDerMauer/perfil' => 'perfil.php',
         '/DraftDerMauer/crear-partida' => 'procesar_crear_partida.php',
@@ -78,8 +79,12 @@ if (PHP_SAPI === 'cli-server') {
     ];
     $rutas = $rutasPublicas + $rutasProtegidas;
 
-    if (isset($rutas[$rutaSolicitada])) {
-        $archivo = $rutas[$rutaSolicitada];
+    $rutaNormalizada = $rutaSolicitada === '/DraftDerMauer/'
+        ? $rutaSolicitada
+        : rtrim($rutaSolicitada, '/');
+
+    if (isset($rutas[$rutaNormalizada])) {
+        $archivo = $rutas[$rutaNormalizada];
         $_SERVER['SCRIPT_NAME'] = '/Capa Presentación/' . $archivo;
         $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/Capa Presentación/' . $archivo;
         require $_SERVER['SCRIPT_FILENAME'];
