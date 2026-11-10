@@ -306,6 +306,77 @@ body {
     align-items: center;
 }
 
+.controles-preferencias {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.controles-home {
+    position: absolute;
+    top: 50%;
+    right: 76px;
+    transform: translateY(-50%);
+}
+
+.btn-modo-preferencia,
+.form-idioma-preferencia select {
+    min-height: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 9px;
+    background: rgba(15, 15, 15, 0.72);
+    color: #f3f4f6;
+}
+
+.btn-modo-preferencia {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.btn-modo-preferencia .icono-modo {
+    opacity: 0.45;
+    filter: grayscale(1);
+    font-size: 0.9rem;
+}
+
+.btn-modo-preferencia .icono-modo.activo {
+    opacity: 1;
+    filter: none;
+}
+
+.form-idioma-preferencia {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.etiqueta-idioma-preferencia {
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.form-idioma-preferencia select {
+    min-width: 62px;
+    padding: 0 7px;
+    font: 700 0.68rem Arial, sans-serif;
+    cursor: pointer;
+}
+
+.controles-configuracion {
+    margin-top: 12px;
+}
+
+.controles-configuracion .btn-modo-preferencia,
+.controles-configuracion .form-idioma-preferencia select {
+    background: #191a20;
+    border-color: #3a3436;
+}
+
 .titulo-principal h1 {
     font-family: 'Saira Stencil One', cursive, sans-serif;
     font-size: 2.5rem;
@@ -428,13 +499,39 @@ body {
 }
 
 .btn-icono {
-    width: 70px;
-    height: 70px;
-    border-radius: 20px;
+    width: 84px;
+    height: 84px;
+    border: 0;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(120, 120, 120, 0.65);
     font-size: 1.8rem;
+}
+
+.btn-icono .tienda-icono {
+    width: 48px;
+    height: 48px;
+    fill: #ffffff;
+}
+
+.btn-icono .tienda-icono-detalle {
+    fill: #555555;
+}
+
+.btn-info svg {
+    width: 50px;
+    height: 50px;
+    fill: #ffffff;
+}
+
+.btn-info .info-glifo {
+    fill: #555555;
+}
+
+.btn-icono:hover {
+    background: rgba(150, 150, 150, 0.8);
 }
 
 .btn-mauer:hover {
@@ -449,11 +546,50 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-bottom: 10px;
+    padding: 10px 0;
 }
 
-.btn-historial {
-    width: 260px;
+.tarjeta-historial {
+    width: min(100%, 520px);
+    padding: 18px 22px;
+    background: rgba(120, 120, 120, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tarjeta-historial h2 {
+    margin-bottom: 12px;
+    color: #000000;
+    font: 400 1rem 'Saira Stencil One', Arial, sans-serif;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.historial-resumen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.historial-dato {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(220, 220, 220, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9px;
+    color: #171717;
+    font-size: 0.9rem;
+}
+
+.historial-dato strong {
+    color: #000000;
+    font-size: 1.25rem;
 }
 
 /* Modales */
@@ -474,6 +610,10 @@ body {
     transition: opacity 0.3s ease;
 }
 
+.modal-perfil-overlay[hidden] {
+    display: none;
+}
+
 .modal-perfil-overlay.mostrar {
     opacity: 1;
     pointer-events: auto;
@@ -489,6 +629,19 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #e0e0e0;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+}
+
+.tarjeta-info p {
+    margin: 0 0 14px;
+    color: #c7c7c7;
+    font: 400 0.92rem/1.6 'Segoe UI', Tahoma, sans-serif;
+}
+
+.tarjeta-info-enlace {
+    display: flex;
+    margin: 18px auto 0;
+    color: #000000;
+    text-decoration: none;
 }
 
 .encabezado-modal {
@@ -864,9 +1017,14 @@ body {
         padding: 12px 15px;
     }
     .btn-icono {
-        width: 50px;
-        height: 50px;
+        width: 64px;
+        height: 64px;
         font-size: 1.3rem;
+    }
+    .btn-icono .tienda-icono,
+    .btn-info svg {
+        width: 38px;
+        height: 38px;
     }
 }
 
@@ -874,8 +1032,40 @@ body {
     .cuerpo-home-pc {
         padding: 15px;
     }
+    .controles-home {
+        top: 76px;
+        right: 68px;
+    }
+    .controles-home .btn-modo-preferencia,
+    .controles-home .form-idioma-preferencia select {
+        min-height: 30px;
+    }
+    .controles-home .btn-modo-preferencia {
+        gap: 3px;
+        padding: 4px 6px;
+    }
+    .controles-home .icono-modo {
+        font-size: 0.75rem;
+    }
+    .controles-home .form-idioma-preferencia select {
+        min-width: 52px;
+        padding: 0 4px;
+        font-size: 0.62rem;
+    }
     .titulo-principal h1 {
         font-size: 1.6rem;
+    }
+    .tarjeta-historial {
+        padding: 15px;
+    }
+    .historial-resumen {
+        gap: 8px;
+    }
+    .historial-dato {
+        align-items: flex-start;
+        flex-direction: column-reverse;
+        gap: 4px;
+        padding: 10px;
     }
 }
 
@@ -1128,15 +1318,15 @@ body {
 .sidebar-menu {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 280px;
+    left: -340px;
+    width: min(330px, 90vw);
     height: 100vh;
     background-color: #050505;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 999;
     display: flex;
     flex-direction: column;
-    padding: 30px 20px;
+    padding: 24px 18px;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.8);
 }
@@ -1149,17 +1339,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
-    margin-bottom: 25px;
+    padding: 0 8px 18px;
+    margin-bottom: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .sidebar-header h2 {
-    font-size: 0.95rem;
-    color: #8d99ae;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-size: 1.35rem;
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px;
 }
 
 .btn-cerrar-sidebar {
@@ -1174,7 +1364,7 @@ body {
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 4px;
 }
 
 .sidebar-item {
@@ -1183,11 +1373,11 @@ body {
     justify-content: space-between;
     color: #ffffff;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-family: 'Saira Stencil One', cursive, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 12px 14px;
+    padding: 9px 10px;
     border-radius: 8px;
     transition: background 0.2s ease, transform 0.1s ease;
 }
@@ -1197,32 +1387,188 @@ body {
     transform: translateX(4px);
 }
 
-.modo-selector {
+.configuracion-contenido {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0 8px;
+    background: #111111;
+    scrollbar-color: #444 #111;
+    scrollbar-width: thin;
+}
+
+.configuracion-icono {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 22px;
+    color: #ffffff;
+}
+
+.configuracion-icono svg {
+    width: 48px;
+    height: 48px;
+}
+
+.configuracion-grupo {
+    margin-bottom: 24px;
+}
+
+.configuracion-grupo h3 {
+    margin-bottom: 13px;
+    color: #9c1b22;
+    font: 400 0.62rem 'Saira Stencil One', Arial, sans-serif;
+    letter-spacing: 2px;
+}
+
+.configuracion-control {
+    display: block;
+    margin-bottom: 14px;
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+}
+
+.configuracion-control > span,
+.configuracion-switch > span:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.configuracion-control strong,
+.configuracion-calidad > strong,
+.configuracion-switch strong {
+    font-size: 0.82rem;
+    font-weight: 400;
+}
+
+.configuracion-control output {
+    color: #bcbcbc;
+    font: 400 0.68rem 'Saira Stencil One', Arial, sans-serif;
+}
+
+.configuracion-control input[type="range"] {
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin: 8px 0 0;
+    border-radius: 5px;
+    appearance: none;
+    background: #321516;
+    cursor: pointer;
+}
+
+.configuracion-control input[type="range"]::-webkit-slider-thumb {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    appearance: none;
+    background: #d0d0d0;
+}
+
+.configuracion-control input[type="range"]::-moz-range-thumb {
+    width: 11px;
+    height: 11px;
+    border: 0;
+    border-radius: 50%;
+    background: #d0d0d0;
+}
+
+.configuracion-switch {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.toggle-modo {
-    display: flex;
-    align-items: center;
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 4px 8px;
+    gap: 12px;
+    min-height: 36px;
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
     cursor: pointer;
-    gap: 10px;
 }
 
-.icono-modo {
-    font-size: 1rem;
-    opacity: 0.3;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+.configuracion-switch > span:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
 }
 
-.icono-modo.activo {
-    opacity: 1;
-    transform: scale(1.2);
+.configuracion-switch small {
+    color: #777777;
+    font: 400 0.62rem 'Segoe UI', Tahoma, sans-serif;
+}
+
+.configuracion-switch input {
+    position: absolute;
+    right: 0;
+    width: 38px;
+    height: 22px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.switch-pista {
+    flex: 0 0 38px;
+    height: 20px;
+    border-radius: 20px;
+    background: #424242;
+    transition: background 0.2s ease;
+}
+
+.switch-pista::after {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    content: "";
+    transition: transform 0.2s ease;
+}
+
+.configuracion-switch input:checked + .switch-pista {
+    background: #a71920;
+}
+
+.configuracion-switch input:checked + .switch-pista::after {
+    transform: translateX(18px);
+}
+
+.configuracion-switch input:focus-visible + .switch-pista {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.configuracion-calidad {
+    margin-top: 16px;
+    color: #ffffff;
+    font-family: 'Saira Stencil One', cursive, sans-serif;
+}
+
+.opciones-calidad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-top: 7px;
+}
+
+.opciones-calidad button {
+    padding: 7px 4px;
+    border: 1px solid #381617;
+    border-radius: 7px;
+    background: #211314;
+    color: #9e9e9e;
+    font: 400 0.66rem 'Saira Stencil One', Arial, sans-serif;
+    cursor: pointer;
+}
+
+.opciones-calidad button.activo {
+    border-color: #a71920;
+    background: #a71920;
+    color: #ffffff;
+}
+
+.configuracion-general {
+    padding-bottom: 12px;
 }
 
 /* Modo Claro Crema */
@@ -1251,8 +1597,38 @@ body.modo-claro .btn-mauer {
     border-color: #a89880 !important;
 }
 
+body.modo-claro .btn-modo-preferencia,
+body.modo-claro .form-idioma-preferencia select,
+body.modo-claro .controles-configuracion .btn-modo-preferencia,
+body.modo-claro .controles-configuracion .form-idioma-preferencia select {
+    background: #e8ded0 !important;
+    border-color: #c0b29d !important;
+    color: #2b2319 !important;
+}
+
 body.modo-claro .btn-mauer:hover {
     background: #b2a28b !important;
+}
+
+body.modo-claro .btn-icono {
+    background: #c9b99d !important;
+}
+
+body.modo-claro .btn-icono:hover {
+    background: #d7c8ad !important;
+}
+
+body.modo-claro .btn-icono .tienda-icono,
+body.modo-claro .btn-info svg {
+    fill: #050505;
+}
+
+body.modo-claro .btn-icono .tienda-icono-detalle {
+    fill: #050505;
+}
+
+body.modo-claro .btn-info .info-glifo {
+    fill: #ffffff;
 }
 
 body.modo-claro .sidebar-menu {
@@ -1273,9 +1649,71 @@ body.modo-claro .btn-cerrar-sidebar {
     color: #6b5c49 !important;
 }
 
-body.modo-claro .toggle-modo {
-    background-color: #cbbeaa !important;
-    border-color: #a89880 !important;
+body.modo-claro .configuracion-contenido {
+    background: #e5dac9;
+    scrollbar-color: #a89880 #e5dac9;
+}
+
+body.modo-claro .configuracion-icono,
+body.modo-claro .configuracion-control,
+body.modo-claro .configuracion-switch,
+body.modo-claro .configuracion-calidad {
+    color: #2b2319;
+}
+
+body.modo-claro .configuracion-grupo h3 {
+    color: #9c1b22;
+}
+
+body.modo-claro .configuracion-control output,
+body.modo-claro .configuracion-switch small {
+    color: #6b5c49;
+}
+
+body.modo-claro .configuracion-control input[type="range"] {
+    background: #c0b29d;
+}
+
+body.modo-claro .configuracion-control input[type="range"]::-webkit-slider-thumb,
+body.modo-claro .configuracion-control input[type="range"]::-moz-range-thumb {
+    background: #6b5c49;
+}
+
+body.modo-claro .switch-pista {
+    background: #a89880;
+}
+
+body.modo-claro .configuracion-switch input:checked + .switch-pista {
+    background: #a71920;
+}
+
+body.modo-claro .opciones-calidad button {
+    background: #d8cbb5;
+    border-color: #c0b29d;
+    color: #6b5c49;
+}
+
+body.modo-claro .opciones-calidad button.activo {
+    background: #a71920;
+    border-color: #a71920;
+    color: #ffffff;
+}
+
+body.modo-claro .tarjeta-historial {
+    background: #c3b49e;
+    border-color: #a89880;
+    box-shadow: 0 4px 15px rgba(43, 35, 25, 0.3);
+}
+
+body.modo-claro .tarjeta-historial h2,
+body.modo-claro .historial-dato,
+body.modo-claro .historial-dato strong {
+    color: #2b2319;
+}
+
+body.modo-claro .historial-dato {
+    background: rgba(232, 222, 208, 0.72);
+    border-color: rgba(168, 152, 128, 0.75);
 }
 
 body.modo-claro .tarjeta-perfil,
@@ -1284,6 +1722,19 @@ body.modo-claro .tarjeta-crear-partida {
     border-color: #c0b29d !important;
     color: #2b2319 !important;
     box-shadow: 0 15px 35px rgba(43, 35, 25, 0.4) !important;
+}
+
+body.modo-claro .tarjeta-info p {
+    color: #4a4034;
+}
+
+body.sin-animaciones *,
+body.sin-animaciones *::before,
+body.sin-animaciones *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
 }
 
 body.modo-claro .titulos-crear-partida h2 {
@@ -1475,4 +1926,425 @@ body.modo-claro .opcion-estado.activo {
     align-items: center;
     margin-bottom: 15px;
     flex-wrap: wrap;
+}
+
+/* Tienda de skins */
+body.tienda-body {
+    display: block;
+    min-height: 100vh;
+    padding: 28px clamp(18px, 4vw, 64px) 56px;
+    background:
+        radial-gradient(ellipse at 50% 0, rgba(89, 24, 31, 0.22), transparent 50%),
+        #100f10;
+    color: #f7f4f5;
+    font-family: Arial, sans-serif;
+}
+
+body.tienda-body.modo-claro {
+    background: #e8ded0;
+    color: #2b2319;
+}
+
+.tienda-barra {
+    width: min(100%, 1440px);
+    min-height: 56px;
+    margin: 0 auto 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #30282b;
+}
+
+.tienda-marca {
+    color: #f6f1f2;
+    font: 1rem 'Saira Stencil One', Arial, sans-serif;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+}
+
+.tienda-enlaces {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(16px, 3vw, 36px);
+}
+
+body.tienda-body .btn-modo-preferencia,
+body.tienda-body .form-idioma-preferencia select {
+    background: #191a20;
+    border-color: #3a3436;
+}
+
+body.tienda-body.modo-claro .btn-modo-preferencia,
+body.tienda-body.modo-claro .form-idioma-preferencia select {
+    background: #e8ded0;
+    border-color: #c0b29d;
+    color: #2b2319;
+}
+
+body.tienda-body.modo-claro .tienda-barra {
+    border-bottom-color: #c0b29d;
+}
+
+body.tienda-body.modo-claro .tienda-marca,
+body.tienda-body.modo-claro .tienda-cabecera-panel h1 {
+    color: #2b2319;
+}
+
+body.tienda-body.modo-claro .tienda-enlaces a,
+body.tienda-body.modo-claro .tienda-saldo {
+    color: #514638;
+}
+
+body.tienda-body.modo-claro .tienda-panel {
+    background: linear-gradient(145deg, #f1e8dc, #e1d4c2 72%);
+    border-color: #c0b29d;
+    box-shadow: 0 24px 70px rgba(43, 35, 25, 0.16);
+}
+
+body.tienda-body.modo-claro .tienda-icono {
+    fill: #2b2319;
+}
+
+body.tienda-body.modo-claro .skin-imagen {
+    background:
+        radial-gradient(ellipse at 50% 72%, rgba(120, 106, 87, 0.12), transparent 50%),
+        #e6ddcf;
+    border-color: #c9bdad;
+}
+
+body.tienda-body.modo-claro .skin-silueta {
+    fill: #77716d;
+    filter: drop-shadow(0 2px #d5c9b9);
+}
+
+body.tienda-body.modo-claro .skin-especie {
+    color: #74695d;
+}
+
+body.tienda-body.modo-claro .skin-info h2 {
+    color: #332b23;
+}
+
+body.tienda-body.modo-claro .skin-precio {
+    background: #f0dfda;
+    border-color: #c77b78;
+    color: #9c252a;
+}
+
+body.tienda-body.modo-claro .skin-comprada {
+    background: #e4dccf;
+    border-color: #c5b9a8;
+    color: #554a3c;
+}
+
+body.tienda-body.modo-claro .tienda-boton {
+    background: #ead9d4;
+    border-color: #c77b78;
+    color: #8d292e;
+}
+
+body.tienda-body.modo-claro .tienda-boton:disabled {
+    background: #ddd4c8;
+    border-color: #c5b9a8;
+    color: #71695f;
+}
+
+body.tienda-body.modo-claro .tienda-aviso {
+    background: #e5dac9;
+    border-color: #c0b29d;
+    color: #332b23;
+}
+
+body.tienda-body.modo-claro .tienda-vacia {
+    color: #554a3c;
+}
+
+.tienda-enlaces a {
+    color: #b7afb2;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.tienda-enlaces a:hover {
+    color: #fff;
+}
+
+.tienda-saldo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #a59da0;
+    font-size: 0.88rem;
+}
+
+.tienda-saldo strong {
+    color: #ff777d;
+    font-size: 0.95rem;
+}
+
+.tienda-contenido {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+}
+
+.tienda-panel {
+    padding: clamp(24px, 4vw, 48px);
+    background: linear-gradient(145deg, #1b191a, #151314 72%);
+    border: 1px solid #30282b;
+    border-radius: 22px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+
+.tienda-cabecera-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 34px;
+    text-align: center;
+}
+
+.tienda-icono {
+    width: 58px;
+    height: 58px;
+    fill: #f7f4f5;
+}
+
+.tienda-icono .tienda-icono-detalle {
+    fill: #1b191a;
+}
+
+.tienda-cabecera-panel h1 {
+    margin: 8px 0 4px;
+    color: #f7f4f5;
+    font: 400 clamp(1.7rem, 3vw, 2.2rem) 'Saira Stencil One', Arial, sans-serif;
+    letter-spacing: 5px;
+}
+
+.tienda-aviso {
+    margin: 0 auto 24px;
+    padding: 13px 18px;
+    border: 1px solid #513036;
+    border-radius: 9px;
+    background: #211a1d;
+    color: #eee5e7;
+    font-size: 0.92rem;
+    text-align: center;
+}
+
+.tienda-aviso.error {
+    border-color: #ba2c38;
+    color: #ff9da5;
+}
+
+.tienda-aviso.exito {
+    border-color: #336c52;
+    color: #9ee0b9;
+}
+
+.tienda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 220px));
+    gap: 30px 20px;
+    justify-content: center;
+}
+
+.skin-card {
+    min-width: 0;
+}
+
+.skin-imagen {
+    position: relative;
+    display: grid;
+    height: clamp(190px, 19vw, 270px);
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid #373235;
+    border-radius: 16px;
+    background:
+        radial-gradient(ellipse at 50% 72%, rgba(77, 73, 76, 0.13), transparent 50%),
+        #121112;
+}
+
+.skin-imagen::before {
+    position: absolute;
+    top: 0;
+    left: 36%;
+    width: 28%;
+    height: 3px;
+    background: #c41625;
+    content: '';
+}
+
+.skin-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.skin-silueta {
+    width: 64px;
+    height: 80px;
+    fill: #4a4649;
+    filter: drop-shadow(0 2px #252225);
+}
+
+.skin-especie {
+    position: absolute;
+    bottom: 14px;
+    color: #827a7f;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.skin-info {
+    padding: 12px 4px 0;
+    text-align: center;
+}
+
+.skin-info h2 {
+    overflow: hidden;
+    margin: 0 0 12px;
+    color: #d0c8cb;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.skin-pie {
+    display: flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skin-precio,
+.skin-comprada {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 15px;
+    border: 1px solid #6c282f;
+    border-radius: 20px;
+    background: #211417;
+    color: #ff777d;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.skin-comprada {
+    border-color: #454044;
+    background: #201e20;
+    color: #b2aaae;
+}
+
+.tienda-boton {
+    min-height: 36px;
+    padding: 7px 17px;
+    border: 1px solid #8e2c36;
+    border-radius: 20px;
+    background: #32151a;
+    color: #ff9da5;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tienda-boton:hover:not(:disabled) {
+    background: #5a1a22;
+    color: #fff;
+}
+
+.tienda-boton:disabled {
+    border-color: #484246;
+    background: #242123;
+    color: #918a8e;
+    cursor: not-allowed;
+}
+
+.tienda-vacia {
+    grid-column: 1 / -1;
+    padding: 38px 12px;
+    color: #aaa1a6;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+@media (max-width: 620px) {
+    body.tienda-body {
+        padding: 16px 12px 32px;
+    }
+
+    .tienda-barra {
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+    }
+
+    .tienda-marca {
+        padding-top: 8px;
+        font-size: 0.8rem;
+    }
+
+    .tienda-enlaces {
+        align-items: flex-end;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .tienda-enlaces .controles-preferencias {
+        order: 1;
+    }
+
+    .tienda-enlaces a,
+    .tienda-saldo {
+        font-size: 0.78rem;
+    }
+
+    .tienda-panel {
+        padding: 24px 16px;
+        border-radius: 18px;
+    }
+
+    .tienda-cabecera-panel {
+        margin-bottom: 24px;
+    }
+
+    .tienda-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 12px;
+    }
+
+    .skin-imagen {
+        height: clamp(130px, 44vw, 190px);
+    }
+
+    .skin-pie {
+        gap: 6px;
+    }
+
+    .skin-precio,
+    .skin-comprada,
+    .tienda-boton {
+        min-height: 30px;
+        padding: 5px 10px;
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .tienda-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skin-imagen {
+        height: 210px;
+    }
 }

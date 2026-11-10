@@ -35,5 +35,5 @@ if (isset($_FILES['foto_perfil']) && ($_FILES['foto_perfil']['error'] ?? UPLOAD_
     }
 }
 
-header('Location: inicio');
+header('Location: ' . urlAplicacion('inicio'));
 exit();

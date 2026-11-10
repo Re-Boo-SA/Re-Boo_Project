@@ -4,6 +4,12 @@ require_once(__DIR__ . '/../Capa Lógica/FachadaLogica.php');
 
 SesionSegura::exigirRol('jugador');
 
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
+    header('Location: ' . urlAplicacion('inicio'));
+    exit();
+}
+
 $idUsuario = (int) $_SESSION['usuario_id'];
 $mensajePerfil = SesionSegura::tomarFlash('flash_perfil');
 $fachada = new FachadaLogica();
@@ -21,7 +27,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
 $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= e($_SESSION['idioma'] ?? 'es') ?>">
 
 <head>
     <meta charset="UTF-8" />
@@ -38,22 +44,80 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 
     <aside id="sidebar-menu" class="sidebar-menu">
         <div class="sidebar-header">
-            <h2>Barrera configuración</h2>
+            <h2>CONFIGURACIÓN</h2>
             <button type="button" class="btn-cerrar-sidebar" id="btn-cerrar-sidebar">×</button>
         </div>
-        <nav class="sidebar-nav">
-            <a href="#" class="sidebar-item" data-alerta="Configuración">Configuración</a>
-            <a href="#" class="sidebar-item" data-alerta="Amistades">Amistades</a>
-            <a href="#" class="sidebar-item" data-alerta="Añadir">Añadir</a>
-            <div class="sidebar-item modo-selector">
-                <span>Modo</span>
-                <div class="toggle-modo" id="btn-toggle-modo">
-                    <span class="icono-modo luna activo" id="btn-luna">🌙</span>
-                    <span class="icono-modo sol" id="btn-sol">☀️</span>
-                </div>
+        <div class="configuracion-contenido">
+            <div class="configuracion-icono" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="currentColor">
+                    <path d="m43 27.1-4-3.1a15.7 15.7 0 0 0 0-4l4-3.1-4-7-4.8 1.8a16.5 16.5 0 0 0-3.5-2L30 4h-8l-1 5.7a16.5 16.5 0 0 0-3.5 2L12.7 10l-4 7 4 3.1a15.7 15.7 0 0 0 0 4l-4 3.1 4 7 4.8-1.8a16.5 16.5 0 0 0 3.5 2L22 42h8l1-5.7a16.5 16.5 0 0 0 3.5-2l4.8 1.8 4-7ZM26 30a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" />
+                </svg>
             </div>
-            <a href="calculadora" class="sidebar-item">Calculadora</a>
-        </nav>
+
+            <section class="configuracion-grupo" aria-labelledby="config-audio">
+                <h3 id="config-audio">AUDIO</h3>
+                <label class="configuracion-control">
+                    <span><strong>Volumen general</strong><output for="volumen-general">0%</output></span>
+                    <input type="range" id="volumen-general" min="0" max="100" value="0" />
+                </label>
+                <label class="configuracion-control">
+                    <span><strong>Efectos de sonido</strong><output for="volumen-sonido">0%</output></span>
+                    <input type="range" id="volumen-sonido" min="0" max="100" value="0" />
+                </label>
+                <label class="configuracion-control">
+                    <span><strong>Música de fondo</strong><output for="volumen-musica">0%</output></span>
+                    <input type="range" id="volumen-musica" min="0" max="100" value="0" />
+                </label>
+            </section>
+
+            <section class="configuracion-grupo" aria-labelledby="config-visual">
+                <h3 id="config-visual">VISUAL</h3>
+                <label class="configuracion-switch">
+                    <span><strong>Modo oscuro</strong><small>Aplica tonos oscuros</small></span>
+                    <input type="checkbox" id="config-modo-oscuro" />
+                    <span class="switch-pista" aria-hidden="true"></span>
+                </label>
+                <div class="controles-preferencias controles-configuracion">
+                    <button type="button" class="btn-modo-preferencia" aria-label="Cambiar tema" title="Cambiar tema">
+                        <span class="icono-modo luna" aria-hidden="true">🌙</span>
+                        <span class="icono-modo sol" aria-hidden="true">☀️</span>
+                    </button>
+                    <form method="post" class="form-idioma-preferencia">
+                        <?= SesionSegura::campoCsrf() ?>
+                        <label class="etiqueta-idioma-preferencia" for="idioma-configuracion">Idioma</label>
+                        <select name="idioma" id="idioma-configuracion" aria-label="Idioma" data-autoenviar>
+                            <option value="es" <?= ($_SESSION['idioma'] ?? 'es') === 'es' ? 'selected' : '' ?>>ESP</option>
+                            <option value="en" <?= ($_SESSION['idioma'] ?? 'es') === 'en' ? 'selected' : '' ?>>ENG</option>
+                        </select>
+                        <input type="hidden" name="cambiar_idioma" value="1" />
+                    </form>
+                </div>
+                <div class="configuracion-calidad">
+                    <strong>Calidad de detalles</strong>
+                    <div class="opciones-calidad" role="group" aria-label="Calidad de detalles">
+                        <button type="button" data-calidad="baja">Baja</button>
+                        <button type="button" data-calidad="media" class="activo">Media</button>
+                        <button type="button" data-calidad="alta">Alta</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="configuracion-grupo" aria-labelledby="config-jugabilidad">
+                <h3 id="config-jugabilidad">JUGABILIDAD</h3>
+                <label class="configuracion-switch">
+                    <span><strong>Animaciones</strong><small>Movimientos de piezas y transiciones</small></span>
+                    <input type="checkbox" id="config-animaciones" checked />
+                    <span class="switch-pista" aria-hidden="true"></span>
+                </label>
+            </section>
+
+            <section class="configuracion-grupo configuracion-general" aria-labelledby="config-utilidades">
+                <h3 id="config-utilidades">UTILIDADES</h3>
+                <nav class="sidebar-nav" aria-label="Opciones generales">
+                    <a href="<?= e(urlAplicacion('calculadora')) ?>" class="sidebar-item">Calculadora de puntos</a>
+                </nav>
+            </section>
+        </div>
     </aside>
 
     <header class="encabezado-home">
@@ -63,6 +127,22 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 
         <div class="titulo-principal">
             <h1>DRAFT DER MAUER</h1>
+        </div>
+
+        <div class="controles-preferencias controles-home">
+            <button type="button" class="btn-modo-preferencia" aria-label="Cambiar tema" title="Cambiar tema">
+                <span class="icono-modo luna" aria-hidden="true">🌙</span>
+                <span class="icono-modo sol" aria-hidden="true">☀️</span>
+            </button>
+            <form method="post" class="form-idioma-preferencia">
+                <?= SesionSegura::campoCsrf() ?>
+                <label class="etiqueta-idioma-preferencia" for="idioma-home">Idioma</label>
+                <select name="idioma" id="idioma-home" aria-label="Idioma" data-autoenviar>
+                    <option value="es" <?= ($_SESSION['idioma'] ?? 'es') === 'es' ? 'selected' : '' ?>>ESP</option>
+                    <option value="en" <?= ($_SESSION['idioma'] ?? 'es') === 'en' ? 'selected' : '' ?>>ENG</option>
+                </select>
+                <input type="hidden" name="cambiar_idioma" value="1" />
+            </form>
         </div>
 
         <div class="icono-perfil" id="btn-abrir-perfil" title="Editar Perfil">
@@ -85,7 +165,12 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
     <main class="panel-central">
         <div class="columna-botones">
             <button type="button" class="btn-mauer btn-principal" id="btn-abrir-crear-partida">CREAR PARTIDA</button>
-            <button type="button" class="btn-mauer btn-icono" data-alerta="Tienda">T</button>
+            <a href="<?= e(urlAplicacion('tienda')) ?>" class="btn-mauer btn-icono btn-enlace-centrado" aria-label="Abrir tienda">
+                <svg class="tienda-icono" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M9 8h30l4 12a5 5 0 0 1-9 3 5 5 0 0 1-10 0 5 5 0 0 1-10 0 5 5 0 0 1-9-3L9 8Zm0 17a8 8 0 0 0 5 2 8 8 0 0 0 5-2 8 8 0 0 0 5 2 8 8 0 0 0 5-2 8 8 0 0 0 5 2 8 8 0 0 0 5-2v18H9V25Z" />
+                    <path d="M13 30h9v7h-9zm13 0h8v13h-8z" class="tienda-icono-detalle" />
+                </svg>
+            </a>
         </div>
 
         <div class="seccion-tablero">
@@ -94,12 +179,29 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
 
         <div class="columna-botones">
             <a href="unirse" class="btn-mauer btn-principal btn-enlace-centrado">UNIRSE A PARTIDA</a>
-            <button type="button" class="btn-mauer btn-icono" data-alerta="Info">I</button>
+            <button type="button" class="btn-mauer btn-icono btn-info" aria-label="Información">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                    <circle cx="24" cy="24" r="22" />
+                    <path d="M22 20h4v15h-4zM24 13a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" class="info-glifo" />
+                </svg>
+            </button>
         </div>
     </main>
 
     <footer class="pie-home">
-        <button type="button" class="btn-mauer btn-principal btn-historial" data-alerta="Jugadas: <?= (int) $partidasJugadas ?>&#10;Ganadas: <?= (int) $partidasGanadas ?>">HISTORIAL</button>
+        <section class="tarjeta-historial" aria-labelledby="titulo-historial">
+            <h2 id="titulo-historial">HISTORIAL</h2>
+            <div class="historial-resumen">
+                <div class="historial-dato">
+                    <span>Partidas jugadas</span>
+                    <strong><?= (int) $partidasJugadas ?></strong>
+                </div>
+                <div class="historial-dato">
+                    <span>Partidas ganadas</span>
+                    <strong><?= (int) $partidasGanadas ?></strong>
+                </div>
+            </div>
+        </section>
     </footer>
 
     <!-- Modal Crear Partida -->
@@ -227,7 +329,20 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
         </div>
     </div>
 
+    <div class="modal-perfil-overlay" id="modal-info" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="titulo-modal-info" hidden>
+        <section class="tarjeta-perfil tarjeta-info">
+            <div class="encabezado-modal">
+                <h2 id="titulo-modal-info">Información del juego</h2>
+                <button type="button" class="btn-cerrar-modal" id="btn-cerrar-info" aria-label="Cerrar">×</button>
+            </div>
+            <p>Draft Der Mauer es un juego de estrategia por turnos ambientado en el Muro de Berlín. Crea una partida o únete a una sala para jugar.</p>
+            <p>La calculadora te ayuda a registrar las fichas y consultar el puntaje de cada recinto.</p>
+            <a class="btn-mauer btn-principal btn-enlace-centrado tarjeta-info-enlace" href="<?= e(urlAplicacion('calculadora')) ?>">Abrir calculadora</a>
+        </section>
+    </div>
+
     <script src="js/comun.js"></script>
+    <script src="js/preferencias.js"></script>
     <script src="js/home.js"></script>
     <script src="js/traduccion.js"></script>
 </body>
