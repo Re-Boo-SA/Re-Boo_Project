@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Re-Boo: servidor web local",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-S",
+				"127.0.0.1:8000",
+				"-t",
+				"Capa Presentación"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

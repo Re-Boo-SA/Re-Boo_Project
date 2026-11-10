@@ -1137,6 +1137,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 30px 20px;
+    overflow-y: auto;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.8);
 }
@@ -1225,6 +1226,72 @@ body {
     transform: scale(1.2);
 }
 
+.controles-audio {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.controles-audio h3 {
+    color: #d90429;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.boton-audio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: #111827;
+    color: #ffffff;
+    font: inherit;
+    font-size: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.boton-audio:hover {
+    border-color: #d90429;
+    background: #1c2541;
+}
+
+.boton-audio:focus-visible,
+.control-volumen input:focus-visible {
+    outline: 2px solid #ef233c;
+    outline-offset: 3px;
+}
+
+.control-volumen {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #edf2f4;
+    font-size: 0.8rem;
+}
+
+.control-volumen input {
+    width: 100%;
+    accent-color: #d90429;
+    cursor: pointer;
+}
+
+.estado-audio {
+    min-height: 1em;
+    color: #8d99ae;
+    font-size: 0.75rem;
+}
+
 /* Modo Claro Crema */
 body.modo-claro {
     background-color: #d8cbb5 !important;
@@ -1276,6 +1343,29 @@ body.modo-claro .btn-cerrar-sidebar {
 body.modo-claro .toggle-modo {
     background-color: #cbbeaa !important;
     border-color: #a89880 !important;
+}
+
+body.modo-claro .controles-audio {
+    border-color: #c0b29d;
+    background: rgba(43, 35, 25, 0.05);
+}
+
+body.modo-claro .boton-audio {
+    border-color: #a89880;
+    background: #d8cbb5;
+    color: #2b2319;
+}
+
+body.modo-claro .boton-audio:hover {
+    background: #cbbeaa;
+}
+
+body.modo-claro .control-volumen {
+    color: #2b2319;
+}
+
+body.modo-claro .estado-audio {
+    color: #6b5c49;
 }
 
 body.modo-claro .tarjeta-perfil,

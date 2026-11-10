@@ -200,5 +200,16 @@
   "Si otra persona tiró el dado, solo podés colocar en Militares.": "If another player rolled the die, you can only place pieces in Military.",
   "Si otra persona tiró el dado, no podés colocar en Fábrica.": "If another player rolled the die, you cannot place pieces in Factory.",
   "Si vos tiraste el dado, tenés que mover una ficha ya colocada. Si tiró otra persona, jugás normalmente.": "If you rolled the die, you must move a piece already on the board. If another player rolled it, play as usual.",
-  "Si otra persona tiró el dado, solo podés colocar en Espías.": "If another player rolled the die, you can only place pieces in Spies."
+  "Si otra persona tiró el dado, solo podés colocar en Espías.": "If another player rolled the die, you can only place pieces in Spies.",
+  "Música y sonido": "Music & sound",
+  "Música de fondo": "Background music",
+  "Volumen de la música": "Music volume",
+  "Sonidos de botones": "Button sounds",
+  "Activados": "On",
+  "Desactivados": "Off",
+  "Reproducir música": "Play music",
+  "Pausar música": "Pause music",
+  "Este navegador no es compatible con el audio.": "Audio is not supported by this browser.",
+  "Audio preparado.": "Audio ready.",
+  "No se pudo cargar la música de fondo.": "Could not load the background music."
 }

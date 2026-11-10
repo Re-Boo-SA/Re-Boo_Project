@@ -36,7 +36,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
     <link rel="stylesheet" href="css/estilo.css" />
 </head>
 
-<body class="cuerpo-home-pc">
+<body class="cuerpo-home-pc" data-idioma="<?= htmlspecialchars($_SESSION['idioma'] ?? 'es', ENT_QUOTES, 'UTF-8') ?>">
 
     <div id="overlay-sidebar" class="overlay-sidebar"></div>
 
@@ -56,6 +56,22 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
                     <span class="icono-modo sol" id="btn-sol">☀️</span>
                 </div>
             </div>
+            <section class="controles-audio" aria-labelledby="titulo-controles-audio">
+                <h3 id="titulo-controles-audio">Música y sonido</h3>
+                <button type="button" class="boton-audio" id="btn-toggle-musica" aria-pressed="false">
+                    <span aria-hidden="true">▶</span>
+                    <span id="texto-toggle-musica">Reproducir música</span>
+                </button>
+                <label class="control-volumen" for="volumen-musica">
+                    <span>Música de fondo</span>
+                    <input type="range" id="volumen-musica" min="0" max="100" value="28" aria-label="Volumen de la música">
+                </label>
+                <button type="button" class="boton-audio boton-efectos" id="btn-toggle-efectos" aria-pressed="true">
+                    <span>Sonidos de botones</span>
+                    <span id="estado-efectos">Activados</span>
+                </button>
+                <span class="estado-audio" id="estado-audio" aria-live="polite"></span>
+            </section>
             <a href="CalculadoraT.php" class="sidebar-item">Calculadora</a>
         </nav>
     </aside>
@@ -220,6 +236,7 @@ $existeFoto = file_exists(__DIR__ . '/' . $rutaFoto);
     </div>
 
     <script src="js/home.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/traduccion.js"></script>
     <script>
         if ('<?= $_SESSION['idioma'] ?? "es" ?>' === 'en') {
