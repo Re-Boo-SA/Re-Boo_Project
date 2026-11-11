@@ -6,6 +6,7 @@ interface IPersistenciaUsuario
 {
     public function buscarPorIdentificador(string $identificador): ?Usuario;
     public function existeCorreo(string $correo): bool;
-    public function existeNombreUsuario(string $nombreUsuario): bool;
+    public function existeNombreUsuario(string $nombreUsuario, int $excluirId = 0): bool;
+    public function actualizarContra(int $idUsuario, string $contraHash): bool;
 }
 ?>

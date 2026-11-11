@@ -37,7 +37,7 @@ class PersistenciaJugadas implements IPersistenciaJugadas
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
 
-            echo "Error de conexión en PersistenciaJugadas: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaJugadas: "  . $e->getMessage());
         }
     }
 }

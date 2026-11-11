@@ -34,7 +34,7 @@ class PersistenciaFicha implements IPersistenciaFicha
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaFicha: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaFicha: "  . $e->getMessage());
         }
     }
 }

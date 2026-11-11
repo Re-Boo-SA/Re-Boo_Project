@@ -33,7 +33,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaJugador: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaJugador: "  . $e->getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ class PersistenciaJugador implements IPersistenciaJugador
                 if ($this->conn->inTransaction()) {
                     $this->conn->rollBack();
                 }
-                print ("Error al dar de alta jugador completo: " . $e->getMessage());
+                error_log("Error al dar de alta jugador completo: " . $e->getMessage());
                 return false;
             }
         }
@@ -126,7 +126,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al buscar jugador: " . $e->getMessage());
+            error_log("Error al buscar jugador: " . $e->getMessage());
         }
 
         return null;
@@ -164,7 +164,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al listar jugadores: " . $e->getMessage());
+            error_log("Error al listar jugadores: " . $e->getMessage());
         }
 
         return $jugadores;
@@ -184,7 +184,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             $stmt->closeCursor();
             return true;
         } catch (\PDOException $e) {
-            print ("Error al dar de baja jugador: " . $e->getMessage());
+            error_log("Error al dar de baja jugador: " . $e->getMessage());
             return false;
         }
     }
@@ -251,7 +251,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             if ($this->conn->inTransaction()) {
                 $this->conn->rollBack();
             }
-            print ("Error al gestionar la baja del jugador: " . $e->getMessage());
+            error_log("Error al gestionar la baja del jugador: " . $e->getMessage());
             return 'error';
         }
     }
@@ -292,7 +292,7 @@ class PersistenciaJugador implements IPersistenciaJugador
             if ($this->conn->inTransaction()) {
                 $this->conn->rollBack();
             }
-            print("Error al modificar el jugador: " . $e->getMessage());
+            error_log("Error al modificar el jugador: " . $e->getMessage());
             return false;
         }
     }

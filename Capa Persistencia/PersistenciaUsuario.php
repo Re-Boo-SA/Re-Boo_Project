@@ -31,7 +31,7 @@ class PersistenciaUsuario implements IPersistenciaUsuario
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo ("Error de conexión en PersistenciaUsuario: " . $e->getMessage());
+            error_log("Error de conexión en PersistenciaUsuario: " . $e->getMessage());
         }
     }
 
@@ -43,12 +43,12 @@ class PersistenciaUsuario implements IPersistenciaUsuario
 
         $sql = "SELECT IDUsuario, Correo, Contra, NombreUsuario, Rol, BajaLogica 
                 FROM USUARIOS 
-                WHERE (Correo = :identificador OR NombreUsuario = :identificador) AND BajaLogica = 0
+                WHERE (Correo = :correo OR NombreUsuario = :nombre) AND BajaLogica = 0
                 LIMIT 1";
 
         try {
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':identificador' => $identificador]);
+            $stmt->execute([':correo' => $identificador, ':nombre' => $identificador]);
             $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($reader) {
@@ -63,7 +63,7 @@ class PersistenciaUsuario implements IPersistenciaUsuario
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al buscar usuario por identificador: " . $e->getMessage());
+            error_log("Error al buscar usuario por identificador: " . $e->getMessage());
         }
 
         return null;
@@ -82,27 +82,44 @@ class PersistenciaUsuario implements IPersistenciaUsuario
             return ((int) $stmt->fetchColumn()) > 0;
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al verificar existencia de correo: " . $e->getMessage());
+            error_log("Error al verificar existencia de correo: " . $e->getMessage());
             return false;
         }
     }
 
-    public function existeNombreUsuario(string $nombreUsuario): bool
+    public function existeNombreUsuario(string $nombreUsuario, int $excluirId = 0): bool
     {
         if ($this->conn === null) {
             return false;
         }
 
-        $sql = "SELECT COUNT(*) FROM USUARIOS WHERE NombreUsuario = ?";
+        // La collation de la tabla es insensible a mayúsculas y tildes: "Pepe" y "pépe" chocan.
+        $sql = "SELECT COUNT(*) FROM USUARIOS WHERE NombreUsuario = ? AND IDUsuario <> ?";
         try {
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$nombreUsuario]);
+            $stmt->execute([$nombreUsuario, $excluirId]);
             return ((int) $stmt->fetchColumn()) > 0;
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al verificar existencia de nombre de usuario: " . $e->getMessage());
+            error_log("Error al verificar existencia de nombre de usuario: " . $e->getMessage());
             return false;
         }
     }
+
+    public function actualizarContra(int $idUsuario, string $contraHash): bool
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+
+        try {
+            $stmt = $this->conn->prepare("UPDATE USUARIOS SET Contra = ? WHERE IDUsuario = ?");
+            return $stmt->execute([$contraHash, $idUsuario]);
+        } catch (\PDOException $e) {
+            error_log("Error al actualizar la contraseña: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 ?>

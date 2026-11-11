@@ -1,0 +1,123 @@
+<?php
+
+if (defined('REBOO_ARRANQUE')) {
+    return;
+}
+define('REBOO_ARRANQUE', true);
+
+require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/CabecerasSeguridad.php');
+require_once(__DIR__ . '/SesionSegura.php');
+
+$modoDesarrollo = SeguridadLogica::modoDesarrollo();
+error_reporting(E_ALL);
+ini_set('display_errors', $modoDesarrollo ? '1' : '0');
+ini_set('log_errors', '1');
+$carpetaLogs = AuditoriaLogica::carpetaLogs();
+if (is_dir($carpetaLogs) || @mkdir($carpetaLogs, 0750, true)) {
+    ini_set('error_log', $carpetaLogs . '/php_errores.log');
+}
+
+function mostrarPaginaError(int $codigo): never
+{
+    $codigoError = $codigo;
+    require(__DIR__ . '/../error.php');
+    exit();
+}
+
+set_exception_handler(function (Throwable $e) use ($modoDesarrollo) {
+    error_log('Excepción no controlada: ' . $e->getMessage() . ' en ' . $e->getFile() . ':' . $e->getLine());
+    if ($modoDesarrollo) {
+        echo '<pre>' . htmlspecialchars((string) $e, ENT_QUOTES, 'UTF-8') . '</pre>';
+        exit();
+    }
+    mostrarPaginaError(500);
+});
+
+CabecerasSeguridad::enviar(defined('PAGINA_USA_RECAPTCHA'));
+
+if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 3 * 1024 * 1024) {
+    mostrarPaginaError(413);
+}
+
+SesionSegura::iniciar();
+
+function urlAplicacion(string $ruta = ''): string
+{
+    $rutaActual = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    $rutaActual = is_string($rutaActual) ? $rutaActual : '/';
+
+    if (preg_match('~^(.*?)/DraftDerMauer(?:/|$)~', $rutaActual, $coincidencias)) {
+        $base = $coincidencias[1] . '/DraftDerMauer';
+    } else {
+        $directorio = dirname(rawurldecode($rutaActual));
+        $segmentos = array_map('rawurlencode', array_filter(explode('/', trim($directorio, '/')), 'strlen'));
+        $base = $segmentos === [] ? '' : '/' . implode('/', $segmentos);
+
+        $rutasDirectas = [
+            'login' => 'login.php',
+            'registro' => 'registro.php',
+            'inicio' => 'inicioHome.php',
+            'calculadora' => 'CalculadoraT.php',
+            'auditoria' => 'auditoria.php',
+            'panel-admin' => 'panel_admin.php',
+            'unirse' => 'unirse_partida.php',
+            'tienda' => 'tienda.php',
+            'error' => 'error.php',
+            'estado' => 'estado.php',
+            'cerrar-sesion' => 'logout.php',
+            'perfil' => 'perfil.php',
+            'crear-partida' => 'procesar_crear_partida.php',
+            'unirse-partida' => 'procesar_unirse_partida.php'
+        ];
+
+        $ruta = trim($ruta, '/');
+        if ($ruta === '') {
+            return $base . '/';
+        }
+        if (!isset($rutasDirectas[$ruta])) {
+            throw new InvalidArgumentException('La ruta de la aplicación no es válida.');
+        }
+
+        return $base . '/' . rawurlencode($rutasDirectas[$ruta]);
+    }
+
+    if ($base === 'DraftDerMauer') {
+        $base = '/' . $base;
+    }
+
+    $ruta = trim($ruta, '/');
+    if ($ruta !== '' && !preg_match('/\A[a-z0-9-]+\z/i', $ruta)) {
+        throw new InvalidArgumentException('La ruta de la aplicación no es válida.');
+    }
+
+    return $base . ($ruta === '' ? '/' : '/' . $ruta);
+}
+
+$paginasPublicas = [
+    'index.php',
+    'login.php',
+    'registro.php',
+    'error.php',
+    'estado.php',
+    'index',
+    'login',
+    'registro',
+    'error',
+    'estado'
+];
+$paginaActual = basename($_SERVER['SCRIPT_NAME'] ?? '');
+
+if (!in_array($paginaActual, $paginasPublicas, true) && !SesionSegura::estaAutenticado()) {
+    SesionSegura::redirigirAlLogin('Acceso restringido: iniciá sesión para continuar.');
+}
+
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && !SesionSegura::verificarCsrf()) {
+    (new AuditoriaLogica())->registrar('csrf_invalido', 'aviso', isset($_SESSION['usuario_id']) ? (int) $_SESSION['usuario_id'] : null, null, $paginaActual);
+    mostrarPaginaError(403);
+}
+
+function e(?string $texto): string
+{
+    return htmlspecialchars($texto ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}

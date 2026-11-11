@@ -31,7 +31,7 @@ class PersistenciaAdmin implements IPersistenciaAdmin
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaAdmin: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaAdmin: "  . $e->getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ class PersistenciaAdmin implements IPersistenciaAdmin
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al buscar admin: " . $e->getMessage());
+            error_log("Error al buscar admin: " . $e->getMessage());
         }
 
         return null;
@@ -98,7 +98,7 @@ class PersistenciaAdmin implements IPersistenciaAdmin
             }
             $stmt->closeCursor();
         } catch (\PDOException $e) {
-            print ("Error al listar admins: " . $e->getMessage());
+            error_log("Error al listar admins: " . $e->getMessage());
         }
 
         return $admins;

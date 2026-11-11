@@ -21,6 +21,10 @@ require_once(__DIR__ . '/IPartidaLogica.php');
 require_once(__DIR__ . '/PartidaLogica.php');
 require_once(__DIR__ . '/IRecintoLogica.php');
 require_once(__DIR__ . '/RecintoLogica.php');
+require_once(__DIR__ . '/ISkinsLogica.php');
+require_once(__DIR__ . '/SkinsLogica.php');
+require_once(__DIR__ . '/IAuditoriaLogica.php');
+require_once(__DIR__ . '/AuditoriaLogica.php');
 
 class FachadaLogica
 {
@@ -53,5 +57,16 @@ class FachadaLogica
     {
         return new RecintoLogica();
     }
+
+    public function retornoISkinsLogica(): ISkinsLogica
+    {
+        return new SkinsLogica();
+    }
+
+    public function retornoIAuditoriaLogica(): IAuditoriaLogica
+    {
+        return new AuditoriaLogica();
+    }
+
 }
 ?>

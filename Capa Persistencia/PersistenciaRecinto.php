@@ -34,7 +34,7 @@ class PersistenciaRecinto implements IPersistenciaRecinto
             $conexionBD = new ConexionBD();
             $this->conn = $conexionBD->connect();
         } catch (Exception $e) {
-            echo "Error de conexión en PersistenciaRecinto: " . $e->getMessage();
+            error_log("Error de conexión en PersistenciaRecinto: "  . $e->getMessage());
         }
     }
 }
