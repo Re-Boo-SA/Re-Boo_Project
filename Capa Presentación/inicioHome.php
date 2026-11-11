@@ -38,7 +38,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
     <link rel="stylesheet" href="css/estilo.css" />
 </head>
 
-<body class="cuerpo-home-pc" data-idioma="<?= e($_SESSION['idioma'] ?? 'es') ?>">
+<body class="cuerpo-home-pc" data-idioma="<?= htmlspecialchars($_SESSION['idioma'] ?? 'es', ENT_QUOTES, 'UTF-8') ?>">
 
     <div id="overlay-sidebar" class="overlay-sidebar"></div>
 
@@ -53,6 +53,24 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
                     <path d="m43 27.1-4-3.1a15.7 15.7 0 0 0 0-4l4-3.1-4-7-4.8 1.8a16.5 16.5 0 0 0-3.5-2L30 4h-8l-1 5.7a16.5 16.5 0 0 0-3.5 2L12.7 10l-4 7 4 3.1a15.7 15.7 0 0 0 0 4l-4 3.1 4 7 4.8-1.8a16.5 16.5 0 0 0 3.5 2L22 42h8l1-5.7a16.5 16.5 0 0 0 3.5-2l4.8 1.8 4-7ZM26 30a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" />
                 </svg>
             </div>
+            <section class="controles-audio" aria-labelledby="titulo-controles-audio">
+                <h3 id="titulo-controles-audio">Música y sonido</h3>
+                <button type="button" class="boton-audio" id="btn-toggle-musica" aria-pressed="false">
+                    <span aria-hidden="true">▶</span>
+                    <span id="texto-toggle-musica">Reproducir música</span>
+                </button>
+                <label class="control-volumen" for="volumen-musica">
+                    <span>Música de fondo</span>
+                    <input type="range" id="volumen-musica" min="0" max="100" value="28" aria-label="Volumen de la música">
+                </label>
+                <button type="button" class="boton-audio boton-efectos" id="btn-toggle-efectos" aria-pressed="true">
+                    <span>Sonidos de botones</span>
+                    <span id="estado-efectos">Activados</span>
+                </button>
+                <span class="estado-audio" id="estado-audio" aria-live="polite"></span>
+            </section>
+            <a href="CalculadoraT.php" class="sidebar-item">Calculadora</a>
+        </nav>
 
             <section class="configuracion-grupo" aria-labelledby="config-audio">
                 <h3 id="config-audio">AUDIO</h3>
@@ -344,6 +362,7 @@ $versionFoto = $existeFoto ? (int) filemtime(__DIR__ . '/' . $rutaFoto) : 0;
     <script src="js/comun.js"></script>
     <script src="js/preferencias.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/traduccion.js"></script>
 </body>
 </html>
