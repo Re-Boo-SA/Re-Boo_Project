@@ -1,0 +1,346 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_10",
+ "titulo": "Capítulo 10: El hermano",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_10"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un vecino",
+  "agente": "Un desconocido",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La última foto del sobre es una estación vacía. Un banco. Y en el borde, fuera de foco, un hombre de abrigo gris."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "estacion_abandonada",
+   "actores": [
+    "lukas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "horario"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una pequeña estación abandonada · 1962",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "estacion"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Me dijo que iba a venir. No me dijo cuándo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Espero."
+  },
+  {
+   "tipo": "paseo",
+   "texto": "Esperá",
+   "minimo": 2,
+   "fin": {
+    "actor": "martin",
+    "accion": "Acercarse"
+   },
+   "puntos": [
+    {
+     "objeto": "frente_horario",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "El horario es de antes de la guerra. Alguien lo tachó y nadie lo cambió.",
+       "segundos": 4
+      }
+     ]
+    },
+    {
+     "objeto": "frente_banco",
+     "accion": "Sentarse",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Una hora.",
+       "segundos": 2
+      },
+      {
+       "tipo": "tarjeta",
+       "texto": "Dos horas.",
+       "segundos": 2
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "triste",
+       "texto": "…"
+      }
+     ]
+    },
+    {
+     "objeto": "frente_vias",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "triste",
+       "texto": "Por acá nos íbamos con papá a la laguna. Martin me llevaba de la mano."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "mover",
+   "actor": "martin",
+   "a": "encuentro",
+   "segundos": 3,
+   "esperar": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "viktor",
+   "a": "viktor_encuentro",
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Unos cuarenta y cinco años. Envejecido. Un abrigo gris.",
+   "segundos": 3
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Es Martin Adler.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "Creciste."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor llora, aunque intenta que no se note.",
+   "segundos": 3
+  },
+  {
+   "tipo": "elegir",
+   "clave": "recuerdo_martin",
+   "pregunta": "¿De qué hablan primero?",
+   "opciones": [
+    {
+     "valor": "infancia",
+     "texto": "De cuando éramos chicos."
+    },
+    {
+     "valor": "padres",
+     "texto": "De mamá y papá."
+    },
+    {
+     "valor": "casa",
+     "texto": "De la casa donde crecimos."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "recuerdo_martin",
+   "valor": "infancia",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "contento",
+     "texto": "Te subías al techo del galpón para ver los aviones del puente aéreo. Te tenía que bajar a los gritos."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "neutral",
+     "texto": "Y vos me decías que un día nos íbamos a ir en uno."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "recuerdo_martin",
+   "valor": "padres",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "triste",
+     "texto": "Mamá escondía la radio debajo de la cama. Decía que si la escuchaban los vecinos, nos llevaban a todos."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "triste",
+     "texto": "Papá nunca más dijo tu nombre."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "recuerdo_martin",
+   "valor": "casa",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "neutral",
+     "texto": "El tercer escalón crujía. Yo lo saltaba para que no me oyeran volver tarde."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "triste",
+     "texto": "La casa ya no existe. La calle tampoco."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Por qué desapareciste?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "triste",
+   "texto": "Me reclutaron para una red clandestina. Al principio llevaba documentos. Después, personas."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "triste",
+   "texto": "Descubrí que a algunos de los que huían los mataban, para usar su desaparición como propaganda."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "Quise irme. Falk me dijo que si me iba, mataba a toda la familia. Desaparecí para protegerte."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "golpe"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor lo golpea. Martin no se defiende.",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "triste",
+   "texto": "Tenía miedo de que te mataran por mi culpa."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Y lo lograste igual. Me dejaste solo."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Se van juntos. Pero Martin sabe que no tiene mucho tiempo: Erich Falk ya sabe dónde está.",
+   "segundos": 5
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto IV",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

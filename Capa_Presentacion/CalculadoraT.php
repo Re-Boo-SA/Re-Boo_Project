@@ -1,0 +1,482 @@
+<?php
+require_once(__DIR__ . '/Seguridad/arranque.php');
+require_once(__DIR__ . '/../Capa_Logica/FachadaLogica.php');
+
+SesionSegura::exigirRol('jugador');
+
+if (isset($_POST['cambiar_idioma'])) {
+    $_SESSION['idioma'] = in_array($_POST['idioma'] ?? '', ['es', 'en', 'de'], true) ? $_POST['idioma'] : 'es';
+    header('Location: ' . urlAplicacion('calculadora'));
+    exit();
+}
+
+$idiomaActual = $_SESSION['idioma'] ?? 'es';
+$traduccionesCalculadora = [];
+if ($idiomaActual !== 'es') {
+    $contenidoTraducciones = file_get_contents(__DIR__ . '/lang/' . $idiomaActual . '.json');
+    if ($contenidoTraducciones === false) {
+        throw new RuntimeException('No se pudo cargar el archivo de traducciones.');
+    }
+
+    $traduccionesCalculadora = json_decode($contenidoTraducciones, true, 512, JSON_THROW_ON_ERROR);
+}
+
+?>
+<!DOCTYPE html>
+<html lang="<?= htmlspecialchars($idiomaActual, ENT_QUOTES, 'UTF-8') ?>">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><?= ['en' => 'Draft Der Mauer - Calculator', 'de' => 'Draft Der Mauer - Rechner'][$idiomaActual] ?? 'Draft Der Mauer - Calculadora' ?></title>
+    <link rel="icon" type="image/png" href="./img/imgPestania/LogoBabyDraftDerMauer.png" />
+    <link rel="stylesheet" href="css/fuentes.css" />
+    <link rel="stylesheet" href="css/CalculadoraEstilo.css" />
+</head>
+
+<body>
+
+    <header class="encabezado-principal">
+        <div class="titulo">
+            <h1>DRAFT DER MAUER</h1>
+            <p class="subtitulo">CALCULADORA OFICIAL DE PUNTOS</p>
+        </div>
+        <div class="controles-encabezado">
+            <a href="<?= e(urlAplicacion('inicio')) ?>" class="boton-menu-calculadora">Volver al menú</a>
+            <button type="button" class="btn-modo-calculadora" id="btn-modo-calculadora" aria-label="Cambiar modo claro" title="Cambiar modo claro">
+                <span class="icono-modo luna" aria-hidden="true">🌙</span>
+                <span class="icono-modo sol" aria-hidden="true">☀️</span>
+            </button>
+            <form method="POST" class="form-idioma-calculadora">
+                <?= SesionSegura::campoCsrf() ?>
+                <label class="sr-only" for="select-idioma-calculadora">Idioma</label>
+                <select name="idioma" id="select-idioma-calculadora" aria-label="Idioma" data-autoenviar>
+                    <option value="es" <?= $idiomaActual === 'es' ? 'selected' : '' ?>>ESP</option>
+                    <option value="en" <?= $idiomaActual === 'en' ? 'selected' : '' ?>>ENG</option>
+                    <option value="de" <?= $idiomaActual === 'de' ? 'selected' : '' ?>>DEU</option>
+                </select>
+                <input type="hidden" name="cambiar_idioma" value="1">
+            </form>
+        </div>
+    </header>
+
+    <main class="calculadora-maxima-anashe">
+
+        <aside class="columna-panel-izquierdo">
+            <section class="caja-puntuacion-total">
+                <div class="titulo-seccion">
+                    <h2>PUNTUACIÓN TOTAL</h2>
+                </div>
+                <div class="marcador-gigante"><?= (int) ($_SESSION['total'] ?? 0) ?></div>
+                <p class="leyenda">PUNTUACIÓN TOTAL</p>
+            </section>
+            
+            <section class="panel-izquierdo-categorias">
+                <h3>DESGLOSE POR RECINTO</h3>
+                <ul class="lista-sectores">
+                    <li><span class="nombre-sector">Oeste</span> <strong id="pts-oeste">0 pts.</strong></li>
+                    <li><span class="nombre-sector">Fábrica</span> <strong id="pts-fabrica">0 pts.</strong></li>
+                    <li><span class="nombre-sector">Espias</span> <strong id="pts-espias">0 pts.</strong></li>
+
+                    <li><span class="nombre-sector">Politicos</span> <strong id="pts-politicos">0 pts.</strong></li>
+                    <li><span class="nombre-sector">Este</span> <strong id="pts-este">0 pts.</strong></li>
+                    <li><span class="nombre-sector">Militares</span> <strong id="pts-militares">0 pts.</strong></li>
+
+                    <li class="item-muro"><span class="nombre-sector">El Muro</span> <strong id="pts-muro">0 pts.</strong></li>
+                </ul>
+            </section>
+            <button type="button" class="btn-salir" id="btn-salir">CERRAR CALCULADORA</button>
+        </aside>
+
+
+        <section class="columna-panel-central">
+            <div class="tablero-juego">
+
+                <div class="columna-tablero-izq">
+                    <article class="recinto-juego" data-sector="OesteR" data-capacidad="6" data-reglas="libre">
+                       <header><h4>Oeste</h4><span>Max: 6</span></header>
+                       <div class="fichas-colocadas" id="fichas-oeste">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                            <div class="sector-recinto" data-posicion="2"></div>
+                            <div class="sector-recinto" data-posicion="3"></div>
+                            <div class="sector-recinto" data-posicion="4"></div>
+                            <div class="sector-recinto" data-posicion="5"></div>
+                            <div class="sector-recinto" data-posicion="6"></div>
+                        </div> 
+                    </article>
+
+                    <article class="recinto-juego" data-sector="FabricaR" data-capacidad="3" data-reglas="solo-obreros">
+                        <header><h4>Fábrica</h4><span>Max: 3</span></header>
+                        <div class="fichas-colocadas" id="fichas-fabrica">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                            <div class="sector-recinto" data-posicion="2"></div>
+                            <div class="sector-recinto" data-posicion="3"></div>
+                        </div>
+                    </article>
+                    
+                    <article class="recinto-juego" data-sector="EspiasR" data-capacidad="2" data-reglas="solo-espias">
+                        <header><h4>Espias</h4><span>Max: 2</span></header>            
+                        <div class="fichas-colocadas" id="fichas-espias">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                            <div class="sector-recinto" data-posicion="2"></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="columna-tablero-muro">
+                    <article class="recinto-muro" data-sector="MuroR" data-regla="DiMuro">
+                        <h4>Muro Central</h4>
+                        <p>Cualquier ficha</p>
+                        <div class="fichas-colocadas" id="fichas-muro"></div>
+                    </article>
+                </div>
+
+                <div class="columna-tablero-der">
+                    <article class="recinto-juego" data-sector="PoliticosR" data-capacidad="1" data-reglas="solo-politicos">
+                       <header><h4>Politicos</h4><span>Max: 1</span></header>                 
+                        <div class="fichas-colocadas" id="fichas-politicos">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                        </div> 
+                    </article>
+
+                    <article class="recinto-juego" data-sector="EsteR" data-capacidad="6" data-reglas="libre">
+                        <header><h4>Este</h4><span>Max: 6</span></header>      
+                        <div class="fichas-colocadas" id="fichas-este">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                            <div class="sector-recinto" data-posicion="2"></div>
+                            <div class="sector-recinto" data-posicion="3"></div>
+                            <div class="sector-recinto" data-posicion="4"></div>
+                            <div class="sector-recinto" data-posicion="5"></div>
+                            <div class="sector-recinto" data-posicion="6"></div>
+                        </div>
+                    </article>
+                    
+                    <article class="recinto-juego" data-sector="MilitaresR" data-capacidad="3" data-reglas="solo-militares">
+                        <header><h4>Militares</h4><span>Max: 3</span></header>                  
+                        <div class="fichas-colocadas" id="fichas-militares">
+                            <div class="sector-recinto" data-posicion="1"></div>
+                            <div class="sector-recinto" data-posicion="2"></div>
+                            <div class="sector-recinto" data-posicion="3"></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <section class ="panel-fichas">
+                <div class="titulo-seccion">
+                    <h3>FICHAS DISPONIBLES</h3>
+                    <span class="tag-estado" id="recinto-seleccionado">Selecciona un recinto del tablero</span>
+                </div>
+
+                <div class="espacio-fichas">
+                    <button type="button" class="btn-ficha" data-ficha="tropa" disabled>
+                        <img src="img/juego/TropaDraftDerMauer.png" alt="Tropa">
+                        <span>Tropa</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="Oficial" disabled>
+                        <img src="img/juego/OficialDraftDerMauer.png" alt="Oficial Militar">
+                        <span>Oficial Militar</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="general" disabled>
+                        <img src="img/juego/GeneralDraftDerMauer.png" alt="General">
+                        <span>General</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="peon" disabled>
+                        <img src="img/juego/PeonDraftDerMauer.png" alt="Peon">
+                        <span>Peon</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="OficialMujer" disabled>
+                        <img src="img/juego/OficialMujerDraftDerMauer.png" alt="Oficial Obrera">
+                        <span>Oficial Obrera</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="cabo" disabled>
+                        <img src="img/juego/ACaboDraftDerMauer.png" alt="Cabo">
+                        <span>Cabo</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="Ursula" disabled>
+                        <img src="img/juego/UrsulaEspiaDraftDerMauer.png" alt="Ursula Espía">
+                        <span>Ursula</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="Markus" disabled>
+                        <img src="img/juego/MarkusEspiaDraftDerMauer.png" alt="Markus Espía">
+                        <span>Markus</span>
+                    </button>
+
+                    <button type="button" class="btn-ficha" data-ficha="Politico" disabled>
+                        <img src="img/juego/PoliticoDraftDerMauer.png" alt="Politico">
+                        <span>Politico</span>
+                    </button>
+                </div>
+            </section>
+        </section>
+
+        <aside class="columna-panel-derecho">
+
+            <section class="caja-dado">
+            <div class="titulo-seccion">
+                <h2>DADO</h2>
+            </div>
+
+            <button type="button" class="btn-selector-dado" id="btn-abrir-dado">
+                <span class="imagen-cara-activa"> 
+                    <img src="img/juego/CaraVaciaDadoDraftDerMauer.png" alt="Dado sin cara seleccionada" id="imagen-cara-activa"> 
+                </span>
+                <span class="info-dado">
+                    <strong id="nombre-cara-activa">
+                     SELECCIONAR LA CARA QUE SALIÓ EN EL DADO
+                    </strong> 
+                    <small id="sub-cara-activa">Elegí el resultado del dado</small>
+                </span>
+            </button>
+
+            <div class="opciones-cara" id="menu-caras-dado" hidden>
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="lado-izquierdo"
+                    data-nombre="Bloqueo del lado izquierdo"
+                    data-descripcion="No podés colocar fichas en los tres recintos del lado izquierdo."
+                    data-imagen="img/juego/NoIzquierdoDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/NoIzquierdoDadoDraftDerMauer.png"
+                        alt="Cara del dado: bloqueo del lado izquierdo"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Lado izquierdo</strong>
+                        <small>No se puede colocar allí</small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="lado-derecho"
+                    data-nombre="Bloqueo del lado derecho"
+                    data-descripcion="No podés colocar fichas en los tres recintos del lado derecho."
+                    data-imagen="img/juego/NoDerechoDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/NoDerechoDadoDraftDerMauer.png"
+                        alt="Cara del dado: bloqueo del lado derecho"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Lado derecho</strong>
+                        <small>No se puede colocar allí</small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="solo-militares"
+                    data-nombre="Solo Militares"
+                    data-descripcion="Solo se puede colocar en el recinto de Militares, abajo a la derecha."
+                    data-imagen="img/juego/SoloRecintoMilitaresDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/SoloRecintoMilitaresDadoDraftDerMauer.png"
+                        alt="Cara del dado: solo Militares"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Solo Militares</strong>
+                        <small>Recinto inferior derecho</small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="bloquea-fabrica"
+                    data-nombre="Bloqueo de Fábrica"
+                    data-descripcion="No podés colocar fichas en el recinto de Fábrica, ubicado en el medio a la izquierda."
+                    data-imagen="img/juego/NoFabricaDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/NoFabricaDadoDraftDerMauer.png"
+                        alt="Cara del dado: bloqueo de Fábrica"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Bloqueo de Fábrica</strong>
+                        <small>Recinto central izquierdo</small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="cambiar-ficha"
+                    data-nombre="Cambio de ficha"
+                    data-descripcion="Permite cambiar de lugar una ficha del jugador que tiró el dado. La acción corresponde a ese jugador."
+                    data-imagen="img/juego/ReacomodarFichaDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/ReacomodarFichaDadoDraftDerMauer.png"
+                        alt="Cara del dado: cambiar ficha"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Cambiar ficha</strong>
+                        <small>Mover una ficha del jugador</small>
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-opcion-cara"
+                    data-cara="solo-espias"
+                    data-nombre="Solo Espías"
+                    data-descripcion="La colocación queda restringida al recinto de Espías, abajo a la izquierda."
+                    data-imagen="img/juego/SoloEspiasDadoDraftDerMauer.png"
+                >
+                    <img
+                        src="img/juego/SoloEspiasDadoDraftDerMauer.png"
+                        alt="Cara del dado: solo Espías"
+                    >
+
+                    <span class="datos-opcion-cara">
+                        <strong>Solo Espías</strong>
+                        <small>Recinto inferior izquierdo</small>
+                    </span>
+                </button>
+            </div>
+
+            <div class="control-turno-dado">
+
+                <input
+                    type="checkbox"
+                    id="es-mi-turno-dado"
+                >
+
+                <label for="es-mi-turno-dado">
+                    Es mi turno de tirar el dado
+                </label>
+
+            </div>
+
+            </section>
+
+            <section class="caja-explicacion">
+
+                <h3>ⓘ EFECTO Y EXPLICACIÓN</h3>
+
+                <div class="caja-texto-efecto" id="texto-efecto-dado">
+                    <h4>Sin cara seleccionada</h4>
+                    <p>
+                        Seleccioná la cara que salió en el dado físico para consultar su efecto y las restricciones correspondientes.
+                    </p>
+                </div>
+            </section>
+
+            <section class="caja-turnos">
+                <h3>PROGRESO DE LA PARTIDA</h3>
+                <div class="control-ronda">
+                    <span>RONDA ACTUAL</span>
+                    <strong id="ronda-val">
+                        Ronda: 1 / 2
+                    </strong>
+                </div>
+
+                <div class="control-turno">
+                    <span>TURNO ACTUAL</span>
+                    <strong id="turno-val">
+                        Turno: 1 / 6
+                    </strong>
+                </div> 
+
+                <div id="barra-turno">
+                    <div id="barra-turno-fill"></div>
+                </div>
+
+                <button type="button" class="btn-siguiente-turno" id="btn-siguiente-turno">SIGUIENTE TURNO</button>
+            </section>
+        </aside>
+    </main>
+
+    <div id="modal-puntuacion-final" class="modal-puntuacion" hidden>
+
+        <section class="contenedor-modal-puntuacion">
+
+            <header class="encabezado-puntuacion-final">
+                <h2 id="titulo-puntuacion-final">PUNTUACIÓN FINAL</h2>
+                <p>Resumen de tu partida</p>
+            </header>
+
+            <section class="resumen-puntuacion-final">
+                <h3>PUNTUACIÓN TOTAL FINAL</h3>
+                <p>
+                    <strong id="total-puntuacion-final">0</strong>
+                    <span>puntos</span>
+                </p>
+            </section>
+
+            <section class="detalle-puntuacion-final">
+                <h3>POR RECINTO</h3>
+
+                <ul id="lista-puntos-por-recinto">
+                    <li>
+                        <span>Oeste</span>
+                        <strong id="final-pts-oeste">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Fábrica</span>
+                        <strong id="final-pts-fabrica">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Espías</span>
+                        <strong id="final-pts-espias">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Políticos</span>
+                        <strong id="final-pts-politicos">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Este</span>
+                        <strong id="final-pts-este">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Militares</span>
+                        <strong id="final-pts-militares">0 pts</strong>
+                    </li>
+                    <li>
+                        <span>Muro central</span>
+                        <strong id="final-pts-muro">0 pts</strong>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="detalle-fichas-final">
+                <h3>POR FICHA EN RECINTO</h3>
+
+                <div id="lista-puntos-por-ficha">
+                    <p class="mensaje-sin-puntuacion">
+                        El detalle de las fichas aparecerá al finalizar la partida.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="pie-modal-puntuacion">
+                <button type="button" id="btn-cerrar-calculadora">CERRAR CALCULADORA</button>
+            </footer>
+
+        </section>
+    </div>
+    <script nonce="<?= CabecerasSeguridad::nonce() ?>">
+        window.calculadoraIdioma = <?= json_encode($idiomaActual, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
+        window.calculadoraTraducciones = <?= json_encode($traduccionesCalculadora, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
+    </script>
+    <script src="js/comun.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

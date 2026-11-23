@@ -1,0 +1,319 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_13",
+ "titulo": "Capítulo 13: La caja de Friedrichstraße",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_13"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto trece es solo una mano abierta. En la palma, una llave chiquita."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Bahnhof Friedrichstraße · Pocos días después",
+   "segundos": 3
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "La estación queda en el Este, pero algunos andenes siguen siendo del Oeste: desde ahí se cambia de tren sin pasar el control. Igual, todo está vigilado.",
+   "segundos": 5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "friedrichstrasse",
+   "actores": [
+    "anneliese",
+    "thomas",
+    "lukas",
+    "trapo_1",
+    "trapo_2"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "paquete",
+    "vagon_1",
+    "vagon_2",
+    "vagon_3"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "estacion"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Martin dijo que está en un armario de mantenimiento, al fondo del andén."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "La Transportpolizei pasa cada pocos minutos. Que no te vean abrirlo."
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "trapo_1",
+    "trapo_2"
+   ],
+   "meta": "meta_paquete",
+   "radio": 45,
+   "texto": "Llegá al armario sin que te vean"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "paquete",
+   "texto": "Abrí la caja",
+   "accion": "Abrir con la llave de Martin"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fotos de familia. Documentos de los años treinta. Registros bancarios. Cartas. Una cinta grabada. Y un cuaderno escrito a mano por su padre.",
+   "segundos": 6,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "escena",
+   "mapa": "departamento",
+   "actores": [
+    "anneliese",
+    "thomas",
+    "lukas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "caja"
+  },
+  {
+   "tipo": "elegir",
+   "clave": "primero_caja",
+   "pregunta": "¿Qué mira primero?",
+   "opciones": [
+    {
+     "valor": "fotos",
+     "texto": "Las fotos."
+    },
+    {
+     "valor": "cuaderno",
+     "texto": "El cuaderno."
+    },
+    {
+     "valor": "cartas",
+     "texto": "Las cartas."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "primero_caja",
+   "valor": "fotos",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "En una foto, su madre se ríe. Martin, de chico, le tapa la lente a la cámara.",
+     "segundos": 4
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "primero_caja",
+   "valor": "cuaderno",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "La letra de su padre. Nombres, fechas, montos. Y una palabra que se repite: «Morgen».",
+     "segundos": 4
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "primero_caja",
+   "valor": "cartas",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Cartas que nunca se mandaron, dirigidas a «mis hijos». Ninguna tiene fecha.",
+     "segundos": 4
+    }
+   ]
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Escuchá la grabación",
+   "zona": "frente_fotos",
+   "radio": 80,
+   "accion": "Poner la cinta"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "La voz de su padre.",
+   "segundos": 2,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "neutral",
+   "texto": "En los últimos meses de la guerra empecé a trabajar con una red de funcionarios."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "neutral",
+   "texto": "Se quedaban con la plata, los nombres y los papeles de gente perseguida."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "neutral",
+   "texto": "Después de la guerra, la red se partió. Unos terminaron en el Oeste. Otros, en el Este."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "neutral",
+   "texto": "La Guerra Fría les dio el escenario perfecto para seguir."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "neutral",
+   "texto": "No eran espías al servicio de una idea. Eran criminales que usaban las ideas como herramientas."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "padre",
+   "emocion": "triste",
+   "texto": "Si estás escuchando esto, Viktor, quiere decir que encontraron a nuestra familia. No confíes en nadie que te diga que está tratando de salvarte."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor apaga la grabadora.",
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Mira a Anneliese. Después, a Lukas.",
+   "segundos": 3
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Por primera vez, no confía en ninguno de los dos.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto V",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

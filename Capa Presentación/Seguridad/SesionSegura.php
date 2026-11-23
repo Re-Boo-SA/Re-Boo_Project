@@ -107,7 +107,7 @@ class SesionSegura
         }
 
         $fachada = new FachadaLogica();
-        if ($fachada->retornoIUsuarioLogica()->cargarUsuario($idUsuario, $rol) === null) {
+        if (call_user_func([$fachada->retornoIUsuarioLogica(), 'cargarUsuario'], $idUsuario, $rol) === null) {
             $auditoria->registrar('sesion_revocada', 'aviso', $idUsuario, null, 'La cuenta ya no está activa con el rol ' . $rol);
             self::cerrar();
             session_start();

@@ -1,0 +1,377 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_14",
+ "titulo": "Capítulo 14: El hombre que vendía la paz",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 350,
+  "logro": "nacht_capitulo_14"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Weiss",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto catorce: una mansión iluminada, de noche. Autos caros en la entrada."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto VI · El Arquitecto",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "escena",
+   "mapa": "departamento",
+   "actores": [
+    "anneliese",
+    "thomas",
+    "lukas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1962",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "plan"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Encontré a Konrad Weiss. Empresario respetado: propiedades, inversiones, amigos en la política."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Da cenas privadas y financia obras de beneficencia. Nadie sospecharía de él."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "El sábado recibe a varios funcionarios en su casa de las afueras. Ahí están los papeles del Arquitecto."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Weiss juega después de la cena. Siempre. Alguien tiene que sentarse con él y tenerlo ocupado."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Yo juego. Ustedes suben."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "mansion",
+   "actores": [
+    "weiss",
+    "invitado_1",
+    "invitado_2",
+    "invitado_3",
+    "guardia_1"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos",
+    "carta"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una mansión en las afueras · Después de la cena",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "cena"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "neutral",
+   "texto": "Usted no es de los habituales. Me gustan las caras nuevas: todavía no aprendieron a mentir conmigo."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Sentate a la mesa de Weiss",
+   "zona": "weiss",
+   "radio": 90,
+   "accion": "Sentarse a jugar"
+  },
+  {
+   "tipo": "partida",
+   "id": "mesa_weiss",
+   "bot": 110,
+   "quien": "weiss",
+   "reglas": {
+    "rondas": 1
+   },
+   "nombre": "La mesa de Konrad Weiss",
+   "texto": "Ganale a Weiss en su mesa y mantenelo ocupado",
+   "invitacion": "Una partida, señor... ¿cómo dijo que se llamaba? Las cenas son largas; las partidas, más.",
+   "perdiste": "Perdió. En esta casa se juega hasta ganar. Otra.",
+   "enJuego": "La partida sigue en la mesa. Weiss espera."
+  },
+  {
+   "tipo": "guardar",
+   "punto": "partida"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "neutral",
+   "texto": "Bien jugado. Disculpe: una llamada. Siga disfrutando de la casa."
+  },
+  {
+   "tipo": "mover",
+   "actor": "weiss",
+   "a": "salida",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "desaparecer",
+   "actores": [
+    "weiss"
+   ]
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "guardia_1"
+   ],
+   "meta": "oficina",
+   "radio": 45,
+   "texto": "Subí a la oficina sin que te vea el guardia"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "anneliese",
+    "thomas",
+    "lukas"
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "oficina"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Abrimos la caja fuerte. Hay más de lo que esperábamos."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "fotos",
+   "texto": "Mirá lo que hay en la pared",
+   "accion": "Mirar las fotos",
+   "quedarse": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una foto de Anneliese de chica, de la mano de su padre.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "carta",
+   "texto": "Leé la carta del escritorio",
+   "accion": "Leer la carta",
+   "quedarse": true
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "La carta está dirigida a Anneliese. Su padre había descubierto la red. Su detención se negoció con funcionarios occidentales.",
+   "segundos": 5,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Su desaparición no fue un accidente. Fue una operación conjunta.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Toda mi vida pensé que se lo había llevado el Este. Fueron los dos."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "weiss"
+   ],
+   "en": "weiss_entra"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Konrad Weiss no parece sorprendido. Parece que los estaba esperando.",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "contento",
+   "texto": "Tardaron bastante."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "neutral",
+   "texto": "¿De verdad creen que pueden destruir una organización que lleva veinte años construyéndose?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Quién es el Arquitecto?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "neutral",
+   "texto": "Yo no soy el Arquitecto."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "weiss",
+   "emocion": "contento",
+   "texto": "Lo conocen mucho mejor de lo que creen."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Thomas entiende algo. Mira a Lukas. Lukas no se mueve.",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "triste",
+   "texto": "No puede ser..."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Lukas saca una pistola. Apunta a Viktor.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 14",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+/* Página «Personalizar» */
+.pestanas-personalizar { display: flex; gap: 0.4rem; margin-bottom: 1rem; }
+.pestanas-personalizar button { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid #2e3552; background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.pestanas-personalizar button[aria-selected="true"] { background: #f4c430; color: #14161b; border-color: #f4c430; font-weight: 700; }
+.editor { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 1.2rem; align-items: start; }
+.editor[hidden] { display: none; }
+@media (max-width: 760px) { .editor { grid-template-columns: 1fr; } }
+.vista-previa { position: sticky; top: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 1rem; border-radius: 12px; background: #0e1427; }
+#vista-personaje { width: 192px; height: 288px; image-rendering: pixelated; background: radial-gradient(circle at 50% 70%, #26304f, #0e1427 70%); border-radius: 10px; }
+.botones-vista { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.botones-vista button, .opciones button, .muestras button { font: inherit; color: inherit; cursor: pointer; }
+.botones-vista button { padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid #2e3552; background: #1b2440; }
+.controles fieldset { border: 1px solid #2e3552; border-radius: 10px; padding: 0.6rem 0.8rem; margin: 0 0 0.8rem; }
+.controles legend { padding: 0 0.3rem; font-weight: 700; }
+.opciones { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.2rem 0 0.5rem; }
+.opciones button { padding: 0.3rem 0.65rem; border-radius: 999px; border: 1px solid #2e3552; background: transparent; }
+.opciones button[aria-pressed="true"] { background: #f4c430; color: #14161b; border-color: #f4c430; }
+.muestras { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin: 0.2rem 0 0.5rem; }
+.muestras button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #0e1427; outline: 1px solid #2e3552; padding: 0; }
+.muestras button[aria-pressed="true"] { outline: 3px solid #f4c430; }
+.muestras input[type="color"] { width: 34px; height: 28px; border: none; background: none; padding: 0; cursor: pointer; }
+.muestras small { opacity: 0.7; margin-left: 0.2rem; }
+.campo { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.6rem; }
+.campo input[type="text"], .campo textarea { padding: 0.45rem 0.6rem; border-radius: 8px; border: 1px solid #2e3552; background: #0e1427; color: inherit; font: inherit; }
+.emojis { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.emojis button { font-size: 1.15rem; padding: 0.1rem 0.35rem; border-radius: 6px; border: 1px solid transparent; background: transparent; cursor: pointer; }
+.emojis button:hover { border-color: #2e3552; }
+.marcos { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.5rem; }
+.marcos button { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.5rem; border-radius: 10px; border: 1px solid #2e3552; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.marcos button[aria-pressed="true"] { border-color: #f4c430; }
+.marcos button:disabled { opacity: 0.45; cursor: not-allowed; }
+.marcos .anillo { width: 34px; height: 34px; border-radius: 50%; background: #1b2440; }
+.marcos small { font-size: 0.75rem; opacity: 0.8; text-align: center; }
+.insignias-elegir label { display: flex; gap: 0.4rem; align-items: center; margin: 0.15rem 0; }
+.vista-tarjeta .tarjeta-perfil { position: static; width: 100%; max-width: 360px; margin: 0; }
+.acciones-personalizar { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+#guardar { padding: 0.6rem 1.6rem; border-radius: 10px; border: none; background: #f4c430; color: #14161b; font: inherit; font-weight: 700; cursor: pointer; }
+#guardar:disabled { opacity: 0.6; cursor: wait; }

@@ -12,8 +12,8 @@ if (PHP_SAPI === 'cli-server') {
         exit();
     }
 
-    if (preg_match('#^/DraftDerMauer/(css|fonts|img|js|lang)/(.+)$#', $rutaSolicitada, $coincidencias)) {
-        $directorioRecursos = realpath(__DIR__ . '/Capa Presentación/' . $coincidencias[1]);
+    if (preg_match('#^/DraftDerMauer/(css|fonts|img|js|lang|Music)/(.+)$#', $rutaSolicitada, $coincidencias)) {
+        $directorioRecursos = realpath(__DIR__ . '/Capa_Presentacion/' . $coincidencias[1]);
         $recurso = $directorioRecursos === false
             ? false
             : realpath($directorioRecursos . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $coincidencias[2]));
@@ -46,6 +46,7 @@ if (PHP_SAPI === 'cli-server') {
             'woff2' => 'font/woff2',
             'ttf' => 'font/ttf',
             'otf' => 'font/otf',
+            'mp3' => 'audio/mpeg',
         ];
         $extension = strtolower(pathinfo($recurso, PATHINFO_EXTENSION));
         if (!isset($tiposMime[$extension])) {
@@ -71,17 +72,40 @@ if (PHP_SAPI === 'cli-server') {
         '/DraftDerMauer/auditoria' => 'auditoria.php',
         '/DraftDerMauer/panel-admin' => 'panel_admin.php',
         '/DraftDerMauer/unirse' => 'unirse_partida.php',
+        '/DraftDerMauer/tienda' => 'tienda.php',
         '/DraftDerMauer/cerrar-sesion' => 'logout.php',
         '/DraftDerMauer/perfil' => 'perfil.php',
         '/DraftDerMauer/crear-partida' => 'procesar_crear_partida.php',
         '/DraftDerMauer/unirse-partida' => 'procesar_unirse_partida.php',
+        '/DraftDerMauer/partida' => 'partida.php',
+        '/DraftDerMauer/api-partida' => 'api_partida.php',
+        '/DraftDerMauer/ranking' => 'ranking.php',
+        '/DraftDerMauer/competitivo' => 'competitivo.php',
+        '/DraftDerMauer/api-cola' => 'api_cola.php',
+        '/DraftDerMauer/mundo' => 'mundo.php',
+        '/DraftDerMauer/api-mundo' => 'api_mundo.php',
+        '/DraftDerMauer/api-calcular' => 'api_calcular.php',
+        '/DraftDerMauer/galeria' => 'galeria.php',
+        '/DraftDerMauer/tutorial' => 'tutorial.php',
+        '/DraftDerMauer/amigos' => 'amigos.php',
+        '/DraftDerMauer/api-social' => 'api_social.php',
+        '/DraftDerMauer/torneos' => 'torneos.php',
+        '/DraftDerMauer/personalizar' => 'personalizar.php',
+        '/DraftDerMauer/api-torneos' => 'api_torneos.php',
+        '/DraftDerMauer/campana' => 'campana.php',
+        '/DraftDerMauer/api-campana' => 'api_campana.php',
+        '/DraftDerMauer/reportes' => 'reportes.php',
     ];
     $rutas = $rutasPublicas + $rutasProtegidas;
 
-    if (isset($rutas[$rutaSolicitada])) {
-        $archivo = $rutas[$rutaSolicitada];
-        $_SERVER['SCRIPT_NAME'] = '/Capa Presentación/' . $archivo;
-        $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/Capa Presentación/' . $archivo;
+    $rutaNormalizada = $rutaSolicitada === '/DraftDerMauer/'
+        ? $rutaSolicitada
+        : rtrim($rutaSolicitada, '/');
+
+    if (isset($rutas[$rutaNormalizada])) {
+        $archivo = $rutas[$rutaNormalizada];
+        $_SERVER['SCRIPT_NAME'] = '/Capa_Presentacion/' . $archivo;
+        $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/Capa_Presentacion/' . $archivo;
         require $_SERVER['SCRIPT_FILENAME'];
         exit();
     }

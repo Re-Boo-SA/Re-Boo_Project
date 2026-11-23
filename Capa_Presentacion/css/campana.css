@@ -1,0 +1,97 @@
+/* ===== Campaña "Nacht über Berlin" (etapa D) ===== */
+:root { --ambar: #f4c430; --papel: #efe9d8; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; color: #eef1f7; font-family: Inter, system-ui, sans-serif; }
+#juego { position: fixed; inset: 0; }
+.franja { position: fixed; left: 0; right: 0; height: 0; background: #000; z-index: 5; transition: height 0.6s ease; pointer-events: none; }
+.franja.arriba { top: 0; } .franja.abajo { bottom: 0; }
+.franjas-visibles .franja { height: 11vh; }
+.fundido { position: fixed; inset: 0; background: #000; opacity: 1; z-index: 6; pointer-events: none; transition-property: opacity; transition-timing-function: ease; }
+.tarjeta { position: fixed; inset: 0; z-index: 7; display: grid; place-items: center; background: rgba(0, 0, 0, 0.82); }
+.tarjeta[hidden] { display: none; }
+.tarjeta p { margin: 0 1.5rem; font-family: "Saira Stencil One", Georgia, serif; font-size: clamp(1.3rem, 3.4vw, 2.4rem); letter-spacing: 0.06em; text-align: center; color: #e9e4cc; }
+.tarjeta.documento { background: rgba(0, 0, 0, 0.6); }
+.tarjeta.documento p { font-family: "Courier New", monospace; background: var(--papel); color: #1a1a1a; padding: 1.4rem 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.6); letter-spacing: 0.12em; transform: rotate(-1.5deg); }
+.dialogo-campana { position: fixed; left: 50%; bottom: calc(11vh + 1rem); transform: translateX(-50%); width: min(820px, calc(100vw - 1.4rem)); display: grid; grid-template-columns: 96px 1fr; gap: 1rem;
+  padding: 0.9rem 1.1rem; background: rgba(9, 12, 26, 0.94); border: 1px solid #2e3552; border-radius: 12px; z-index: 8; cursor: pointer; }
+.dialogo-campana[hidden], .eleccion[hidden] { display: none; }
+.retrato-campana { width: 96px; height: 96px; image-rendering: pixelated; border-radius: 50%; border: 2px solid var(--ambar); background: #121a33; }
+.nombre-campana { margin: 0 0 0.3rem; font-weight: 700; color: var(--ambar); }
+.texto-campana { margin: 0; font-size: 1.05rem; line-height: 1.45; min-height: 3em; }
+.seguir { margin: 0.4rem 0 0; font-size: 0.72rem; color: #9aa3b5; text-align: right; }
+.eleccion { position: fixed; left: 50%; bottom: calc(11vh + 1rem); transform: translateX(-50%); width: min(560px, calc(100vw - 1.4rem)); padding: 1rem; background: rgba(9, 12, 26, 0.96);
+  border: 1px solid var(--ambar); border-radius: 12px; z-index: 8; display: grid; gap: 0.5rem; }
+.eleccion p { margin: 0 0 0.3rem; color: #9aa3b5; }
+#eleccion-opciones { display: grid; gap: 0.5rem; }
+.eleccion button { padding: 0.7rem 0.9rem; border-radius: 8px; border: 1px solid #2e3552; background: #0e1427; color: #eef1f7; font: inherit; text-align: left; cursor: pointer; }
+.eleccion button:hover, .eleccion button:focus-visible { border-color: var(--ambar); outline: none; }
+.objetivo-campana { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); margin: 0; padding: 0.45rem 1rem; background: rgba(9, 12, 26, 0.86); border: 1px solid var(--ambar);
+  border-radius: 999px; z-index: 4; font-size: 0.92rem; max-width: calc(100vw - 7rem); }
+.objetivo-campana[hidden], .mensaje-campana[hidden] { display: none; }
+.mensaje-campana { position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%); margin: 0; padding: 0.8rem 1.4rem; background: rgba(120, 10, 20, 0.9); border-radius: 10px;
+  font-size: 1.3rem; font-weight: 700; z-index: 9; }
+.portada { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: radial-gradient(circle at 50% 30%, #1b2440, #04060d 70%); }
+.portada[hidden] { display: none; }
+.portada-caja { width: min(560px, calc(100vw - 2rem)); text-align: center; }
+.portada h1 { font-family: "Saira Stencil One", Georgia, serif; font-size: clamp(2rem, 6vw, 3.4rem); margin: 0; color: #e9e4cc; letter-spacing: 0.04em; }
+.portada h2 { margin: 0.4rem 0 1.2rem; font-weight: 600; color: var(--ambar); }
+.aviso-ficcion { font-size: 0.88rem; color: #b8bfcc; border: 1px solid #2e3552; border-radius: 8px; padding: 0.7rem; }
+.portada-botones { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin: 1.2rem 0 0.8rem; }
+.boton-campana { padding: 0.7rem 1.3rem; border-radius: 999px; border: 1px solid var(--ambar); background: var(--ambar); color: #0b132b; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+.boton-campana.secundario { background: transparent; color: #eef1f7; border-color: #4a5372; }
+.ayuda-campana { font-size: 0.78rem; color: #7d8597; }
+.salir-campana { position: fixed; top: 0.8rem; left: 0.8rem; z-index: 11; padding: 0.35rem 0.8rem; border-radius: 999px; background: rgba(9, 12, 26, 0.8); color: #c9ced6; text-decoration: none; font-size: 0.85rem; border: 1px solid #2e3552; }
+@media (prefers-reduced-motion: reduce) { .franja, .fundido { transition: none; } }
+
+/* Cartelito "E ..." al acercarse a algo (igual que en Berlín) */
+.indicacion-campana { position: fixed; left: 50%; bottom: calc(11vh + 1.2rem); transform: translateX(-50%); display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--ambar); background: rgba(9, 12, 26, 0.92); color: #eef1f7; font: inherit; font-size: 0.95rem; z-index: 8; cursor: pointer; }
+.indicacion-campana[hidden] { display: none; }
+.indicacion-campana kbd { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; border-radius: 6px; background: var(--ambar); color: #0b132b; font-weight: 800; font-family: inherit; }
+@media (hover: none) { .indicacion-campana kbd { display: none; } }
+
+/* ===== Combate táctico por turnos ===== */
+.panel-combate { position: fixed; right: 0.8rem; top: 3.4rem; width: min(300px, calc(100vw - 1.6rem)); padding: 0.8rem; background: rgba(9, 12, 26, 0.93);
+  border: 1px solid #2e3552; border-radius: 12px; z-index: 8; font-size: 0.88rem; }
+.panel-combate[hidden] { display: none; }
+.combate-objetivo { margin: 0 0 0.3rem; font-weight: 700; color: var(--ambar); }
+.combate-ronda { margin: 0 0 0.5rem; color: #c9ced6; }
+.combate-unidades { list-style: none; margin: 0 0 0.5rem; padding: 0; display: grid; gap: 0.25rem; }
+.combate-unidades li { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.25rem 0.4rem; border-radius: 6px; cursor: pointer; }
+.combate-unidades li.elegido { background: #1b2440; outline: 1px solid var(--ambar); }
+.combate-unidades li.enemigo { cursor: default; color: #f2b8b8; }
+.combate-unidades li.caido { opacity: 0.45; text-decoration: line-through; }
+.combate-ayuda { margin: 0 0 0.6rem; font-size: 0.75rem; color: #9aa3b5; }
+.combate-botones { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.combate-botones .boton-campana { padding: 0.45rem 0.9rem; font-size: 0.85rem; }
+.combate-botones button[hidden] { display: none; }
+.combate-botones button:disabled { opacity: 0.45; cursor: default; }
+@media (max-width: 700px) { .panel-combate { top: auto; bottom: 0.6rem; right: 0.6rem; left: 0.6rem; width: auto; } .combate-ayuda { display: none; } }
+
+/* Cuenta regresiva (interrogatorio y persecución) y medidores */
+.cuenta { height: 6px; border-radius: 3px; background: #2e3552; overflow: hidden; margin-top: 0.4rem; }
+.cuenta[hidden], .medidor[hidden] { display: none; }
+.cuenta span { display: block; height: 100%; width: 100%; background: var(--ambar); transition: width 0.1s linear; }
+.medidor { margin: 0.3rem 0 0; font-size: 0.85rem; color: #c9ced6; }
+.final-siguiente[hidden], #final-siguiente[hidden] { display: none; }
+
+/* Cerradura (minijuego de la ganzúa) */
+.cerradura { position: fixed; left: 50%; bottom: calc(11vh + 1rem); transform: translateX(-50%); width: min(520px, calc(100vw - 1.4rem)); padding: 1rem;
+  background: rgba(9, 12, 26, 0.96); border: 1px solid var(--ambar); border-radius: 12px; z-index: 8; text-align: center; }
+.cerradura[hidden] { display: none; }
+.cerradura p { margin: 0 0 0.6rem; }
+.barra-cerradura { position: relative; height: 22px; border-radius: 6px; background: #1b2440; overflow: hidden; margin-bottom: 0.4rem; }
+.barra-cerradura .zona { position: absolute; top: 0; bottom: 0; background: rgba(244, 196, 48, 0.45); }
+.barra-cerradura .marca { position: absolute; top: -2px; bottom: -2px; width: 4px; margin-left: -2px; background: #eef1f7; box-shadow: 0 0 6px #fff; }
+
+/* Agujas (plano de vías) */
+.panel-agujas { position: fixed; right: 0.8rem; top: 3.4rem; width: min(440px, calc(100vw - 1.6rem)); padding: 0.7rem; background: rgba(9, 12, 26, 0.94);
+  border: 1px solid #2e3552; border-radius: 12px; z-index: 8; font-size: 0.85rem; }
+.panel-agujas[hidden] { display: none; }
+.agujas-titulo { margin: 0 0 0.4rem; font-weight: 700; color: var(--ambar); }
+#agujas-plano { width: 100%; height: auto; background: #0e1427; border-radius: 8px; }
+#agujas-plano .via { stroke: #4a5372; stroke-width: 4; fill: none; }
+#agujas-plano .ruta { stroke: #f4c430; stroke-width: 5; fill: none; }
+#agujas-plano text { fill: #c9ced6; font-size: 12px; font-family: Inter, sans-serif; }
+#agujas-plano .aguja { fill: #1b2440; stroke: #c9ced6; stroke-width: 2; }
+#agujas-plano .meta { fill: #7be38a; }
+@media (max-width: 700px) { .panel-agujas { top: auto; bottom: 0.6rem; } }

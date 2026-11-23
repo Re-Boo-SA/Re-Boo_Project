@@ -1,0 +1,528 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara).",
+ "id": "capitulo_3",
+ "titulo": "Capítulo 3: La casa de los muertos",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_3"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente",
+  "agente": "Hombre de civil"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La cuarta foto es una puerta. Un departamento en Prenzlauer Berg. Al dorso, con otra letra: «No desaparecieron»."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "casa_muertos",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos",
+    "papeles",
+    "pared_nombres"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Oriental · Prenzlauer Berg · Agosto de 1961 · 4:50",
+   "segundos": 4
+  },
+  {
+   "tipo": "guardar",
+   "punto": "casa"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Acá vivía un funcionario que trabajó con mi padre. Se fue hace meses y nadie sabe adónde."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Cinco minutos. Si amanece, nos ven salir."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "fotos",
+   "texto": "Mirá las fotos de la pared",
+   "accion": "Mirar las fotos",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Caras recortadas. Alguien se llevó a las personas y dejó los marcos."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "papeles",
+   "texto": "Revisá los papeles quemados",
+   "accion": "Revisar los papeles quemados",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Quemaron todo con apuro. Esto todavía está tibio."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Entonces estuvieron acá hace poco."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Revisá la puerta cerrada",
+   "zona": "puerta_cerrada",
+   "radio": 70,
+   "accion": "Revisar la puerta"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Dejámela a mí. Y tené la linterna quieta."
+  },
+  {
+   "tipo": "mover",
+   "actor": "thomas",
+   "a": "thomas_puerta",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "cerradura",
+   "pernos": 3,
+   "quien": "thomas",
+   "texto": "Ayudá a Thomas: apretá cuando la marca esté en la zona clara"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "contento",
+   "texto": "Listo. Nunca falla."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "mover",
+   "actor": "viktor",
+   "a": "frente_pared",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "camara",
+   "actor": "viktor",
+   "zoom": 1.4,
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Cientos de nombres. Algunos tachados. Otros, con fechas.",
+   "segundos": 4
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "«No desaparecieron. Los trasladaron».",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "El nombre de mi padre está acá. Con una fecha."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "¿Y el de Martin?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "No lo veo. Pero hay demasiados."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "Alguien está abriendo la puerta de abajo."
+  },
+  {
+   "tipo": "camara",
+   "actor": "viktor",
+   "zoom": 1,
+   "segundos": 1
+  },
+  {
+   "tipo": "mover",
+   "actor": "viktor",
+   "a": "salon",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "huida"
+  },
+  {
+   "tipo": "elegir",
+   "clave": "esperar_a_friedrich",
+   "pregunta": "¿Qué hace Viktor?",
+   "opciones": [
+    {
+     "valor": "ventana",
+     "texto": "¡Por la ventana, ya!"
+    },
+    {
+     "valor": "esperar",
+     "texto": "Esperar a Friedrich, que quedó atrás."
+    }
+   ]
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "agente_1",
+    "agente_2"
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "ventana",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "¡Vayan! ¡Los alcanzo!"
+    },
+    {
+     "tipo": "persecucion",
+     "perseguidores": [
+      "agente_1",
+      "agente_2"
+     ],
+     "meta": "ventana",
+     "radio": 50,
+     "retraso": 1.4,
+     "velocidad": 0.8,
+     "texto": "¡Salí por la ventana!"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "esperar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "enojado",
+     "texto": "¡Friedrich, vamos!"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "¡No me esperes, idiota! ¡Andate!"
+    },
+    {
+     "tipo": "persecucion",
+     "perseguidores": [
+      "agente_1",
+      "agente_2"
+     ],
+     "meta": "ventana",
+     "radio": 50,
+     "retraso": 0.6,
+     "velocidad": 0.9,
+     "texto": "¡Salí por la ventana!"
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 0.6
+  },
+  {
+   "tipo": "escena",
+   "mapa": "casa_muertos",
+   "actores": [],
+   "jugador": null,
+   "props": [
+    "fotos",
+    "papeles",
+    "pared_nombres"
+   ]
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "friedrich"
+   ],
+   "en": "friedrich_atrapado"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "agente_1"
+   ],
+   "en": "agente_1_atrapa"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "agente_2"
+   ],
+   "en": "agente_2_atrapa"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 0.8
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "agente_1",
+   "emocion": "enojado",
+   "texto": "Quieto. Las manos donde las vea."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "Ya está, ya está... No hay nadie más."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "agente_2",
+   "emocion": "neutral",
+   "texto": "Eso lo vamos a decidir nosotros."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "afuera"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "¿Y Friedrich?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Venía atrás mío. Te juro que venía atrás mío."
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "esperar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "triste",
+     "texto": "Lo esperé. Igual no alcanzó."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "ventana",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "triste",
+     "texto": "Lo dejé atrás."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Voy a buscarlo."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "casa_muertos",
+   "actores": [],
+   "jugador": "viktor",
+   "props": [
+    "fotos",
+    "papeles",
+    "pared_nombres",
+    "papel"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una hora después",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "regreso"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "papel",
+   "texto": "Revisá lo que quedó en el piso",
+   "accion": "Levantar el papel"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una dirección. Una hora. Y una frase: «Vení solo si querés volver a verlo».",
+   "segundos": 5,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Friedrich..."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto I",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

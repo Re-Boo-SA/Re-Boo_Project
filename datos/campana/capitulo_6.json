@@ -1,0 +1,727 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor).",
+ "id": "capitulo_6",
+ "titulo": "Capítulo 6: El tren de las tres",
+ "duracionMinima": 60,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 350,
+  "logro": "nacht_capitulo_6"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente",
+  "agente": "Hombre de civil",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La séptima foto es un tren de carga, de noche. Atrás, dos palabras: «Projekt Morgen»."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "taller",
+   "actores": [
+    "thomas",
+    "friedrich",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "auto_taller"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Agosto de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "plan"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Esta noche sale un tren de Berlín Oriental hacia una planta industrial. Lleva documentos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Conseguí un camión. No preguntes de quién."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Y cómo se para un tren?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "No se para. Se desvía. A la vía de carga, donde no mira nadie."
+  },
+  {
+   "tipo": "si",
+   "clave": "perdon_anneliese",
+   "valor": "perdonar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "¿Esto también lo sabés por Lotte?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "Sí. Y esta vez es para nosotros."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "perdon_anneliese",
+   "valor": "no_perdonar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "¿Y por qué te vamos a creer esta vez?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "triste",
+     "texto": "Porque yo también voy a estar ahí."
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Oriental · Playa de maniobras de la Reichsbahn · 2:40",
+   "segundos": 4
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "estacion_carga",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese",
+    "trapo_1",
+    "trapo"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "palanca_A",
+    "palanca_B",
+    "palanca_C",
+    "palanca_D",
+    "locomotora",
+    "vagon_t1",
+    "vagon_t2",
+    "vagon_t3"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "playa"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Los uniformes de la Reichsbahn están en los casilleros del depósito. Sin eso no llegás ni a la garita."
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "trapo_1"
+   ],
+   "meta": "casillero",
+   "radio": 45,
+   "texto": "Entrá al depósito y llegá a los casilleros sin que te vean"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Sacá un uniforme del casillero",
+   "zona": "casillero",
+   "radio": 60,
+   "accion": "Abrir el casillero"
+  },
+  {
+   "tipo": "vestir",
+   "actor": "viktor",
+   "como": "vferroviario"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "Me queda chico. Va a tener que alcanzar."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Pasá frente al guardia de la Transportpolizei",
+   "zona": "trapo",
+   "radio": 80,
+   "accion": "Saludar al guardia"
+  },
+  {
+   "tipo": "interrogatorio",
+   "id": "guardia_playa",
+   "quien": "trapo",
+   "limite": 45,
+   "sinRespuesta": 20,
+   "segundos": 8,
+   "texto": "Que no sospeche del ferroviario nuevo",
+   "detenido": "Vos no sos de acá. Quedate quieto.",
+   "pase": "Andá. Y que no se atrase el de las tres.",
+   "preguntas": [
+    {
+     "texto": "No te conozco. ¿De qué turno sos?",
+     "opciones": [
+      {
+       "texto": "Del de la noche. Me mandaron de Lichtenberg.",
+       "sospecha": 5
+      },
+      {
+       "texto": "Del de siempre.",
+       "sospecha": 20
+      },
+      {
+       "texto": "¿Y vos quién sos para preguntar?",
+       "sospecha": 35
+      }
+     ]
+    },
+    {
+     "texto": "¿Quién es tu jefe de turno?",
+     "opciones": [
+      {
+       "texto": "El viejo Lindner.",
+       "sospecha": 5
+      },
+      {
+       "texto": "No me acuerdo el nombre.",
+       "sospecha": 25
+      },
+      {
+       "texto": "Uno con bigote.",
+       "sospecha": 15
+      }
+     ]
+    },
+    {
+     "texto": "¿Qué venís a hacer a esta hora a la playa?",
+     "opciones": [
+      {
+       "texto": "Revisar las agujas antes del tren de las tres.",
+       "sospecha": 5
+      },
+      {
+       "texto": "Lo que me mandaron.",
+       "sospecha": 15
+      },
+      {
+       "texto": "Nada, paseo.",
+       "sospecha": 35
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "agujas"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "Cuatro agujas. Si me equivoco, el tren se va a la estación y nos esperan con la policía."
+  },
+  {
+   "tipo": "agujas",
+   "id": "agujas_carga",
+   "segundos": 120,
+   "inicio": "A",
+   "meta": "via_carga",
+   "texto": "Mové las agujas para que el tren entre en la vía de carga, y dale la señal desde la garita",
+   "agujas": {
+    "A": {
+     "recta": "via_estacion",
+     "desvio": "B",
+     "palanca": "palanca_A",
+     "estado": "recta"
+    },
+    "B": {
+     "recta": "D",
+     "desvio": "C",
+     "palanca": "palanca_B",
+     "estado": "desvio",
+     "acopla": "D"
+    },
+    "C": {
+     "recta": "via_taller",
+     "desvio": "via_muerta",
+     "palanca": "palanca_C",
+     "estado": "recta"
+    },
+    "D": {
+     "recta": "via_carga",
+     "desvio": "via_cocheras",
+     "palanca": "palanca_D",
+     "estado": "recta"
+    }
+   },
+   "vias": {
+    "via_estacion": "Estación (la policía)",
+    "via_taller": "Taller",
+    "via_muerta": "Vía muerta",
+    "via_carga": "Vía de carga (ustedes)",
+    "via_cocheras": "Cocheras"
+   },
+   "acoplada": "La aguja B está acoplada a la D: al mover B, D también cambia.",
+   "plano": {
+    "A": [
+     50,
+     95
+    ],
+    "B": [
+     150,
+     95
+    ],
+    "C": [
+     250,
+     45
+    ],
+    "D": [
+     250,
+     145
+    ],
+    "via_estacion": [
+     150,
+     20
+    ],
+    "via_taller": [
+     370,
+     25
+    ],
+    "via_muerta": [
+     370,
+     70
+    ],
+    "via_carga": [
+     370,
+     125
+    ],
+    "via_cocheras": [
+     370,
+     170
+    ]
+   },
+   "garita": "garita"
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tren"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "tren",
+   "segundos": 3
+  },
+  {
+   "tipo": "mover",
+   "actor": "locomotora",
+   "a": "loco_parada",
+   "segundos": 7,
+   "esperar": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "vagon_t1",
+   "a": "t1_parada",
+   "segundos": 7,
+   "esperar": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "vagon_t2",
+   "a": "t2_parada",
+   "segundos": 7,
+   "esperar": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "vagon_t3",
+   "a": "t3_parada",
+   "segundos": 7,
+   "esperar": true
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "contento",
+   "texto": "Frenó justo donde queríamos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Cuál de los vagones?"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "vagon_t3",
+   "texto": "Buscá el vagón correcto",
+   "accion": "Abrir el vagón",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "Repuestos. Este no."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "vagon_t1",
+   "texto": "Probá con otro",
+   "accion": "Abrir el vagón",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "Carbón. Tampoco."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "vagon_t2",
+   "texto": "Probá con el del medio",
+   "accion": "Abrir el vagón",
+   "quedarse": true
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "anciano",
+    "prisionero_1",
+    "prisionero_2"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Hay gente adentro."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anciano",
+   "emocion": "triste",
+   "texto": "¿Anneliese? Sos igual a tu padre."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "¿Usted lo conoció?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anciano",
+   "emocion": "neutral",
+   "texto": "Trabajamos juntos. Él descubrió una operación. La llamaban Projekt Morgen."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anciano",
+   "emocion": "neutral",
+   "texto": "Usaban la tensión entre los dos bloques para eliminar gente y fabricar pruebas contra sus enemigos. De los dos lados."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "¿Y mi hermano? ¿Martin Adler?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anciano",
+   "emocion": "triste",
+   "texto": "Martin estaba adentro. Trabajaba para ellos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "enojado",
+   "texto": "Mentira."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "¡Luces! ¡Vienen por las vías!"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "trapo_2",
+    "trapo_3",
+    "trapo_4"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "enfrentamiento"
+  },
+  {
+   "tipo": "combate",
+   "id": "tren",
+   "mapa": "estacion_carga",
+   "lider": "vferroviario",
+   "objetivo": {
+    "tipo": "eliminar",
+    "rondas": 9
+   },
+   "texto": "Cubrí a los prisioneros: derribá a los guardias antes de que lleguen más (9 rondas)",
+   "unidades": {
+    "vferroviario": {
+     "lado": "aliado",
+     "celda": [
+      10,
+      12
+     ],
+     "vida": 4,
+     "mov": 4,
+     "punteria": 75
+    },
+    "friedrich": {
+     "lado": "aliado",
+     "celda": [
+      8,
+      13
+     ],
+     "vida": 5,
+     "mov": 4,
+     "punteria": 70
+    },
+    "anneliese": {
+     "lado": "aliado",
+     "celda": [
+      6,
+      12
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 60
+    },
+    "thomas": {
+     "lado": "aliado",
+     "celda": [
+      12,
+      14
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 60
+    },
+    "trapo_2": {
+     "lado": "enemigo",
+     "celda": [
+      21,
+      11
+     ],
+     "vida": 4,
+     "mov": 4,
+     "punteria": 60
+    },
+    "trapo_3": {
+     "lado": "enemigo",
+     "celda": [
+      22,
+      13
+     ],
+     "vida": 4,
+     "mov": 4,
+     "punteria": 55
+    },
+    "trapo_4": {
+     "lado": "enemigo",
+     "celda": [
+      20,
+      14
+     ],
+     "vida": 4,
+     "mov": 3,
+     "punteria": 55
+    }
+   }
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "nadie"
+   ],
+   "segundos": 0.4
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "anciano"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "¡No!"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anciano",
+   "emocion": "dolor",
+   "texto": "Tomá... esto es para vos, Viktor."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una foto: tres hombres. Uno es Martin. Otro es Erich Falk. El tercero lleva un traje occidental, elegante.",
+   "segundos": 5,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "triste",
+   "texto": "Martin... y Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Y el tercero?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vferroviario",
+   "emocion": "neutral",
+   "texto": "No lo conozco."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Todavía.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto II",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

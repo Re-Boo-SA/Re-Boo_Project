@@ -1,0 +1,662 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'.",
+ "id": "capitulo_7",
+ "titulo": "Capítulo 7: Los que quedaron detrás",
+ "duracionMinima": 60,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 350,
+  "logro": "nacht_capitulo_7"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un vecino",
+  "agente": "Hombre de civil",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La octava foto no tiene a nadie. Una calle, alambre y un camión. Atrás, una fecha: 13 de agosto de 1961."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto III · El Muro",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "motores",
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Domingo, 13 de agosto de 1961. Viktor se despierta con el ruido de los motores.",
+   "segundos": 4
+  },
+  {
+   "tipo": "escena",
+   "mapa": "trece_agosto",
+   "actores": [
+    "mujer",
+    "vecino",
+    "muchacho",
+    "guardia_1",
+    "guardia_2",
+    "kampf_1",
+    "kampf_2",
+    "kampf_3",
+    "cliente_1",
+    "cliente_2"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "alambre_1",
+    "alambre_2",
+    "alambre_3",
+    "alambre_4",
+    "alambre_5",
+    "camion",
+    "cartel_sbahn"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "guardar",
+   "punto": "trece"
+  },
+  {
+   "tipo": "paseo",
+   "texto": "Mirá a tu alrededor",
+   "minimo": 3,
+   "fin": {
+    "actor": "thomas",
+    "accion": "Hablar con Thomas"
+   },
+   "puntos": [
+    {
+     "objeto": "mujer",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "mujer",
+       "emocion": "triste",
+       "texto": "¡Jürgen! ¡Jürgen, quedate ahí! ¡Voy a buscarte!"
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "guardia",
+       "emocion": "enojado",
+       "texto": "Atrás. Por acá ya no pasa nadie."
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "mujer",
+       "emocion": "triste",
+       "texto": "Es mi hijo. Está del otro lado de la calle. ¡Es mi hijo!"
+      }
+     ]
+    },
+    {
+     "objeto": "frente_vecino",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "vecino",
+       "emocion": "enojado",
+       "texto": "¡Trabajo en Kreuzberg! ¡Mañana a las seis tengo turno!"
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "kampf",
+       "emocion": "enojado",
+       "texto": "Mañana no tenés nada del otro lado. Volvé a tu casa."
+      }
+     ]
+    },
+    {
+     "objeto": "frente_vias",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "cliente",
+       "emocion": "neutral",
+       "texto": "Cortaron el S-Bahn. A la una de la mañana, dicen. Los trenes al Oeste ya no pasan."
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "neutral",
+       "texto": "Y el U-Bahn, y las calles. Todo en una noche."
+      }
+     ]
+    },
+    {
+     "objeto": "frente_alambre",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Alambre de púas sobre caballetes de madera. Detrás, más rollos esperando en el camión.",
+       "segundos": 4
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "triste",
+       "texto": "Ayer cruzaba esta calle para comprar cigarrillos."
+      }
+     ]
+    },
+    {
+     "objeto": "muchacho_salta",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "muchacho",
+       "emocion": "neutral",
+       "texto": "Si no es ahora, no es nunca."
+      },
+      {
+       "tipo": "mover",
+       "actor": "muchacho",
+       "a": "muchacho_salta",
+       "segundos": 0.8
+      },
+      {
+       "tipo": "efecto",
+       "nombre": "golpe"
+      },
+      {
+       "tipo": "mover",
+       "actor": "muchacho",
+       "a": "muchacho_huye",
+       "segundos": 1.4
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "kampf",
+       "emocion": "enojado",
+       "texto": "¡Alto! ¡Alto!"
+      },
+      {
+       "tipo": "tarjeta",
+       "texto": "Salta el alambre antes de que lo alcancen. Los que quedan del otro lado lo miran irse.",
+       "segundos": 4
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "¿Qué está pasando?"
+  },
+  {
+   "tipo": "mover",
+   "actor": "viktor",
+   "a": "viktor_mira",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Están construyendo una prisión."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Ese día cambió todo. Los negocios clandestinos se volvieron más peligrosos. Las rutas de contrabando desaparecieron. Las familias quedaron separadas.",
+   "segundos": 5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Y había algo más: varios hombres habían desaparecido en las semanas anteriores. Ahora sus nombres se borraban de los registros.",
+   "segundos": 5
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "escena",
+   "mapa": "taller",
+   "actores": [
+    "thomas",
+    "friedrich",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "auto_taller"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Fines de agosto de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "plan"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Hay un edificio administrativo viejo. Ahí guardan los expedientes de los que intentaron irse al Oeste."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Si están los nombres que borraron, están ahí."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "telefono",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Sí? ... ¿Margarete?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "triste",
+   "texto": "Quiere cruzar. Esta noche. Quiere verme del otro lado."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Es una trampa."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Puede ser."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Te van a matar."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Entonces será mi problema."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "friedrich_margarete",
+   "pregunta": "¿Qué hace Viktor?",
+   "opciones": [
+    {
+     "valor": "ayudar",
+     "texto": "Darle la radio de Thomas y el arma. Si va a ir, que vaya preparado."
+    },
+    {
+     "valor": "frenar",
+     "texto": "Pararse en la puerta. No va a salir."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "friedrich_margarete",
+   "valor": "ayudar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "neutral",
+     "texto": "Gracias, Viktor. Te debo una."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "La radio tiene alcance hasta el canal. Si pasa algo, llamá."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "friedrich_margarete",
+   "valor": "frenar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Correte."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "enojado",
+     "texto": "No."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Es mi mujer, Viktor. Correte."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor se corre.",
+     "segundos": 2
+    }
+   ]
+  },
+  {
+   "tipo": "mover",
+   "actor": "friedrich",
+   "a": "anneliese_entra",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "desaparecer",
+   "actores": [
+    "friedrich"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Esa noche, el grupo escucha disparos cerca de la frontera.",
+   "segundos": 3
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "nadie"
+   ],
+   "segundos": 1.2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Al amanecer suena el teléfono.",
+   "segundos": 2
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "telefono",
+   "segundos": 2
+  },
+  {
+   "tipo": "escena",
+   "mapa": "taller",
+   "actores": [
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "auto_taller"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "llamada"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Era Lotte. Lo detuvieron en la frontera. Está en el mismo edificio de antes."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Entonces vamos a buscarlo."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "edificio",
+   "actores": [
+    "tuniforme",
+    "friedrich",
+    "guardia_1",
+    "guardia_2"
+   ],
+   "jugador": "vuniforme"
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "friedrich"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "edificio"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "tuniforme",
+   "emocion": "neutral",
+   "texto": "Los mismos uniformes. Esperemos que nadie se acuerde de la última vez."
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "guardia_1",
+    "guardia_2"
+   ],
+   "meta": "celda",
+   "radio": 45,
+   "texto": "Llegá a la celda sin que te vean"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Abrí la celda",
+   "zona": "celda",
+   "radio": 70,
+   "accion": "Abrir la celda"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "camara",
+   "actor": "friedrich",
+   "zoom": 1.6,
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Friedrich está en el piso. Le cuesta respirar.",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vuniforme",
+   "emocion": "enojado",
+   "texto": "Vamos. Nos vamos de acá."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "dolor",
+   "texto": "No pude sacarla."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Margarete murió intentando cruzar.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vuniforme",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "si",
+   "clave": "friedrich_margarete",
+   "valor": "ayudar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "dolor",
+     "texto": "Me diste la radio... Te dije que podía hacerlo."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "friedrich_margarete",
+   "valor": "frenar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "dolor",
+     "texto": "Tenías razón... Te dije que podía hacerlo. No podía."
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Friedrich muere antes de que puedan salir del edificio.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor se volvió más violento. Thomas empezó a tenerle miedo. Anneliese se sintió responsable por haberlos llevado hasta ahí.",
+   "segundos": 6
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Friedrich Keller",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto III",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

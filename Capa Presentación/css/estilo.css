@@ -1414,7 +1414,6 @@ body.modo-claro .opcion-estado.activo {
     margin-bottom: 15px;
 }
 
-/* Campo trampa del registro: invisible para personas, visible para bots que leen el HTML */
 .campo-trampa {
     position: absolute;
     left: -10000px;

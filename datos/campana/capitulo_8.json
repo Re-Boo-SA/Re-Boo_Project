@@ -1,0 +1,315 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_8",
+ "titulo": "Capítulo 8: Lukas",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 250,
+  "logro": "nacht_capitulo_8"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un vecino",
+  "agente": "Un desconocido",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La novena foto: un muchacho con la cara lastimada, apoyado en una puerta. Atrás: «Lukas Brandt»."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto IV · El hombre del otro lado",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Pasaron varios meses. Del grupo quedan tres.",
+   "segundos": 3
+  },
+  {
+   "tipo": "escena",
+   "mapa": "departamento",
+   "actores": [
+    "anneliese",
+    "thomas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Invierno de 1962",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "casa"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Comé algo, Viktor. Hace dos días que no comés."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "No tengo hambre."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "fotos",
+   "texto": "Mirá la foto de la pared",
+   "accion": "Mirar la foto",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Martin. Falk. Y el del traje."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "¿Esperamos a alguien?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "No."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Abrí la puerta",
+   "zona": "puerta",
+   "radio": 70,
+   "accion": "Abrir con el arma en la mano"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "lukas"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Del otro lado hay un hombre joven. La ropa sucia, una herida en la cara, días sin dormir.",
+   "segundos": 4
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Me llamo Lukas Brandt. Sé lo que es Projekt Morgen."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "trato_lukas",
+   "pregunta": "¿Qué hace Viktor?",
+   "opciones": [
+    {
+     "valor": "escuchar",
+     "texto": "Hablá. Tenés un minuto."
+    },
+    {
+     "valor": "echar",
+     "texto": "Andate antes de que dispare."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_lukas",
+   "valor": "echar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "lukas",
+     "emocion": "enojado",
+     "texto": "Martin Adler."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "enojado",
+     "texto": "¿Qué dijiste?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "lukas",
+     "emocion": "neutral",
+     "texto": "Martin Adler. Tu hermano. ¿Ahora me dejás pasar?"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_lukas",
+   "valor": "escuchar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "lukas",
+     "emocion": "neutral",
+     "texto": "Gracias. Lo que vengo a contarte es sobre tu hermano. Martin Adler."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Tu hermano no murió en 1948."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Lo reclutó una organización que trabajaba entre el Este y el Oeste. Hacía de intermediario: documentos, plata, personas."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Durante años trabajó con Erich Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Hasta que entendió que Projekt Morgen no protegía a ningún país. Era una red propia: políticos, policías, funcionarios, gente del hampa."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Y tu hermano decidió destruirla."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "¿Dónde está?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Eso es lo que vine a buscar con ustedes."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "¿Y por qué te vamos a creer?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Porque si me equivoco, estoy muerto antes que ustedes."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 8",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

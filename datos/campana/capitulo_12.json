@@ -1,0 +1,671 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_12",
+ "titulo": "Capítulo 12: El precio de la verdad",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 400,
+  "logro": "nacht_capitulo_12"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto doce es de un almacén, de lejos. Alguien la sacó desde un auto, con prisa."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "departamento",
+   "actores": [
+    "anneliese",
+    "lukas",
+    "martin"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "llamada"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "telefono",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "¿Sí? ..."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Thomas está retenido en un almacén. Los secuestradores quieren los documentos a cambio.",
+   "segundos": 4
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Vamos ahora."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "Esperá. Es lo que quieren: que entres apurado y sin pensar."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "No voy a esperar."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "rescate_thomas",
+   "pregunta": "¿Cómo entran al almacén?",
+   "opciones": [
+    {
+     "valor": "sigilo",
+     "texto": "En silencio. Sin disparar si no hace falta."
+    },
+    {
+     "valor": "asalto",
+     "texto": "Con todo. Ahora."
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "almacen",
+   "actores": [
+    "martin",
+    "lukas",
+    "anneliese",
+    "thomas",
+    "maton_1",
+    "maton_2",
+    "maton_3",
+    "maton_4"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Un almacén junto al canal · De noche",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "almacen"
+  },
+  {
+   "tipo": "si",
+   "clave": "rescate_thomas",
+   "valor": "sigilo",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "neutral",
+     "texto": "Lukas y yo cubrimos la puerta. Andá."
+    },
+    {
+     "tipo": "sigilo",
+     "guardias": [
+      "maton_1",
+      "maton_2",
+      "maton_3"
+     ],
+     "meta": "oficina",
+     "radio": 45,
+     "texto": "Llegá a la oficina sin que te vean"
+    },
+    {
+     "tipo": "objetivo",
+     "texto": "Desatá a Thomas",
+     "zona": "oficina",
+     "radio": 70,
+     "accion": "Desatar a Thomas"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "dolor",
+     "texto": "Sabía que ibas a venir."
+    },
+    {
+     "tipo": "franjas",
+     "visibles": true
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "maton_4",
+     "emocion": "enojado",
+     "texto": "¡Eh! ¡Se llevan al chico!"
+    },
+    {
+     "tipo": "franjas",
+     "visibles": false
+    },
+    {
+     "tipo": "combate",
+     "id": "almacen_salida",
+     "mapa": "almacen",
+     "lider": "viktor",
+     "objetivo": {
+      "tipo": "eliminar",
+      "rondas": 10
+     },
+     "texto": "Te descubrieron a la salida: derribá a los secuestradores antes de que lleguen más (10 rondas)",
+     "unidades": {
+      "viktor": {
+       "lado": "aliado",
+       "celda": [
+        18,
+        7
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 80
+      },
+      "thomas": {
+       "lado": "aliado",
+       "celda": [
+        19,
+        8
+       ],
+       "vida": 2,
+       "mov": 3,
+       "punteria": 45
+      },
+      "martin": {
+       "lado": "aliado",
+       "celda": [
+        17,
+        8
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 70
+      },
+      "lukas": {
+       "lado": "aliado",
+       "celda": [
+        16,
+        7
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 65
+      },
+      "maton_1": {
+       "lado": "enemigo",
+       "celda": [
+        6,
+        6
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 55
+      },
+      "maton_2": {
+       "lado": "enemigo",
+       "celda": [
+        8,
+        10
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      },
+      "maton_3": {
+       "lado": "enemigo",
+       "celda": [
+        11,
+        7
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      },
+      "maton_4": {
+       "lado": "enemigo",
+       "celda": [
+        12,
+        12
+       ],
+       "vida": 3,
+       "mov": 3,
+       "punteria": 50
+      }
+     }
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "rescate_thomas",
+   "valor": "asalto",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "enojado",
+     "texto": "Si lo vamos a hacer así, lo hacemos juntos."
+    },
+    {
+     "tipo": "combate",
+     "id": "almacen_asalto",
+     "mapa": "almacen",
+     "lider": "viktor",
+     "objetivo": {
+      "tipo": "eliminar",
+      "rondas": 10
+     },
+     "texto": "Entran a los tiros: derribá a los secuestradores antes de que se lleven a Thomas (10 rondas)",
+     "unidades": {
+      "viktor": {
+       "lado": "aliado",
+       "celda": [
+        1,
+        7
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 80
+      },
+      "martin": {
+       "lado": "aliado",
+       "celda": [
+        1,
+        9
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 70
+      },
+      "lukas": {
+       "lado": "aliado",
+       "celda": [
+        2,
+        8
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 65
+      },
+      "anneliese": {
+       "lado": "aliado",
+       "celda": [
+        2,
+        10
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 60
+      },
+      "maton_1": {
+       "lado": "enemigo",
+       "celda": [
+        9,
+        5
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 55
+      },
+      "maton_2": {
+       "lado": "enemigo",
+       "celda": [
+        12,
+        9
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 55
+      },
+      "maton_3": {
+       "lado": "enemigo",
+       "celda": [
+        15,
+        6
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 55
+      },
+      "maton_4": {
+       "lado": "enemigo",
+       "celda": [
+        17,
+        11
+       ],
+       "vida": 4,
+       "mov": 3,
+       "punteria": 55
+      }
+     }
+    },
+    {
+     "tipo": "objetivo",
+     "texto": "Desatá a Thomas",
+     "zona": "oficina",
+     "radio": 70,
+     "accion": "Desatar a Thomas"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "dolor",
+     "texto": "Sabía que ibas a venir."
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "huida"
+  },
+  {
+   "tipo": "persecucion_auto",
+   "id": "huida_almacen",
+   "texto": "Escapá con Thomas",
+   "ventaja": 2,
+   "segundos": 7,
+   "sinDecidir": "Dudaste y el auto de atrás se les pegó.",
+   "tramos": [
+    {
+     "texto": "Dos autos salen detrás de ustedes desde el almacén. ¿Por dónde?",
+     "opciones": [
+      {
+       "texto": "Entre los galpones del puerto",
+       "riesgo": 40,
+       "ganancia": 1,
+       "bien": "Entre los galpones sobra sombra: pierden a uno.",
+       "mal": "Un camión cierra el paso: hay que dar la vuelta."
+      },
+      {
+       "texto": "Por la avenida, a fondo",
+       "riesgo": 55,
+       "ganancia": 1,
+       "bien": "En la recta les sacan unos metros.",
+       "mal": "En la avenida no hay dónde esconderse: se acercan."
+      }
+     ]
+    },
+    {
+     "texto": "Lukas baja la ventanilla: «Puedo tirarle a las ruedas».",
+     "opciones": [
+      {
+       "texto": "Que lo haga",
+       "riesgo": 45,
+       "ganancia": 2,
+       "bien": "Revienta una rueda y el primer auto se va contra el cordón.",
+       "mal": "Falla. Ahora también les disparan a ellos."
+      },
+      {
+       "texto": "No: que no se asome",
+       "riesgo": 35,
+       "ganancia": 1,
+       "bien": "Viktor encara una curva cerrada y gana terreno.",
+       "mal": "Viktor frena tarde y casi chocan."
+      }
+     ]
+    },
+    {
+     "texto": "El puente sobre el canal empieza a levantarse.",
+     "opciones": [
+      {
+       "texto": "Saltar antes de que suba",
+       "riesgo": 55,
+       "ganancia": 2,
+       "bien": "Vuelan medio metro y caen del otro lado. Atrás, se quedan.",
+       "mal": "No llegan: frenan en seco al borde."
+      },
+      {
+       "texto": "Doblar por la orilla",
+       "riesgo": 35,
+       "ganancia": 1,
+       "bien": "Por la orilla, entre los árboles, ganan unos segundos.",
+       "mal": "La orilla está embarrada y patinan."
+      }
+     ]
+    },
+    {
+     "texto": "Último cruce antes de los barrios del Oeste.",
+     "opciones": [
+      {
+       "texto": "Entre los camiones de reparto",
+       "riesgo": 40,
+       "ganancia": 1,
+       "bien": "Se meten entre dos camiones y desaparecen.",
+       "mal": "Un camión se detiene de golpe: casi los encierra."
+      },
+      {
+       "texto": "Por el medio del tráfico",
+       "riesgo": 50,
+       "ganancia": 1,
+       "bien": "Esquivan tres autos y los perseguidores quedan atrapados.",
+       "mal": "Una bocina, un volantazo, y el auto de atrás se acerca."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "herido"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Ya casi están a salvo cuando una bala atraviesa la luneta de atrás.",
+   "segundos": 4
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "nadie"
+   ],
+   "segundos": 0.4
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [
+    "martin",
+    "anneliese",
+    "lukas",
+    "thomas"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "martin"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Andá con Martin",
+   "zona": "martin",
+   "radio": 70,
+   "accion": "Apretar la herida"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor intenta frenar la sangre.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "dolor",
+   "texto": "Hay una caja... en la estación de Friedrichstraße."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "No hables."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "dolor",
+   "texto": "Escuchame."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Martin respira con dificultad.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "dolor",
+   "texto": "Papá no murió como te dijeron."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor se queda inmóvil.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "dolor",
+   "texto": "Descubrió Projekt Morgen antes que nadie. Lo mataron por orden de Konrad Weiss."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "dolor",
+   "texto": "Esto no empezó después de la guerra, Viktor. Viene de mucho antes."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Martin le pone en la mano una llave chiquita.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Martin Adler muere.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor pierde a su hermano por segunda vez. Pero ahora tiene algo que nunca tuvo: una dirección. Y una llave.",
+   "segundos": 5
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 12",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

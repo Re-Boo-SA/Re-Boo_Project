@@ -1,0 +1,589 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear.",
+ "id": "capitulo_2",
+ "titulo": "Capítulo 2: El precio de la frontera",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 250,
+  "logro": "nacht_capitulo_2"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "neutral",
+   "texto": "La tercera foto es un andén. Friedrichstraße, julio de 1961. Al dorso, una anotación: «Lindner. Vía de carga»."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "taller",
+   "actores": [
+    "thomas",
+    "friedrich",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "auto_taller"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Julio de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "taller"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Lindner, un ferroviario viejo, nos consiguió papeles. Con estos nombres pasamos el control de Friedrichstraße."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Papeles falsos. Si nos agarran, no salimos más."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Por eso no nos van a agarrar."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "En la vía de carga hay un vagón con un paquete. Lindner dice que es de Weiss."
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_anneliese",
+   "valor": "regatear",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "enojado",
+     "texto": "Y esta vez no regatees, Viktor. Lindner cobra lo que pide y no discute."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_anneliese",
+   "valor": "aceptar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "Lindner confía en vos porque cumpliste conmigo. No lo arruines."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "vender_lista",
+   "valor": "vender",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "contento",
+     "texto": "Con lo que sacamos de la lista alcanzó para los papeles."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "vender_lista",
+   "valor": "guardar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Si hubiéramos vendido algo, no estaríamos contando monedas."
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Bahnhof Friedrichstraße · Berlín Oriental · Julio de 1961",
+   "segundos": 4
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "friedrichstrasse",
+   "actores": [
+    "anneliese",
+    "friedrich",
+    "thomas",
+    "trapo",
+    "trapo_1",
+    "trapo_2"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "vagon_1",
+    "vagon_2",
+    "vagon_3",
+    "paquete",
+    "auto_viktor"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "anden"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Pasá por el control de la Transportpolizei",
+   "zona": "trapo",
+   "radio": 80,
+   "accion": "Mostrar los papeles"
+  },
+  {
+   "tipo": "interrogatorio",
+   "id": "control_anden",
+   "quien": "trapo",
+   "texto": "Pasá el control sin despertar sospechas",
+   "limite": 50,
+   "sinRespuesta": 25,
+   "segundos": 9,
+   "detenido": "Acompáñeme, por favor.",
+   "pase": "Pase.",
+   "preguntas": [
+    {
+     "texto": "Documentos. ¿Adónde va?",
+     "opciones": [
+      {
+       "texto": "A Pankow, a visitar a mi tía.",
+       "sospecha": 5
+      },
+      {
+       "texto": "A trabajar. Soy mecánico.",
+       "sospecha": 15
+      },
+      {
+       "texto": "Por ahí, a pasear.",
+       "sospecha": 30
+      }
+     ]
+    },
+    {
+     "texto": "¿Lleva mercadería del Oeste? Café, medias, cigarrillos...",
+     "opciones": [
+      {
+       "texto": "Un paquete de cigarrillos, para mi tío.",
+       "sospecha": 0
+      },
+      {
+       "texto": "No, nada.",
+       "sospecha": 10
+      },
+      {
+       "texto": "¿Por qué me lo pregunta?",
+       "sospecha": 35
+      }
+     ]
+    },
+    {
+     "texto": "Esta foto no se parece mucho a usted.",
+     "opciones": [
+      {
+       "texto": "Era más joven. Y tenía más pelo.",
+       "sospecha": 5
+      },
+      {
+       "texto": "Es una foto vieja.",
+       "sospecha": 15
+      },
+      {
+       "texto": "No contestar y sostenerle la mirada.",
+       "sospecha": 30
+      }
+     ]
+    },
+    {
+     "texto": "¿Cuándo vuelve al sector occidental?",
+     "opciones": [
+      {
+       "texto": "Esta misma noche.",
+       "sospecha": 15
+      },
+      {
+       "texto": "El domingo, después de misa.",
+       "sospecha": 5
+      },
+      {
+       "texto": "No sé, depende.",
+       "sospecha": 30
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "El vagón está en la vía de carga. Te espero en el auto."
+  },
+  {
+   "tipo": "mover",
+   "actor": "anneliese",
+   "a": "salida",
+   "segundos": 3,
+   "esperar": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "playa"
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "trapo_1",
+    "trapo_2"
+   ],
+   "meta": "meta_paquete",
+   "radio": 40,
+   "texto": "Llegá al vagón sin que te vean"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "paquete",
+   "texto": "Tomá el paquete",
+   "accion": "Tomar el paquete"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Volvé al auto",
+   "zona": "salida",
+   "radio": 70
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "trapo_2",
+   "emocion": "enojado",
+   "texto": "¡Alto! ¡Ese auto! ¡Documentos!"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "friedrich"
+   ],
+   "segundos": 1
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "trapo_2"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "¡Subí! ¡Rápido!"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [],
+   "jugador": null,
+   "props": [
+    "auto",
+    "auto_vopo"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "huida"
+  },
+  {
+   "tipo": "persecucion_auto",
+   "id": "huida_mitte",
+   "texto": "Escapá de la Volkspolizei",
+   "ventaja": 2,
+   "segundos": 7,
+   "sinDecidir": "Dudaste un segundo de más y el Wartburg se pegó atrás.",
+   "tramos": [
+    {
+     "texto": "Un Wartburg de la Volkspolizei sale detrás de ustedes. ¿Por dónde?",
+     "opciones": [
+      {
+       "texto": "Por la avenida, a fondo",
+       "riesgo": 55,
+       "bien": "En la recta, el Mercedes viejo todavía tira: les sacan unos metros.",
+       "mal": "En la avenida no hay dónde esconderse: el Wartburg se acerca."
+      },
+      {
+       "texto": "Por las calles angostas de atrás",
+       "riesgo": 35,
+       "bien": "Doblan dos veces y los pierden de vista un momento.",
+       "mal": "Una calle cortada por obras: hay que dar la vuelta."
+      }
+     ]
+    },
+    {
+     "texto": "Thomas agarra la radio del auto: «Puedo meterme en su frecuencia».",
+     "opciones": [
+      {
+       "texto": "Que lo intente",
+       "riesgo": 30,
+       "ganancia": 0,
+       "radio": true,
+       "bien": "Thomas da una dirección falsa por la radio de la policía: el próximo cruce va a estar libre.",
+       "mal": "La radio chilla y no se entiende nada. Perdieron tiempo."
+      },
+      {
+       "texto": "No: que se agarre fuerte",
+       "riesgo": 45,
+       "bien": "Viktor encara una curva cerrada y gana terreno.",
+       "mal": "Viktor frena tarde en la curva y casi chocan."
+      }
+     ]
+    },
+    {
+     "texto": "Un tranvía cruza adelante. Se va a cerrar el paso.",
+     "opciones": [
+      {
+       "texto": "Pasar antes que el tranvía",
+       "riesgo": 50,
+       "ganancia": 2,
+       "bien": "Pasan rozando el tranvía. Atrás, el Wartburg tiene que frenar.",
+       "mal": "No llegan: el tranvía los obliga a frenar en seco."
+      },
+      {
+       "texto": "Doblar a la derecha y rodear la manzana",
+       "riesgo": 30,
+       "ganancia": 0,
+       "bien": "Rodean la manzana sin que los vean.",
+       "mal": "Rodean la manzana... y el Wartburg los estaba esperando del otro lado."
+      }
+     ]
+    },
+    {
+     "texto": "El límite del sector, adelante. Un policía levanta la mano.",
+     "opciones": [
+      {
+       "texto": "Acelerar y cruzar",
+       "riesgo": 40,
+       "perdida": 2,
+       "bien": "El policía se tira a un costado. Están en el Oeste.",
+       "mal": "Un segundo Wartburg les cierra el paso: hay que volver."
+      },
+      {
+       "texto": "Frenar, mostrar los papeles falsos y rezar",
+       "riesgo": 50,
+       "bien": "El policía mira los papeles, mira el auto... y los deja pasar.",
+       "mal": "El policía duda y llama a alguien por la radio."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "contento",
+   "texto": "¡Los perdimos!"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "contento",
+   "texto": "Bienvenidos al Oeste otra vez."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "escondite",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "paquete"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "fotos"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "paquete",
+   "texto": "Abrí el paquete",
+   "accion": "Abrir el paquete",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Fotos. La misma mujer, en todas."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Es mi madre."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "En una de las fotos, la mujer está junto a un hombre joven.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "Es Martin. Mi hermano."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "¿Tu hermano y la madre de Anneliese? ¿Qué carajo es esto?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "No sé. Pero ya no es solo tu historia, Viktor."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 2",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

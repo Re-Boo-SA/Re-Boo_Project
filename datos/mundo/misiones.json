@@ -1,0 +1,953 @@
+{
+  "_leeme": "Misiones y contactos del mundo abierto (Fase 2 y etapa A de 'Berlín vivo'). Es CONTENIDO, no código. Cada contacto tiene: lado (oeste|este, define la confianza inicial según tu bando), rutina (dónde está según la hora del juego; camina entre lugares por rutas que calcula el servidor; 'ausente' = se fue a su casa), animo (base y cambios por clima y noche). Tipos de paso: ir, hablar, partida, ganar. requisitos: misiones, nivel, confianza {contacto: mínimo}. recompensa: xp, puntos, confianza (con quien la da). Los diálogos libres están en dialogos.json. Los personajes son ficticios. Paso 'desafio' (etapa C): una partida contra el bot del contacto, con 'reglas' (configuración de partida: rondas, caras del dado...), 'escenario' opcional (fichas ya colocadas: yo/rival), 'objetivo' (ganar|terminar) y 'secundario' opcional (recinto_min, muro_max, puntos_min). Textos: invitacion, perdiste, faltaSecundario.",
+  "contactos": [
+    {
+      "id": "periodista",
+      "nombre": "Ingrid Vogel",
+      "rol": "Periodista del Oeste",
+      "x": 930,
+      "y": 1150,
+      "variante": 8,
+      "dir": 3,
+      "saludos": [
+        "En esta ciudad todos tienen una historia. La mayoría no la cuenta.",
+        "Si ves algo raro cerca del Muro, avisame."
+      ],
+      "lado": "oeste",
+      "animo": {
+        "base": 1,
+        "clima": {
+          "lluvia": -1,
+          "niebla": 1
+        },
+        "noche": 0,
+        "sucesos": {
+          "manifestacion": 1,
+          "control_checkpoint": -1,
+          "visita_oficial": -1
+        }
+      },
+      "rutina": [
+        {
+          "hora": 6,
+          "x": 930,
+          "y": 1150,
+          "dir": 3,
+          "actividad": "Escribiendo junto al Museo del Muro"
+        },
+        {
+          "hora": 13,
+          "x": 1060,
+          "y": 1180,
+          "dir": 2,
+          "actividad": "Almorzando cerca del Café Kreuzberg"
+        },
+        {
+          "hora": 15,
+          "x": 930,
+          "y": 1150,
+          "dir": 3,
+          "actividad": "Escribiendo junto al Museo del Muro"
+        },
+        {
+          "hora": 19,
+          "x": 540,
+          "y": 1225,
+          "dir": 2,
+          "actividad": "Entrevistando gente frente al KaDeWe"
+        },
+        {
+          "hora": 23,
+          "x": 60,
+          "y": 1300,
+          "ausente": true,
+          "actividad": "En su casa"
+        }
+      ],
+      "bot": 105
+    },
+    {
+      "id": "obrero",
+      "nombre": "Paul Lange",
+      "rol": "Obrero de la construcción",
+      "x": 1650,
+      "y": 1190,
+      "variante": 19,
+      "dir": 1,
+      "saludos": [
+        "La avenida no se construye sola, camarada.",
+        "Mañana empezamos temprano otra vez."
+      ],
+      "lado": "este",
+      "animo": {
+        "base": 0,
+        "clima": {
+          "lluvia": -2,
+          "nieve": -1,
+          "despejado": 1
+        },
+        "noche": -1,
+        "sucesos": {
+          "control_checkpoint": -1,
+          "apagon": -1,
+          "torneo_cafe": 1
+        }
+      },
+      "rutina": [
+        {
+          "hora": 6,
+          "x": 1650,
+          "y": 1190,
+          "dir": 1,
+          "actividad": "Trabajando en la obra junto al Centrum"
+        },
+        {
+          "hora": 14,
+          "x": 1690,
+          "y": 870,
+          "dir": 2,
+          "actividad": "Revisando la obra de la Torre de TV"
+        },
+        {
+          "hora": 17,
+          "x": 1650,
+          "y": 1190,
+          "dir": 1,
+          "actividad": "Trabajando en la obra junto al Centrum"
+        },
+        {
+          "hora": 19,
+          "x": 1540,
+          "y": 1180,
+          "dir": 2,
+          "actividad": "Tomando una cerveza en el Café Friedrichshain"
+        },
+        {
+          "hora": 0,
+          "x": 2340,
+          "y": 1300,
+          "ausente": true,
+          "actividad": "Durmiendo en su casa"
+        }
+      ],
+      "bot": 106
+    },
+    {
+      "id": "funcionaria",
+      "nombre": "Gertrud Hartmann",
+      "rol": "Funcionaria de la oficina de registro",
+      "x": 1670,
+      "y": 750,
+      "variante": 30,
+      "dir": 3,
+      "saludos": [
+        "Sin el formulario correcto no puedo hacer nada.",
+        "Vuelva cuando tenga todo en regla."
+      ],
+      "lado": "este",
+      "animo": {
+        "base": -1,
+        "clima": {
+          "despejado": 1
+        },
+        "noche": -1,
+        "sucesos": {
+          "visita_oficial": -1,
+          "apagon": -1
+        }
+      },
+      "rutina": [
+        {
+          "hora": 7,
+          "x": 1670,
+          "y": 750,
+          "dir": 3,
+          "actividad": "Atendiendo en la oficina de registro"
+        },
+        {
+          "hora": 12.5,
+          "x": 1580,
+          "y": 780,
+          "dir": 2,
+          "actividad": "Almorzando en el Café Mitte"
+        },
+        {
+          "hora": 13.5,
+          "x": 1670,
+          "y": 750,
+          "dir": 3,
+          "actividad": "Atendiendo en la oficina de registro"
+        },
+        {
+          "hora": 22,
+          "x": 1500,
+          "y": 60,
+          "ausente": true,
+          "actividad": "En su casa"
+        }
+      ],
+      "bot": 107
+    },
+    {
+      "id": "espia",
+      "nombre": "Lotte",
+      "rol": "Nadie sabe bien a qué se dedica",
+      "x": 710,
+      "y": 800,
+      "variante": 23,
+      "dir": 1,
+      "saludos": [
+        "No me mires tanto. Seguí caminando.",
+        "Hoy no tengo nada para vos."
+      ],
+      "lado": "oeste",
+      "animo": {
+        "base": 0,
+        "clima": {
+          "niebla": 2,
+          "despejado": -1
+        },
+        "noche": 1,
+        "sucesos": {
+          "visita_oficial": 1,
+          "concierto": 1,
+          "apagon": 1
+        }
+      },
+      "rutina": [
+        {
+          "hora": 9,
+          "x": 710,
+          "y": 800,
+          "dir": 1,
+          "actividad": "Mirando pasar gente frente al Reichstag"
+        },
+        {
+          "hora": 15,
+          "x": 1060,
+          "y": 820,
+          "dir": 1,
+          "actividad": "Cerca del Muro, en Tiergarten"
+        },
+        {
+          "hora": 20,
+          "x": 1060,
+          "y": 960,
+          "dir": 1,
+          "actividad": "Observando el paso de Checkpoint Charlie"
+        },
+        {
+          "hora": 3,
+          "x": 60,
+          "y": 60,
+          "ausente": true,
+          "actividad": "Nadie sabe dónde"
+        }
+      ],
+      "bot": 108
+    }
+  ],
+  "misiones": [
+    {
+      "id": "periodista_1",
+      "contacto": "periodista",
+      "titulo": "Primeras impresiones",
+      "oferta": "Estoy escribiendo sobre el paso fronterizo. ¿Podés ir hasta Checkpoint Charlie y contarme cómo está esta semana?",
+      "requisitos": {},
+      "pasos": [
+        {
+          "tipo": "ir",
+          "lugar": "Checkpoint Charlie",
+          "x": 1100,
+          "y": 940,
+          "radio": 90,
+          "texto": "Andá hasta Checkpoint Charlie, del lado Oeste."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "periodista",
+          "texto": "Volvé con Ingrid y contale lo que viste.",
+          "dialogo": "¿Mucha gente esperando? Me lo imaginaba. Esto me sirve."
+        }
+      ],
+      "final": "Gracias. Con esto arranco la nota.",
+      "recompensa": {
+        "xp": 60,
+        "puntos": 15,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "periodista_2",
+      "contacto": "periodista",
+      "titulo": "Voces del café",
+      "oferta": "Necesito escuchar a la gente común. Sentate a jugar una partida en algún café y volvé a contarme qué se dice.",
+      "requisitos": {
+        "misiones": [
+          "periodista_1"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "partida",
+          "cantidad": 1,
+          "texto": "Jugá una partida completa (sin abandonar)."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "periodista",
+          "texto": "Volvé con Ingrid.",
+          "dialogo": "Así que en los cafés se habla de todo menos del Muro. Interesante."
+        }
+      ],
+      "final": "Esto le da color a la nota. Gracias.",
+      "recompensa": {
+        "xp": 100,
+        "puntos": 25,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "obrero_1",
+      "contacto": "obrero",
+      "titulo": "Turno en la avenida",
+      "oferta": "Me olvidé la vianda en la obra de la Torre de TV. ¿Me hacés el favor de ir a buscarla?",
+      "requisitos": {},
+      "pasos": [
+        {
+          "tipo": "ir",
+          "lugar": "Torre de TV",
+          "x": 1740,
+          "y": 860,
+          "radio": 80,
+          "texto": "Andá hasta la Torre de TV, en Mitte."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "obrero",
+          "texto": "Llevale la vianda a Paul.",
+          "dialogo": "¡Mi vianda! Sin esto no llego al final del turno."
+        }
+      ],
+      "final": "Te debo una, camarada.",
+      "recompensa": {
+        "xp": 60,
+        "puntos": 15,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "obrero_2",
+      "contacto": "obrero",
+      "titulo": "La brigada",
+      "oferta": "En la brigada apostamos quién gana más partidas esta semana. Ganá una y te sumo al equipo.",
+      "requisitos": {
+        "misiones": [
+          "obrero_1"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "ganar",
+          "cantidad": 1,
+          "texto": "Ganá una partida."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "obrero",
+          "texto": "Volvé con Paul.",
+          "dialogo": "¡Eso! Ya sos parte de la brigada."
+        }
+      ],
+      "final": "Los muchachos van a estar contentos.",
+      "recompensa": {
+        "xp": 150,
+        "puntos": 40,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "funcionaria_1",
+      "contacto": "funcionaria",
+      "titulo": "Papeles en regla",
+      "oferta": "Necesito la firma de un testigo. Paul Lange, el de la obra, sirve. Hable con él y vuelva.",
+      "requisitos": {},
+      "pasos": [
+        {
+          "tipo": "hablar",
+          "contacto": "obrero",
+          "texto": "Hablá con Paul, en Friedrichshain, junto al Centrum.",
+          "dialogo": "¿La Hartmann otra vez con sus formularios? Dale, firmo."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "funcionaria",
+          "texto": "Volvé con Frau Hartmann.",
+          "dialogo": "Firma correcta. Sello aquí, y aquí."
+        }
+      ],
+      "final": "Su trámite queda registrado.",
+      "recompensa": {
+        "xp": 70,
+        "puntos": 15,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "funcionaria_2",
+      "contacto": "funcionaria",
+      "titulo": "Firma y sello",
+      "oferta": "La oficina necesita saber cómo se usan los cafés del Este. Juegue dos partidas en cafés de este lado y le doy el certificado.",
+      "requisitos": {
+        "misiones": [
+          "funcionaria_1"
+        ],
+        "nivel": 2
+      },
+      "pasos": [
+        {
+          "tipo": "partida",
+          "cantidad": 2,
+          "lado": "este",
+          "texto": "Jugá dos partidas en cafés del lado Este (armá o unite a una mesa en un café del Este)."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "funcionaria",
+          "texto": "Volvé con Frau Hartmann.",
+          "dialogo": "Dos partidas, debidamente registradas. Muy bien."
+        }
+      ],
+      "final": "Aquí tiene su certificado. No lo pierda.",
+      "recompensa": {
+        "xp": 160,
+        "puntos": 35,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "espia_1",
+      "contacto": "espia",
+      "titulo": "Un recado discreto",
+      "oferta": "Pasá por el KaDeWe, después cruzá y date una vuelta por el Cuartel del Este. No hables con nadie. Después volvé.",
+      "requisitos": {
+        "nivel": 2,
+        "confianza": {
+          "espia": 10
+        }
+      },
+      "pasos": [
+        {
+          "tipo": "ir",
+          "lugar": "KaDeWe",
+          "x": 460,
+          "y": 1220,
+          "radio": 80,
+          "texto": "Andá hasta el KaDeWe, en Schöneberg."
+        },
+        {
+          "tipo": "ir",
+          "lugar": "Cuartel",
+          "x": 2020,
+          "y": 860,
+          "radio": 80,
+          "texto": "Cruzá por Checkpoint Charlie y andá hasta el Cuartel, en Lichtenberg."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "espia",
+          "texto": "Volvé con Lotte, cerca del Reichstag.",
+          "dialogo": "Nadie te siguió. Bien."
+        }
+      ],
+      "final": "Nunca hablamos. Tomá, por las molestias.",
+      "recompensa": {
+        "xp": 200,
+        "puntos": 50,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "periodista_3",
+      "contacto": "periodista",
+      "titulo": "La nota de tapa",
+      "oferta": "Para la nota grande necesito dos testimonios: el de esa mujer que anda por el Reichstag y el de la funcionaria del Este.",
+      "requisitos": {
+        "misiones": [
+          "periodista_2",
+          "espia_1"
+        ],
+        "confianza": {
+          "periodista": 25
+        }
+      },
+      "pasos": [
+        {
+          "tipo": "hablar",
+          "contacto": "espia",
+          "texto": "Hablá con Lotte, cerca del Reichstag.",
+          "dialogo": "¿Una periodista? Decile que no me conoce. Bueno... contale esto."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "funcionaria",
+          "texto": "Hablá con Frau Hartmann, en Mitte.",
+          "dialogo": "Oficialmente no tengo nada que declarar. Extraoficialmente..."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "periodista",
+          "texto": "Llevale los testimonios a Ingrid.",
+          "dialogo": "¡Esto es tapa! No sé cómo agradecerte."
+        }
+      ],
+      "final": "Mañana sale en la primera página.",
+      "recompensa": {
+        "xp": 250,
+        "puntos": 60,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "periodista_4",
+      "contacto": "periodista",
+      "titulo": "Dar vuelta la nota",
+      "oferta": "Cuando una nota viene mal, se escribe de nuevo. Juguemos: yo arranco con ventaja y vos tenés una sola ronda para darla vuelta.",
+      "requisitos": {
+        "misiones": [
+          "periodista_2"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "desafio",
+          "contacto": "periodista",
+          "texto": "Ganale a Ingrid una partida de una sola ronda, arrancando en desventaja.",
+          "reglas": {
+            "rondas": 1
+          },
+          "escenario": {
+            "yo": [
+              {
+                "tipo": "peon",
+                "recinto": "oeste"
+              },
+              {
+                "tipo": "tropa",
+                "recinto": "muro"
+              }
+            ],
+            "rival": [
+              {
+                "tipo": "markus",
+                "recinto": "espias"
+              },
+              {
+                "tipo": "ursula",
+                "recinto": "espias"
+              },
+              {
+                "tipo": "politico",
+                "recinto": "politicos"
+              },
+              {
+                "tipo": "general",
+                "recinto": "oeste"
+              },
+              {
+                "tipo": "general",
+                "recinto": "oeste"
+              }
+            ]
+          },
+          "objetivo": "ganar",
+          "invitacion": "Mirá el tablero: arranco adelante. Una sola ronda. ¿Te animás?",
+          "perdiste": "A mí también se me escaparon muchas notas. ¿Otra?",
+          "faltaSecundario": ""
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "periodista",
+          "texto": "Volvé con Ingrid.",
+          "dialogo": "Desde atrás y en una sola ronda. Así se escribe una buena nota."
+        }
+      ],
+      "final": "Te ganaste un lugar en la redacción.",
+      "recompensa": {
+        "xp": 150,
+        "puntos": 30,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "obrero_3",
+      "contacto": "obrero",
+      "titulo": "Día de controles",
+      "oferta": "Hoy en el paso revisan todo, y en el café también se juega así: sin espías ni cambios. Ganame, y con soldados en Militares, que es lo que cuenta.",
+      "requisitos": {
+        "misiones": [
+          "obrero_2"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "desafio",
+          "contacto": "obrero",
+          "texto": "Ganale a Paul con al menos 2 fichas en Militares (el dado no tiene espías ni cambio de ficha).",
+          "reglas": {
+            "caras": [
+              "solo_militares",
+              "bloquea_fabrica",
+              "lado_izquierdo",
+              "lado_derecho"
+            ]
+          },
+          "objetivo": "ganar",
+          "secundario": {
+            "tipo": "recinto_min",
+            "recinto": "militares",
+            "cantidad": 2,
+            "texto": "Al menos 2 fichas en Militares"
+          },
+          "invitacion": "Hoy se juega a lo sólido. ¿Jugamos?",
+          "perdiste": "La obra no se gana en un día. ¿Revancha?",
+          "faltaSecundario": "Ganaste, pero sin soldados en Militares. Así no cuenta, camarada."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "obrero",
+          "texto": "Volvé con Paul.",
+          "dialogo": "¡Eso es jugar como la brigada!"
+        }
+      ],
+      "final": "Ya podés jugar con nosotros los viernes.",
+      "recompensa": {
+        "xp": 150,
+        "puntos": 30,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "funcionaria_3",
+      "contacto": "funcionaria",
+      "titulo": "Todo en regla",
+      "oferta": "Una partida conmigo, con las reglas oficiales. Pero sin usar el Muro: cada ficha en su lugar, como corresponde.",
+      "requisitos": {
+        "misiones": [
+          "funcionaria_2"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "desafio",
+          "contacto": "funcionaria",
+          "texto": "Ganale a Gertrud sin poner ninguna ficha en el Muro.",
+          "reglas": {},
+          "objetivo": "ganar",
+          "secundario": {
+            "tipo": "muro_max",
+            "cantidad": 0,
+            "texto": "Ninguna ficha en el Muro"
+          },
+          "invitacion": "Las reglas son las reglas. ¿Empezamos?",
+          "perdiste": "Perder también es un trámite. Puede intentarlo de nuevo.",
+          "faltaSecundario": "Ganó, sí. Pero usó el Muro. Eso no está en regla."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "funcionaria",
+          "texto": "Volvé con Frau Hartmann.",
+          "dialogo": "Impecable. Ni una sola ficha fuera de lugar."
+        }
+      ],
+      "final": "Le dejo constancia por escrito.",
+      "recompensa": {
+        "xp": 160,
+        "puntos": 30,
+        "confianza": 15
+      }
+    },
+    {
+      "id": "espia_2",
+      "contacto": "espia",
+      "titulo": "Juego de espías",
+      "oferta": "Juguemos a mi manera: espías y cambios de ficha. Ganame, y con dos espías en tu tablero.",
+      "requisitos": {
+        "misiones": [
+          "espia_1"
+        ]
+      },
+      "pasos": [
+        {
+          "tipo": "desafio",
+          "contacto": "espia",
+          "texto": "Ganale a Lotte con 2 fichas en tu recinto de Espías (el dado favorece a los espías).",
+          "reglas": {
+            "caras": [
+              "solo_espias",
+              "cambiar_ficha",
+              "lado_izquierdo",
+              "lado_derecho"
+            ]
+          },
+          "objetivo": "ganar",
+          "secundario": {
+            "tipo": "recinto_min",
+            "recinto": "espias",
+            "cantidad": 2,
+            "texto": "Dos fichas en Espías"
+          },
+          "invitacion": "Las cartas sobre la mesa. ¿Jugamos?",
+          "perdiste": "Te vi venir desde la primera ronda. Otra vez.",
+          "faltaSecundario": "Ganaste. Pero sin espías no aprendiste nada."
+        },
+        {
+          "tipo": "hablar",
+          "contacto": "espia",
+          "texto": "Volvé con Lotte.",
+          "dialogo": "Ahora sí pensás como yo."
+        }
+      ],
+      "final": "Te voy a necesitar pronto.",
+      "recompensa": {
+        "xp": 180,
+        "puntos": 30,
+        "confianza": 15
+      }
+    }
+  ],
+  "logros": [
+    {
+      "id": "primera_mision",
+      "nombre": "Primeros pasos",
+      "descripcion": "Completá tu primera misión.",
+      "condicion": {
+        "misiones": 1
+      }
+    },
+    {
+      "id": "cruzo_el_muro",
+      "nombre": "Del otro lado",
+      "descripcion": "Completá el recado de Lotte.",
+      "condicion": {
+        "mision": "espia_1"
+      }
+    },
+    {
+      "id": "cronista",
+      "nombre": "Cronista de Berlín",
+      "descripcion": "Ayudá a Ingrid a publicar la nota de tapa.",
+      "condicion": {
+        "mision": "periodista_3"
+      }
+    },
+    {
+      "id": "conocido",
+      "nombre": "Conocido en Berlín",
+      "descripcion": "Completá una misión de cada contacto.",
+      "condicion": {
+        "todos_los_contactos": true
+      }
+    },
+    {
+      "id": "nivel_3",
+      "nombre": "Vecino de toda la vida",
+      "descripcion": "Llegá al nivel 3.",
+      "condicion": {
+        "nivel": 3
+      }
+    },
+    {
+      "id": "campeon_torneo",
+      "nombre": "Campeón de Berlín",
+      "descripcion": "Ganá un torneo relámpago.",
+      "condicion": {
+        "torneo": true
+      }
+    },
+    {
+      "id": "nacht_prologo",
+      "nombre": "La caja de Viktor",
+      "descripcion": "Terminá el prólogo de Nacht über Berlin.",
+      "condicion": {
+        "campana": "prologo"
+      }
+    },
+    {
+      "id": "nacht_capitulo_1",
+      "nombre": "El dinero no tiene patria",
+      "descripcion": "Terminá el Capítulo 1 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_1"
+      }
+    },
+    {
+      "id": "nacht_capitulo_2",
+      "nombre": "El precio de la frontera",
+      "descripcion": "Terminá el Capítulo 2 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_2"
+      }
+    },
+    {
+      "id": "nacht_capitulo_3",
+      "nombre": "La casa de los muertos",
+      "descripcion": "Terminá el Capítulo 3 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_3"
+      }
+    },
+    {
+      "id": "nacht_capitulo_4",
+      "nombre": "Un hombre en una habitación",
+      "descripcion": "Terminá el Capítulo 4 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_4"
+      }
+    },
+    {
+      "id": "nacht_capitulo_5",
+      "nombre": "La traición de Anneliese",
+      "descripcion": "Terminá el Capítulo 5 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_5"
+      }
+    },
+    {
+      "id": "nacht_capitulo_6",
+      "nombre": "El tren de las tres",
+      "descripcion": "Terminá el Capítulo 6 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_6"
+      }
+    },
+    {
+      "id": "nacht_capitulo_7",
+      "nombre": "Los que quedaron detrás",
+      "descripcion": "Terminá el Capítulo 7 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_7"
+      }
+    },
+    {
+      "id": "nacht_capitulo_8",
+      "nombre": "Lukas",
+      "descripcion": "Terminá el Capítulo 8 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_8"
+      }
+    },
+    {
+      "id": "nacht_capitulo_9",
+      "nombre": "La ciudad bajo la ciudad",
+      "descripcion": "Terminá el Capítulo 9 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_9"
+      }
+    },
+    {
+      "id": "nacht_capitulo_10",
+      "nombre": "El hermano",
+      "descripcion": "Terminá el Capítulo 10 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_10"
+      }
+    },
+    {
+      "id": "nacht_capitulo_11",
+      "nombre": "La última cena",
+      "descripcion": "Terminá el Capítulo 11 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_11"
+      }
+    },
+    {
+      "id": "nacht_capitulo_12",
+      "nombre": "El precio de la verdad",
+      "descripcion": "Terminá el Capítulo 12 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_12"
+      }
+    },
+    {
+      "id": "nacht_capitulo_13",
+      "nombre": "La caja de Friedrichstraße",
+      "descripcion": "Terminá el Capítulo 13 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_13"
+      }
+    },
+    {
+      "id": "nacht_capitulo_14",
+      "nombre": "El hombre que vendía la paz",
+      "descripcion": "Terminá el Capítulo 14 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_14"
+      }
+    },
+    {
+      "id": "nacht_capitulo_15",
+      "nombre": "El verdadero traidor",
+      "descripcion": "Terminá el Capítulo 15 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_15"
+      }
+    },
+    {
+      "id": "nacht_capitulo_16",
+      "nombre": "La ciudad arde",
+      "descripcion": "Terminá el Capítulo 16 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_16"
+      }
+    },
+    {
+      "id": "nacht_capitulo_17",
+      "nombre": "El último aliado",
+      "descripcion": "Terminá el Capítulo 17 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_17"
+      }
+    },
+    {
+      "id": "nacht_capitulo_18",
+      "nombre": "El archivo",
+      "descripcion": "Terminá el Capítulo 18 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_18"
+      }
+    },
+    {
+      "id": "nacht_capitulo_19",
+      "nombre": "El último hombre",
+      "descripcion": "Terminá el Capítulo 19 de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_capitulo_19"
+      }
+    },
+    {
+      "id": "nacht_final_a",
+      "nombre": "La verdad",
+      "descripcion": "Llegá al final A de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_final_a"
+      }
+    },
+    {
+      "id": "nacht_final_b",
+      "nombre": "El hombre que sobrevivió",
+      "descripcion": "Llegá al final B de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_final_b"
+      }
+    },
+    {
+      "id": "nacht_final_c",
+      "nombre": "Nadie sale de Berlín",
+      "descripcion": "Llegá al final C de Nacht über Berlin.",
+      "condicion": {
+        "campana": "nacht_final_c"
+      }
+    }
+  ]
+}

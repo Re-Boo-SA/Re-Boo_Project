@@ -1,7 +1,7 @@
 # ======================================================================
 #  Raíz del proyecto (por ejemplo, cuando está dentro de htdocs en XAMPP)
 #  En el servidor lo ideal es que el DocumentRoot apunte directo a
-#  "Capa Presentación" y que el resto del proyecto quede fuera de la web.
+#  "Capa_Presentacion" y que el resto del proyecto quede fuera de la web.
 # ======================================================================
 
 # Sin listado de directorios
@@ -24,24 +24,43 @@ Options -Indexes
     # Carpetas ocultas como .git/
     RewriteRule (^|/)\.(?!well-known/) - [F,L]
 
-    # Rutas públicas legibles; los archivos PHP permanecen dentro de Capa Presentación.
+    # Rutas públicas legibles; los archivos PHP permanecen dentro de Capa_Presentacion.
     RewriteRule ^DraftDerMauer$ DraftDerMauer/ [R=301,L]
-    RewriteRule ^DraftDerMauer/$ Capa%20Presentaci%C3%B3n/index.php [END]
-    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida)/$ DraftDerMauer/$1 [R=301,L]
-    RewriteRule ^DraftDerMauer/login/?$ Capa%20Presentaci%C3%B3n/login.php [END]
-    RewriteRule ^DraftDerMauer/registro/?$ Capa%20Presentaci%C3%B3n/registro.php [END]
-    RewriteRule ^DraftDerMauer/inicio/?$ Capa%20Presentaci%C3%B3n/inicioHome.php [END]
-    RewriteRule ^DraftDerMauer/calculadora/?$ Capa%20Presentaci%C3%B3n/CalculadoraT.php [END]
-    RewriteRule ^DraftDerMauer/auditoria/?$ Capa%20Presentaci%C3%B3n/auditoria.php [END]
-    RewriteRule ^DraftDerMauer/panel-admin/?$ Capa%20Presentaci%C3%B3n/panel_admin.php [END]
-    RewriteRule ^DraftDerMauer/unirse/?$ Capa%20Presentaci%C3%B3n/unirse_partida.php [END]
-    RewriteRule ^DraftDerMauer/error/?$ Capa%20Presentaci%C3%B3n/error.php [END]
-    RewriteRule ^DraftDerMauer/estado/?$ Capa%20Presentaci%C3%B3n/estado.php [END]
-    RewriteRule ^DraftDerMauer/cerrar-sesion/?$ Capa%20Presentaci%C3%B3n/logout.php [END]
-    RewriteRule ^DraftDerMauer/perfil/?$ Capa%20Presentaci%C3%B3n/perfil.php [END]
-    RewriteRule ^DraftDerMauer/crear-partida/?$ Capa%20Presentaci%C3%B3n/procesar_crear_partida.php [END]
-    RewriteRule ^DraftDerMauer/unirse-partida/?$ Capa%20Presentaci%C3%B3n/procesar_unirse_partida.php [END]
-    RewriteRule ^DraftDerMauer/(css|fonts|img|js|lang)/(.+\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|otf|json))$ Capa%20Presentaci%C3%B3n/$1/$2 [END,NC]
-    RewriteRule ^DraftDerMauer/\.well-known/(.+)$ Capa%20Presentaci%C3%B3n/.well-known/$1 [END]
-    RewriteRule ^DraftDerMauer/robots\.txt$ Capa%20Presentaci%C3%B3n/robots.txt [END,NC]
+    RewriteRule ^DraftDerMauer/$ Capa_Presentacion/index.php [END]
+    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|tienda|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida|partida|api-partida|ranking|competitivo|api-cola|mundo|api-mundo|api-calcular|galeria|tutorial|reportes|amigos|api-social|torneos|api-torneos|campana|api-campana|personalizar)/$ DraftDerMauer/$1 [R=301,L]
+    RewriteRule ^DraftDerMauer/login/?$ Capa_Presentacion/login.php [END]
+    RewriteRule ^DraftDerMauer/registro/?$ Capa_Presentacion/registro.php [END]
+    RewriteRule ^DraftDerMauer/inicio/?$ Capa_Presentacion/inicioHome.php [END]
+    RewriteRule ^DraftDerMauer/calculadora/?$ Capa_Presentacion/CalculadoraT.php [END]
+    RewriteRule ^DraftDerMauer/auditoria/?$ Capa_Presentacion/auditoria.php [END]
+    RewriteRule ^DraftDerMauer/panel-admin/?$ Capa_Presentacion/panel_admin.php [END]
+    RewriteRule ^DraftDerMauer/unirse/?$ Capa_Presentacion/unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/tienda/?$ Capa_Presentacion/tienda.php [END]
+    RewriteRule ^DraftDerMauer/error/?$ Capa_Presentacion/error.php [END]
+    RewriteRule ^DraftDerMauer/estado/?$ Capa_Presentacion/estado.php [END]
+    RewriteRule ^DraftDerMauer/cerrar-sesion/?$ Capa_Presentacion/logout.php [END]
+    RewriteRule ^DraftDerMauer/perfil/?$ Capa_Presentacion/perfil.php [END]
+    RewriteRule ^DraftDerMauer/crear-partida/?$ Capa_Presentacion/procesar_crear_partida.php [END]
+    RewriteRule ^DraftDerMauer/unirse-partida/?$ Capa_Presentacion/procesar_unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/partida/?$ Capa_Presentacion/partida.php [END]
+    RewriteRule ^DraftDerMauer/api-partida/?$ Capa_Presentacion/api_partida.php [END]
+    RewriteRule ^DraftDerMauer/ranking/?$ Capa_Presentacion/ranking.php [END]
+    RewriteRule ^DraftDerMauer/competitivo/?$ Capa_Presentacion/competitivo.php [END]
+    RewriteRule ^DraftDerMauer/api-cola/?$ Capa_Presentacion/api_cola.php [END]
+    RewriteRule ^DraftDerMauer/mundo/?$ Capa_Presentacion/mundo.php [END]
+    RewriteRule ^DraftDerMauer/api-mundo/?$ Capa_Presentacion/api_mundo.php [END]
+    RewriteRule ^DraftDerMauer/amigos/?$ Capa_Presentacion/amigos.php [END]
+    RewriteRule ^DraftDerMauer/api-social/?$ Capa_Presentacion/api_social.php [END]
+    RewriteRule ^DraftDerMauer/torneos/?$ Capa_Presentacion/torneos.php [END]
+    RewriteRule ^DraftDerMauer/personalizar/?$ Capa_Presentacion/personalizar.php [END]
+    RewriteRule ^DraftDerMauer/api-torneos/?$ Capa_Presentacion/api_torneos.php [END]
+    RewriteRule ^DraftDerMauer/campana/?$ Capa_Presentacion/campana.php [END]
+    RewriteRule ^DraftDerMauer/api-campana/?$ Capa_Presentacion/api_campana.php [END]
+    RewriteRule ^DraftDerMauer/api-calcular/?$ Capa_Presentacion/api_calcular.php [END]
+    RewriteRule ^DraftDerMauer/galeria/?$ Capa_Presentacion/galeria.php [END]
+    RewriteRule ^DraftDerMauer/tutorial/?$ Capa_Presentacion/tutorial.php [END]
+    RewriteRule ^DraftDerMauer/reportes/?$ Capa_Presentacion/reportes.php [END]
+    RewriteRule ^DraftDerMauer/(css|fonts|img|js|lang|Music)/(.+\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|otf|json|mp3))$ Capa_Presentacion/$1/$2 [END,NC]
+    RewriteRule ^DraftDerMauer/\.well-known/(.+)$ Capa_Presentacion/.well-known/$1 [END]
+    RewriteRule ^DraftDerMauer/robots\.txt$ Capa_Presentacion/robots.txt [END,NC]
 </IfModule>

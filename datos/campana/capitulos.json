@@ -1,0 +1,105 @@
+{
+ "_leeme": "Capítulos de la campaña, en orden (los del documento original). disponible=false: se muestra como \"próximamente\".",
+ "capitulos": [
+  {
+   "id": "prologo",
+   "titulo": "Prólogo: El último encargo",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_1",
+   "titulo": "Capítulo 1: El dinero no tiene patria",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_2",
+   "titulo": "Capítulo 2: El precio de la frontera",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_3",
+   "titulo": "Capítulo 3: La casa de los muertos",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_4",
+   "titulo": "Capítulo 4: Un hombre en una habitación",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_5",
+   "titulo": "Capítulo 5: La traición de Anneliese",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_6",
+   "titulo": "Capítulo 6: El tren de las tres",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_7",
+   "titulo": "Capítulo 7: Los que quedaron detrás",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_8",
+   "titulo": "Capítulo 8: Lukas",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_9",
+   "titulo": "Capítulo 9: La ciudad bajo la ciudad",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_10",
+   "titulo": "Capítulo 10: El hermano",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_11",
+   "titulo": "Capítulo 11: La última cena",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_12",
+   "titulo": "Capítulo 12: El precio de la verdad",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_13",
+   "titulo": "Capítulo 13: La caja de Friedrichstraße",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_14",
+   "titulo": "Capítulo 14: El hombre que vendía la paz",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_15",
+   "titulo": "Capítulo 15: El verdadero traidor",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_16",
+   "titulo": "Capítulo 16: La ciudad arde",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_17",
+   "titulo": "Capítulo 17: El último aliado",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_18",
+   "titulo": "Capítulo 18: El archivo",
+   "disponible": true
+  },
+  {
+   "id": "capitulo_19",
+   "titulo": "Capítulo 19: El último hombre",
+   "disponible": true
+  }
+ ]
+}

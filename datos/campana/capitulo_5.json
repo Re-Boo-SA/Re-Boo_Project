@@ -1,0 +1,355 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate).",
+ "id": "capitulo_5",
+ "titulo": "Capítulo 5: La traición de Anneliese",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 250,
+  "logro": "nacht_capitulo_5"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente",
+  "agente": "Hombre de civil",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La sexta foto: una casa con las ventanas tapiadas. Atrás, un nombre subrayado dos veces: «Schwarz»."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "casa_abandonada",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "doc_1",
+    "doc_2",
+    "doc_3"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Agosto de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "casa"
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "esperar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "neutral",
+     "texto": "Me esperaste en esa casa. No me lo voy a olvidar."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "esperar_a_friedrich",
+   "valor": "ventana",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Saltaste por la ventana y me dejaste. Ya sé, ya sé: era lo correcto."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Acá no nos va a buscar nadie. Ni las ratas."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "doc_1",
+   "texto": "Revisá los documentos de la maleta",
+   "accion": "Mirar el documento",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Una cruz chiquita en lápiz, en la esquina."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "doc_2",
+   "texto": "Revisá el segundo documento",
+   "accion": "Mirar el documento",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "La misma marca. Y el sello está estampado encima: la cruz estaba antes."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "doc_3",
+   "texto": "Revisá el tercero",
+   "accion": "Mirar el documento",
+   "quedarse": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Todos marcados antes de que los robáramos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Alguien sabía que los íbamos a encontrar."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "elegir",
+   "clave": "tono_anneliese",
+   "pregunta": "¿Cómo la encara Viktor?",
+   "opciones": [
+    {
+     "valor": "calma",
+     "texto": "Decime la verdad. Despacio."
+    },
+    {
+     "valor": "furia",
+     "texto": "¿Para quién trabajás?"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "tono_anneliese",
+   "valor": "calma",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "triste",
+     "texto": "Está bien. Te lo debo."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "tono_anneliese",
+   "valor": "furia",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "enojado",
+     "texto": "No me grites. No sabés nada."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "enojado",
+     "texto": "Entonces contame."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Antes de conocerlos trabajaba para un hombre. Se hacía llamar Herr Schwarz."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Me prometió ayudarme a saber qué le pasó a mi padre."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "A cambio, yo le pasaba datos de gente que cruzaba entre los sectores."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Y qué les pasaba a esos?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "No sabía que los mataban. Te lo juro, Viktor. No lo sabía."
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_anneliese",
+   "valor": "regatear",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "enojado",
+     "texto": "Y vos me regateaste desde el primer día. Nadie es inocente acá."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "Que se vaya. Hoy."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Nos salvó más de una vez. Sin ella no estaríamos vivos."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "perdon_anneliese",
+   "pregunta": "¿Qué decide Viktor?",
+   "opciones": [
+    {
+     "valor": "perdonar",
+     "texto": "Te quedás. Pero nos das todos tus contactos. Todos."
+    },
+    {
+     "valor": "no_perdonar",
+     "texto": "Te quedás porque te necesitamos. Nada más."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "perdon_anneliese",
+   "valor": "perdonar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "Hay una mujer, Lotte. Siempre cerca del Reichstag. Ella me pasaba los mensajes de Schwarz."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Esto no se termina acá."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "perdon_anneliese",
+   "valor": "no_perdonar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "triste",
+     "texto": "Entiendo."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "Esto nos va a costar caro."
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Esa noche nadie durmió. La confianza del grupo se había roto.",
+   "segundos": 4
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 5",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

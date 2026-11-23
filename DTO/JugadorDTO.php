@@ -11,6 +11,9 @@ class Jugador extends Usuario
     private int $partidasGanadas;
     private string $biografia;
     private string $estado;
+    private int $mmr = 1000;
+    private int $puntosHistoricos = 0;
+    private bool $esBot = false;
 
     public function __construct(
         int $idUsuario = 0,
@@ -126,6 +129,29 @@ class Jugador extends Usuario
     public function setPuntosPartida(int $puntos): void
     {
         $this->pntsPartida = $puntos;
+    }
+
+    /* Datos de ranking (v3). Se cargan aparte para no cambiar el constructor. */
+    public function setDatosRanking(int $mmr, int $puntosHistoricos, bool $esBot): void
+    {
+        $this->mmr = $mmr;
+        $this->puntosHistoricos = $puntosHistoricos;
+        $this->esBot = $esBot;
+    }
+
+    public function getMMR(): int
+    {
+        return $this->mmr;
+    }
+
+    public function getPuntosHistoricos(): int
+    {
+        return $this->puntosHistoricos;
+    }
+
+    public function getEsBot(): bool
+    {
+        return $this->esBot;
     }
 }
 

@@ -1,0 +1,79 @@
+/* ===== Fase 4: social (página de amigos, panel en Berlín y tarjeta de perfil) ===== */
+.panel-social-contenido { color: var(--texto, #eef1f7); }
+.pestanas-social { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.8rem; }
+.boton-social { padding: 0.35rem 0.7rem; border: 1px solid var(--linea, #2e3552); border-radius: 7px; background: #0e1427; color: var(--texto, #eef1f7); font: inherit; font-size: 0.85rem; cursor: pointer; }
+.boton-social:hover { border-color: var(--ambar, #f4c430); }
+.boton-social.activa { border-color: var(--ambar, #f4c430); box-shadow: 0 0 0 1px var(--ambar, #f4c430); }
+.boton-social.principal { background: #e32636; border-color: #e32636; color: #fff; }
+.boton-social.peligro { border-color: #b3262b; color: #ff9aa0; }
+.lista-social { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.lista-social li { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border: 1px solid var(--linea, #2e3552); border-radius: 8px; }
+.lista-social li.vacio { color: var(--tenue, #9aa3b5); justify-content: flex-start; }
+.lista-social strong { cursor: pointer; }
+.lista-social small { display: block; color: var(--tenue, #9aa3b5); font-size: 0.78rem; }
+.lista-social .amigo.berlin small, .lista-social .amigo.jugando small { color: #7be38a; }
+.acciones-social { display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: flex-end; }
+.cuerpo-social h3 { margin: 0.8rem 0 0.4rem; font-size: 0.95rem; }
+.buscar-social { width: 100%; padding: 0.55rem 0.7rem; border: 1px solid var(--linea, #2e3552); border-radius: 8px; background: #0e1427; color: var(--texto, #eef1f7); font: inherit; margin-bottom: 0.6rem; box-sizing: border-box; }
+.chat-grupo { margin: 0.8rem 0; border: 1px solid var(--linea, #2e3552); border-radius: 8px; }
+.mensajes-grupo { max-height: 180px; overflow-y: auto; padding: 0.5rem 0.7rem; font-size: 0.88rem; }
+.mensajes-grupo p { margin: 0.2rem 0; }
+.form-grupo { display: flex; gap: 0.4rem; padding: 0.5rem; border-top: 1px solid var(--linea, #2e3552); }
+.form-grupo input { flex: 1; padding: 0.45rem 0.6rem; border: 1px solid var(--linea, #2e3552); border-radius: 7px; background: #0e1427; color: var(--texto, #eef1f7); font: inherit; }
+.tarjeta-perfil-fondo { position: fixed; inset: 0; background: rgba(5, 8, 18, 0.6); display: grid; place-items: center; z-index: 50; }
+.tarjeta-perfil { position: relative; width: min(420px, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.2rem 1.3rem; border: 1px solid var(--ambar, #f4c430); border-radius: 12px; background: #121a33; color: #eef1f7; box-sizing: border-box; }
+.tarjeta-perfil h2 { margin: 0 0 0.2rem; }
+.tarjeta-perfil .subtitulo { margin: 0 0 0.8rem; color: #9aa3b5; font-size: 0.88rem; }
+.tarjeta-perfil .cerrar { position: absolute; top: 0.5rem; right: 0.6rem; border: 0; background: transparent; color: #eef1f7; font-size: 1.4rem; cursor: pointer; }
+.datos-perfil { display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 0.8rem; margin: 0 0 0.8rem; }
+.datos-perfil dt { color: #9aa3b5; }
+.datos-perfil dd { margin: 0; }
+.logros-perfil { list-style: none; padding: 0; margin: 0 0 0.8rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.logros-perfil li { padding: 0.2rem 0.5rem; border: 1px solid #f4c430; border-radius: 6px; font-size: 0.8rem; color: #f4c430; }
+.aviso-social { margin-top: 0.8rem; padding: 0.5rem 0.8rem; border-radius: 8px; background: #1d2a44; }
+.aviso-social.error { background: #4a1d24; }
+/* Berlín: botón con insignia y menú de gestos */
+.con-insignia { position: relative; }
+.insignia { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #e32636; color: #fff; font-size: 0.72rem; line-height: 18px; text-align: center; }
+.menu-gestos { position: fixed; top: 3.6rem; right: 0.7rem; z-index: 20; display: grid; gap: 0.3rem; padding: 0.5rem; border: 1px solid var(--linea, #2e3552); border-radius: 10px; background: rgba(14, 20, 39, 0.95); }
+.opcion-gesto { padding: 0.4rem 0.7rem; border: 1px solid var(--linea, #2e3552); border-radius: 7px; background: #0e1427; color: #eef1f7; font: inherit; text-align: left; cursor: pointer; }
+.panel-social { width: min(460px, calc(100vw - 1.4rem)); max-height: calc(100dvh - 7rem); overflow-y: auto; }
+.lista-mesas li.en-curso { border-color: #2f5fb0; }
+.boton-mirar { padding: 0.35rem 0.7rem; border: 1px solid #4a8cff; border-radius: 7px; color: #9cc0ff; text-decoration: none; font-size: 0.85rem; }
+
+/* ===== Torneos relámpago ===== */
+.form-torneo { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0.6rem 0 1.2rem; padding: 0.8rem; border: 1px solid var(--linea, #2e3552); border-radius: 10px; }
+.form-torneo h2 { width: 100%; margin: 0 0 0.2rem; font-size: 1.05rem; }
+.form-torneo input, .form-torneo select { padding: 0.45rem 0.6rem; border: 1px solid var(--linea, #2e3552); border-radius: 7px; background: #0e1427; color: #eef1f7; font: inherit; }
+.form-torneo input { flex: 1 1 220px; }
+.lista-torneos a { color: inherit; font-weight: 700; text-decoration: none; }
+.lista-torneos .torneo.en_curso { border-color: #f4c430; }
+.lista-torneos .torneo.cancelado, .lista-social li.eliminado { opacity: 0.55; }
+.acciones-social.izquierda { justify-content: flex-start; margin-bottom: 0.8rem; }
+.cuadro { display: flex; gap: 1rem; overflow-x: auto; padding: 0.4rem 0 1rem; }
+.ronda { display: grid; gap: 0.7rem; align-content: space-around; min-width: 190px; }
+.ronda h3 { margin: 0; font-size: 0.9rem; color: #9aa3b5; }
+.cruce { border: 1px solid var(--linea, #2e3552); border-radius: 8px; overflow: hidden; }
+.cruce.en-juego { border-color: #f4c430; }
+.cruce .lado { padding: 0.35rem 0.6rem; font-size: 0.9rem; border-bottom: 1px solid var(--linea, #2e3552); }
+.cruce .lado.gano { font-weight: 700; color: #7be38a; }
+.cruce .lado.perdio { color: #7d8597; text-decoration: line-through; }
+.pie-cruce { padding: 0.25rem 0.6rem; font-size: 0.78rem; color: #9aa3b5; }
+.pie-cruce a { color: #9cc0ff; }
+.aviso-torneo { display: block; margin: 0.6rem 0; padding: 0.6rem 0.9rem; border-radius: 8px; background: #f4c430; color: #0b132b; font-weight: 700; text-decoration: none; }
+.aviso-torneo.flotante { position: fixed; top: 4rem; left: 50%; transform: translateX(-50%); z-index: 25; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+
+/* Tarjeta de perfil al estilo Discord: banner, avatar con marco, acento, estado y logros destacados */
+.tarjeta-perfil { --acento-perfil: #f4c430; padding-top: 0; overflow: hidden; }
+.banner-perfil { height: 84px; margin: 0 -1.2rem; }
+.cabecera-perfil { display: flex; align-items: flex-end; gap: 0.8rem; margin-top: -38px; }
+.avatar-perfil { width: 80px; height: 80px; border-radius: 50%; background: #0e1427; border: 4px solid #0e1427; display: grid; place-items: center; overflow: hidden; flex: none; }
+.avatar-perfil canvas { width: 72px; height: 72px; image-rendering: pixelated; border-radius: 50%; }
+.marco-bronce { box-shadow: 0 0 0 3px #b07a43; } .marco-plata { box-shadow: 0 0 0 3px #c9ced6; } .marco-oro { box-shadow: 0 0 0 3px #f4c430, 0 0 14px #f4c43088; }
+.marco-muro { box-shadow: 0 0 0 3px #8a8a8a, 0 0 0 6px #4a4f5a; } .marco-nacht { box-shadow: 0 0 0 3px #b3262b, 0 0 14px #b3262b88; }
+.marco-oeste { box-shadow: 0 0 0 3px #3b6fd8; } .marco-este { box-shadow: 0 0 0 3px #d83b3b; }
+.nombres-perfil h2 { margin: 0; } .nombres-perfil .pronombres { opacity: 0.75; }
+.estado-perfil { margin: 0.6rem 0 0.2rem; padding: 0.4rem 0.6rem; border-radius: 8px; background: #ffffff10; border-left: 3px solid var(--acento-perfil); }
+.sobre-mi { white-space: pre-wrap; margin-top: 0; }
+.insignias-perfil { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.insignias-perfil li { padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--acento-perfil); color: var(--acento-perfil); font-size: 0.85rem; }

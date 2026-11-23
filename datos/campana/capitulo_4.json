@@ -1,0 +1,556 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate).",
+ "id": "capitulo_4",
+ "titulo": "Capítulo 4: Un hombre en una habitación",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_4"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente",
+  "agente": "Hombre de civil",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La quinta foto es de Friedrich. Tiene un ojo morado y mira a la cámara como si la odiara."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Friedrich Keller",
+   "segundos": 2,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Esta parte se juega como Friedrich: Viktor no puede estar en esa habitación.",
+   "segundos": 4
+  },
+  {
+   "tipo": "escena",
+   "mapa": "sala_interrogatorio",
+   "actores": [
+    "falk",
+    "guardia"
+   ],
+   "jugador": "friedrich"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Oriental · Agosto de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "sala"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "Herr Keller. Siéntese. Tenemos tiempo. Usted, no tanto."
+  },
+  {
+   "tipo": "interrogatorio",
+   "id": "falk_keller",
+   "quien": "falk",
+   "limite": 60,
+   "sinRespuesta": 15,
+   "segundos": 8,
+   "texto": "No le des nada a Falk",
+   "detenido": "¿Ve, Keller? Al final, todos hablan.",
+   "pase": "Muy bien. Tenemos toda la noche.",
+   "medidor": "Lo que Falk averigua: {s} de {l}",
+   "falla": "Friedrich habló de más. Probá de nuevo.",
+   "preguntas": [
+    {
+     "texto": "Usted tiene algo que me pertenece, Herr Keller.",
+     "opciones": [
+      {
+       "texto": "No sé de qué me habla.",
+       "sospecha": 5
+      },
+      {
+       "texto": "Si es suyo, ¿por qué lo tenían otros?",
+       "sospecha": 15
+      },
+      {
+       "texto": "Está en un lugar seguro.",
+       "sospecha": 35
+      }
+     ]
+    },
+    {
+     "texto": "Le ofrezco un trato. Los documentos, y usted sale caminando por esa puerta.",
+     "opciones": [
+      {
+       "texto": "No hay trato.",
+       "sospecha": 5
+      },
+      {
+       "texto": "¿Y mis amigos?",
+       "sospecha": 25
+      },
+      {
+       "texto": "Déjeme pensarlo.",
+       "sospecha": 20
+      }
+     ]
+    },
+    {
+     "texto": "¿La reconoce? Margarete. Vive en Weißensee, en un tercer piso.",
+     "opciones": [
+      {
+       "texto": "No decir nada.",
+       "sospecha": 5
+      },
+      {
+       "texto": "¡Ella no tiene nada que ver!",
+       "sospecha": 25
+      },
+      {
+       "texto": "Hace años que no la veo.",
+       "sospecha": 10
+      }
+     ]
+    },
+    {
+     "texto": "Puedo hacer que su vida sea muy difícil. O muy corta.",
+     "opciones": [
+      {
+       "texto": "Hágalo.",
+       "sospecha": 5
+      },
+      {
+       "texto": "¿Qué quiere saber?",
+       "sospecha": 35
+      },
+      {
+       "texto": "Viktor no va a dejar que...",
+       "sospecha": 30
+      }
+     ]
+    },
+    {
+     "texto": "¿Dónde están los papeles, Keller?",
+     "opciones": [
+      {
+       "texto": "Los quemé.",
+       "sospecha": 10
+      },
+      {
+       "texto": "Se los di a los americanos.",
+       "sospecha": 20
+      },
+      {
+       "texto": "No contestar y mirar la pared.",
+       "sospecha": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Varias horas después",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "enojado",
+   "texto": "Usted no es un hombre leal, Keller. Es un hombre que necesita creer que lo es."
+  },
+  {
+   "tipo": "mover",
+   "actor": "falk",
+   "a": "puerta",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor",
+   "segundos": 2,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "La historia vuelve a Viktor. Esa misma noche, el rescate.",
+   "segundos": 4
+  },
+  {
+   "tipo": "escena",
+   "mapa": "edificio",
+   "actores": [
+    "tuniforme",
+    "friedrich",
+    "guardia_1",
+    "guardia_2",
+    "guardia_3"
+   ],
+   "jugador": "vuniforme"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "entrada"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "tuniforme",
+   "emocion": "neutral",
+   "texto": "Uniformes robados y papeles de traslado. Si alguien nos mira de cerca, se acabó."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "vuniforme",
+   "emocion": "neutral",
+   "texto": "Entonces que nadie nos mire de cerca."
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "guardia_1",
+    "guardia_2"
+   ],
+   "meta": "celda",
+   "radio": 45,
+   "registra": "descubierto_rescate",
+   "texto": "Llegá a la celda de Friedrich sin que te descubran"
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tiroteo"
+  },
+  {
+   "tipo": "si",
+   "clave": "descubierto_rescate",
+   "valor": "si",
+   "pasos": [
+    {
+     "tipo": "franjas",
+     "visibles": true
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "guardia_1",
+     "emocion": "enojado",
+     "texto": "¡Esos uniformes no son de acá! ¡Alarma!"
+    },
+    {
+     "tipo": "franjas",
+     "visibles": false
+    },
+    {
+     "tipo": "combate",
+     "id": "rescate_adentro",
+     "mapa": "edificio",
+     "texto": "Te descubrieron: derribá a los guardias antes de que llegue el refuerzo (12 rondas)",
+     "lider": "vuniforme",
+     "objetivo": {
+      "tipo": "eliminar",
+      "rondas": 12
+     },
+     "unidades": {
+      "vuniforme": {
+       "lado": "aliado",
+       "celda": [
+        3,
+        7
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 80
+      },
+      "tuniforme": {
+       "lado": "aliado",
+       "celda": [
+        3,
+        9
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 65
+      },
+      "guardia_1": {
+       "lado": "enemigo",
+       "celda": [
+        12,
+        6
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      },
+      "guardia_2": {
+       "lado": "enemigo",
+       "celda": [
+        16,
+        8
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 45
+      },
+      "guardia_3": {
+       "lado": "enemigo",
+       "celda": [
+        20,
+        8
+       ],
+       "vida": 3,
+       "mov": 3,
+       "punteria": 45
+      }
+     }
+    },
+    {
+     "tipo": "objetivo",
+     "texto": "Sacá a Friedrich de la celda",
+     "zona": "celda",
+     "radio": 70,
+     "accion": "Abrir la celda"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "neutral",
+     "texto": "¡Viktor! Pensé que no venían."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "vuniforme",
+     "emocion": "neutral",
+     "texto": "Callate y caminá."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "descubierto_rescate",
+   "valor": "no",
+   "pasos": [
+    {
+     "tipo": "objetivo",
+     "texto": "Abrí la celda de Friedrich",
+     "zona": "celda",
+     "radio": 70,
+     "accion": "Abrir la celda"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "neutral",
+     "texto": "Viktor... ¿Qué hacés vestido así?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "vuniforme",
+     "emocion": "neutral",
+     "texto": "Te sacamos. Caminá normal."
+    },
+    {
+     "tipo": "franjas",
+     "visibles": true
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "guardia_1",
+     "emocion": "enojado",
+     "texto": "¡Alto! ¿Adónde llevan al prisionero?"
+    },
+    {
+     "tipo": "franjas",
+     "visibles": false
+    },
+    {
+     "tipo": "combate",
+     "id": "rescate_salida",
+     "mapa": "edificio",
+     "texto": "Abrite paso: derribá a los guardias antes de que llegue el refuerzo (8 rondas)",
+     "lider": "vuniforme",
+     "objetivo": {
+      "tipo": "eliminar",
+      "rondas": 8
+     },
+     "unidades": {
+      "vuniforme": {
+       "lado": "aliado",
+       "celda": [
+        21,
+        8
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 75
+      },
+      "tuniforme": {
+       "lado": "aliado",
+       "celda": [
+        20,
+        9
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 65
+      },
+      "friedrich": {
+       "lado": "aliado",
+       "celda": [
+        22,
+        7
+       ],
+       "vida": 3,
+       "mov": 3,
+       "punteria": 60
+      },
+      "guardia_1": {
+       "lado": "enemigo",
+       "celda": [
+        6,
+        7
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 55
+      },
+      "guardia_2": {
+       "lado": "enemigo",
+       "celda": [
+        9,
+        8
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 55
+      }
+     }
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "foto"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "guardia_1",
+   "texto": "Revisá al guardia caído",
+   "accion": "Revisar al guardia",
+   "quedarse": true
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una foto de Margarete. La misma que Falk puso sobre la mesa.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "triste",
+   "texto": "No estaba mintiendo."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Salí del edificio",
+   "zona": "salida",
+   "radio": 60
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 4",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}
