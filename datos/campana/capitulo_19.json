@@ -1,0 +1,688 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_19",
+ "titulo": "Capítulo 19: El último hombre",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 500,
+  "logro": "nacht_capitulo_19"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un hombre de Lukas",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Falk",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado",
+  "samuel": "Samuel Hartmann",
+  "trabajador": "Un trabajador",
+  "voz": "Una voz"
+ },
+ "pasos": [
+  {
+   "tipo": "tarjeta",
+   "texto": "El final · La ciudad no perdona",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "escena",
+   "mapa": "instalacion",
+   "actores": [
+    "lukas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "archivo"
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "aparecer",
+     "actores": [
+      "thomas",
+      "falk"
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tuneles"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Lukas está herido. Huye por los túneles.",
+   "segundos": 3
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "Andá. Yo me quedo con Falk."
+    }
+   ]
+  },
+  {
+   "tipo": "seguir",
+   "objetivo": "lukas",
+   "ruta": "ruta_lukas",
+   "velocidad": 50,
+   "mirarSegundos": 1.4,
+   "lejos": 330,
+   "texto": "Seguí a Lukas por los túneles: que no te vea, está armado"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Entrá al depósito",
+   "zona": "frente_lukas",
+   "radio": 70
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Cientos de cajas. Documentos, fotos, grabaciones. Más de veinte años de operaciones.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "dolor",
+   "texto": "Esto no te va a servir de nada. Los gobiernos van a negarlo todo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "dolor",
+   "texto": "A los que aparezcan acá los van a reemplazar. Y la organización va a seguir."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Por qué?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "dolor",
+   "texto": "Porque el mundo no funciona como vos creés. La gente no quiere conocer la verdad. Quiere escuchar algo que la deje dormir tranquila."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "viktor"
+   ],
+   "segundos": 0.4
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "lukas"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor dispara. Lukas cae.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor queda frente al archivo.",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "decision"
+  },
+  {
+   "tipo": "elegir",
+   "clave": "final",
+   "pregunta": "¿Qué hace Viktor con el archivo?",
+   "opciones": [
+    {
+     "valor": "entregar",
+     "texto": "Entregarlo: que los desaparecidos tengan un nombre."
+    },
+    {
+     "valor": "quedarse",
+     "texto": "Quedárselo: es la única garantía de seguir vivo."
+    },
+    {
+     "valor": "destruir",
+     "texto": "Destruirlo: mientras exista, van a seguir matando por él."
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "si",
+   "clave": "final",
+   "valor": "entregar",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Final A · La verdad",
+     "segundos": 3,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor entrega el archivo a periodistas y organizaciones independientes. No busca plata. No busca poder. Quiere que los desaparecidos tengan un nombre.",
+     "segundos": 6
+    },
+    {
+     "tipo": "si",
+     "clave": "perdon_anneliese",
+     "valor": "perdonar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Lotte, la de los mensajes junto al Reichstag, se encarga de que los sobres lleguen a las redacciones de los dos lados.",
+       "segundos": 5
+      }
+     ]
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "En las semanas siguientes se publican cientos de documentos. Las autoridades lo niegan todo. Hay investigaciones. Algunos funcionarios renuncian. Otros desaparecen.",
+     "segundos": 6
+    },
+    {
+     "tipo": "si",
+     "clave": "trato_thomas",
+     "valor": "entender",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Erich Falk declara ante un juez. Dice muchos nombres. No todos.",
+       "segundos": 4
+      }
+     ]
+    },
+    {
+     "tipo": "si",
+     "clave": "trato_thomas",
+     "valor": "culpar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "De Erich Falk no se vuelve a saber nada. La parte del archivo que se llevó nunca aparece.",
+       "segundos": 4
+      }
+     ]
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Projekt Morgen no desaparece. Pero queda gravemente herido.",
+     "segundos": 4
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "taller",
+     "actores": [],
+     "jugador": "viktor",
+     "props": [
+      "auto_taller"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Un pueblo de Alemania Occidental · Invierno",
+     "segundos": 3
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor vive en una casa sencilla. Arregla autos.",
+     "segundos": 3
+    },
+    {
+     "tipo": "si",
+     "clave": "trato_thomas",
+     "valor": "entender",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Cada tanto llega una postal de algún lugar lejano. Nunca tiene firma. Siempre tiene un dibujito de una ganzúa.",
+       "segundos": 5
+      }
+     ]
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Una mañana llega una carta sin remitente. Adentro, una foto vieja de su familia.",
+     "segundos": 4
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Atrás, con la letra de su hermano: «Al menos uno de nosotros consiguió volver a casa».",
+     "segundos": 5,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Por primera vez en muchos años, Viktor no parece tener miedo.",
+     "segundos": 4
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "redaccion_1975",
+     "actores": [
+      "ingrid"
+     ],
+     "jugador": null,
+     "props": [
+      "caja"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "ingrid",
+     "emocion": "neutral",
+     "texto": "Así que esto es lo que me mandaron. No el archivo: la historia de cómo lo encontraron. Y de lo que costó."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "ingrid",
+     "emocion": "contento",
+     "texto": "Mañana empiezo a escribir."
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "guardar",
+     "punto": "final"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "FIN",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fin"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "final",
+   "valor": "quedarse",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Final B · El hombre que sobrevivió",
+     "segundos": 3,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor se queda con el archivo. Con los papeles chantajea a políticos, empresarios y funcionarios. Junta plata suficiente para irse de Berlín y empezar otra vida.",
+     "segundos": 6
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Termina pareciéndose a los hombres que persiguió.",
+     "segundos": 4
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "mansion",
+     "actores": [],
+     "jugador": "viktor",
+     "props": [
+      "fotos",
+      "carta"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Un departamento de lujo · Años después",
+     "segundos": 3
+    },
+    {
+     "tipo": "efecto",
+     "nombre": "telefono",
+     "segundos": 2
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "voz",
+     "emocion": "neutral",
+     "texto": "Tenemos un problema."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "neutral",
+     "texto": "¿Cuál?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "voz",
+     "emocion": "neutral",
+     "texto": "Hay un hombre preguntando por el archivo."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor se queda en silencio. Después sonríe.",
+     "segundos": 3
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "neutral",
+     "texto": "Entonces hagan que desaparezca."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Sobre la mesa hay una foto: Friedrich, Martin, Thomas y Anneliese. Viktor la guarda en un cajón.",
+     "segundos": 5,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "redaccion_1975",
+     "actores": [
+      "ingrid"
+     ],
+     "jugador": null,
+     "props": [
+      "caja"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "ingrid",
+     "emocion": "triste",
+     "texto": "No hay remitente. Pero alguien quería que yo leyera esto..."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "ingrid",
+     "emocion": "triste",
+     "texto": "...o quería saber hasta dónde iba a llegar."
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "guardar",
+     "punto": "final"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "FIN",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fin"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "final",
+   "valor": "destruir",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Final C · Nadie sale de Berlín",
+     "segundos": 3,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor decide destruir el archivo. Mientras exista, siempre va a haber alguien dispuesto a matar por él.",
+     "segundos": 5
+    },
+    {
+     "tipo": "efecto",
+     "nombre": "golpe"
+    },
+    {
+     "tipo": "efecto",
+     "nombre": "disparos",
+     "desde": [
+      "nadie"
+     ],
+     "segundos": 0.6
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "La instalación vuela por los aires. Viktor consigue salir, gravemente herido.",
+     "segundos": 4
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Projekt Morgen pierde gran parte de sus registros. Pero algunos de sus integrantes sobreviven.",
+     "segundos": 4
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "calle",
+     "actores": [],
+     "jugador": "viktor",
+     "props": [
+      "carteles"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Berlín Occidental",
+     "segundos": 2
+    },
+    {
+     "tipo": "interactuar",
+     "objeto": "carteles",
+     "texto": "Mirá la pared de carteles",
+     "accion": "Mirar los carteles",
+     "quedarse": true
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Carteles de personas desaparecidas. Uno es de su hermano.",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor lo arranca despacio. Mira la ciudad. Después sigue caminando.",
+     "segundos": 5
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "instalacion",
+     "actores": [
+      "agente"
+     ],
+     "jugador": null
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Entre los escombros, un desconocido levanta un papel y se lo guarda en el abrigo.",
+     "segundos": 4
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "En el papel hay un sello. El mismo que estaba en la primera maleta.",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Projekt Morgen continúa.",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "escena",
+     "mapa": "redaccion_1975",
+     "actores": [
+      "ingrid"
+     ],
+     "jugador": null,
+     "props": [
+      "caja"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "ingrid",
+     "emocion": "triste",
+     "texto": "La última hoja tiene un sello. Lo vi antes..."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Ingrid da vuelta la caja. El mismo sello está en la tapa.",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fundido",
+     "a": "negro",
+     "segundos": 2
+    },
+    {
+     "tipo": "guardar",
+     "punto": "final"
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "FIN",
+     "segundos": 4,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "fin"
+    }
+   ]
+  }
+ ],
+ "logrosPorDecision": {
+  "final": {
+   "entregar": "nacht_final_a",
+   "quedarse": "nacht_final_b",
+   "destruir": "nacht_final_c"
+  }
+ }
+}

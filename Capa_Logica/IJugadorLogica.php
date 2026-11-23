@@ -1,0 +1,28 @@
+<?php
+
+require_once(__DIR__ . '/../DTO/JugadorDTO.php');
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
+
+interface IJugadorLogica
+{
+    public function registrarJugador(string $nombreUsuario, string $correo, string $password, string $confirmarPassword): array;
+
+    public function obtenerJugador(int $idUsuario): ?Jugador;
+
+    public function listarJugadores(): array;
+
+    public function bajaJugador(int $idUsuario): bool;
+
+    public function gestionarBajaJugador(int $idUsuario): string;
+
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool;
+
+    public function actualizarPerfil(int $idUsuario, string $nombreUsuario, string $biografia, string $estado): array;
+
+    public function guardarFotoPerfil(int $idUsuario, array $archivo, string $carpetaDestino): array;
+
+    public function tutorialVisto(int $idUsuario): bool;
+
+    public function marcarTutorialVisto(int $idUsuario, bool $visto = true): bool;
+}
+?>

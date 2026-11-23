@@ -1,0 +1,730 @@
+{
+ "_leeme": "Guion del prólogo de 'Nacht über Berlin' (etapa D). Es CONTENIDO: se edita sin tocar código. Pasos: escena, fundido, tarjeta, franjas, dialogo, elegir, si, mover, esperar_mover, aparecer, objetivo, interactuar, sigilo, persecucion, combate (táctico por turnos: lo resuelve el servidor), efecto, camara, guardar, fin. En 'interactuar' (y en 'objetivo' con 'accion'), 'accion' es lo que dice el cartelito «E ...» al acercarse. Los puntos de 'guardar' son donde se retoma; el servidor exige que vayan en orden. Los mapas están en datos/campana/mapas (los genera herramientas/arte/generar_campana.py).",
+ "id": "prologo",
+ "titulo": "Prólogo: El último encargo",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y los hechos son inventados, pero transcurren en el Berlín real de la Guerra Fría. Contiene violencia.",
+ "recompensa": {
+  "xp": 200,
+  "logro": "nacht_prologo"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "neutral",
+   "texto": "Me llegó esta caja sin remitente. Fotos, recortes, una libreta... y un nombre que se repite en todo: Viktor Adler."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "Algunas fotos son de 1961, de antes del Muro. Quiero saber qué le pasó a esta gente."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "neutral",
+   "texto": "Empecemos por la primera. Una calle mojada, un auto viejo y dos hombres adentro."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [],
+   "jugador": null,
+   "props": [
+    "auto"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Junio de 1961 · 23:47",
+   "segundos": 4
+  },
+  {
+   "tipo": "mover",
+   "actor": "auto",
+   "a": "llegada",
+   "segundos": 9,
+   "esperar": false
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Sabés qué es lo que más odio de esta ciudad?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Que siempre parece que algo está a punto de pasar."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Eso es porque siempre pasa algo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "No. Hablo de algo grande. Algo que lo va a cambiar todo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "contento",
+   "texto": "Entonces ojalá cambie también el precio de la cerveza."
+  },
+  {
+   "tipo": "esperar_mover",
+   "actor": "auto"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "viktor",
+    "friedrich"
+   ]
+  },
+  {
+   "tipo": "mover",
+   "actor": "friedrich",
+   "a": "puerta_taller",
+   "segundos": 1.6,
+   "esperar": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "viktor",
+   "a": "puerta_taller",
+   "segundos": 1.8
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "taller",
+   "actores": [
+    "thomas",
+    "friedrich"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "auto_taller",
+    "sobre"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "taller"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Thomas",
+   "zona": "thomas",
+   "radio": 80,
+   "accion": "Hablar con Thomas"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "Llegan tarde."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Y vos seguís siendo insoportable."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "El sobre está en la mesa. No lo cuenten delante mío, que me deprime."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "sobre",
+   "texto": "Agarrá el sobre de la mesa",
+   "accion": "Agarrar el sobre"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Faltan casi doscientos marcos. ¿Dónde está el resto?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Otto Weiss decidió retrasar el pago."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "golpe"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "Ese hijo de puta nos está tomando el pelo."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "puerta"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "anneliese"
+   ],
+   "en": "anneliese_entra"
+  },
+  {
+   "tipo": "mover",
+   "actor": "anneliese",
+   "a": "anneliese",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Si quieren cobrar, dejen de buscar a Weiss."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "¿Y vos quién sos?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Alguien que sabe dónde está."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Weiss desapareció. Pero antes se robó algo que es de gente mucho más peligrosa que él. Esta noche trasladan unos documentos en una maleta."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "No me interesa."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "contento",
+   "texto": "Dos mil marcos. Para cada uno."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "contento",
+   "texto": "Ahora me interesa a mí."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "trato_anneliese",
+   "pregunta": "¿Qué le contesta Viktor?",
+   "opciones": [
+    {
+     "valor": "aceptar",
+     "texto": "Trato hecho."
+    },
+    {
+     "valor": "regatear",
+     "texto": "Que sean tres mil."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_anneliese",
+   "valor": "aceptar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "Sabía que eras razonable."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_anneliese",
+   "valor": "regatear",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "enojado",
+     "texto": "Dos mil quinientos. Y no me vuelvas a regatear."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "contento",
+     "texto": "Me cae bien."
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Primera misión: El último encargo",
+   "segundos": 3
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "estacion",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese",
+    "maton_1",
+    "maton_2"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "vagon_1",
+    "vagon_2",
+    "auto_vigilado",
+    "maleta",
+    "auto_viktor"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "estacion"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "Dos tipos armados junto al auto. Esto no es un trabajo de mensajeros."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Pasá entre los vagones y los cajones. Que no te vean."
+  },
+  {
+   "tipo": "sigilo",
+   "guardias": [
+    "maton_1",
+    "maton_2"
+   ],
+   "meta": "meta_maleta",
+   "radio": 40,
+   "texto": "Llegá a la maleta sin que te vean"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "maleta",
+   "texto": "Tomá la maleta",
+   "accion": "Tomar la maleta"
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tiroteo"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "maton_3"
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "maton_1",
+   "emocion": "enojado",
+   "texto": "¡Alto! ¡Soltá eso!"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "¡Viktor, a cubierto! ¡Yo te cubro!"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "combate",
+   "id": "estacion",
+   "mapa": "estacion",
+   "texto": "Derribá a los matones o resistí 5 rondas",
+   "lider": "viktor",
+   "objetivo": {
+    "tipo": "resistir",
+    "rondas": 5
+   },
+   "unidades": {
+    "viktor": {
+     "lado": "aliado",
+     "celda": [
+      19,
+      9
+     ],
+     "vida": 4,
+     "mov": 4,
+     "punteria": 75
+    },
+    "friedrich": {
+     "lado": "aliado",
+     "celda": [
+      12,
+      13
+     ],
+     "vida": 5,
+     "mov": 4,
+     "punteria": 70
+    },
+    "maton_1": {
+     "lado": "enemigo",
+     "celda": [
+      21,
+      4
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 50
+    },
+    "maton_2": {
+     "lado": "enemigo",
+     "celda": [
+      16,
+      4
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 45
+    },
+    "maton_3": {
+     "lado": "enemigo",
+     "celda": [
+      22,
+      11
+     ],
+     "vida": 3,
+     "mov": 3,
+     "punteria": 45
+    }
+   }
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "dolor",
+   "texto": "¡Ah! ¡Me dieron en el brazo!"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "¡Vienen más! ¡Escuché autos!"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "maton_4",
+    "maton_5"
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¡Al auto! ¡Ahora!"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "huida"
+  },
+  {
+   "tipo": "persecucion",
+   "perseguidores": [
+    "maton_4",
+    "maton_5"
+   ],
+   "meta": "salida",
+   "radio": 50,
+   "retraso": 1.2,
+   "velocidad": 0.85,
+   "texto": "¡Corré hasta el auto!"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "escondite",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "maleta",
+    "libreta"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "escondite"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "dolor",
+   "texto": "Es solo un roce. Sigan, que yo sangro en silencio."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "maleta",
+   "texto": "Abrí la maleta",
+   "quedarse": true,
+   "accion": "Abrir la maleta"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Documentos de identidad. Fotos de gente desaparecida. Listas de pagos. Registros de trenes..."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Y esa libreta negra?"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "libreta",
+   "texto": "Abrí la libreta",
+   "accion": "Abrir la libreta"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "camara",
+   "actor": "viktor",
+   "zoom": 1.6,
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "VIKTOR ADLER — 17 DE NOVIEMBRE DE 1948",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "Es el día en que desapareció mi hermano."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Este sello... es de una oficina de seguridad del Este."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Y eso qué significa?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Que acabamos de robar algo que nunca deberíamos haber visto."
+  },
+  {
+   "tipo": "camara",
+   "actor": "viktor",
+   "zoom": 0.85,
+   "segundos": 3
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "escena",
+   "mapa": "oficina_falk",
+   "actores": [
+    "falk"
+   ],
+   "jugador": null,
+   "props": [
+    "telefono"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Oriental · Esa misma noche",
+   "segundos": 3
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "telefono",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "enojado",
+   "texto": "Encuéntrenlos."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del prólogo",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

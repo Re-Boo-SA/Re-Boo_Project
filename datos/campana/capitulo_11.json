@@ -1,0 +1,385 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_11",
+ "titulo": "Capítulo 11: La última cena",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_11"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Guardia",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto once es de una mesa servida para cinco. Un plato quedó sin tocar."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto V · Los muertos también hablan",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "escena",
+   "mapa": "restaurante",
+   "actores": [
+    "martin",
+    "lukas",
+    "anneliese",
+    "thomas",
+    "cliente_1",
+    "cliente_2"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1962 · Un restaurante apartado",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "cena"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Por primera vez en años, Viktor siente que tiene una familia.",
+   "segundos": 3
+  },
+  {
+   "tipo": "paseo",
+   "texto": "Hablá con los de la mesa",
+   "minimo": 3,
+   "fin": {
+    "actor": "martin",
+    "accion": "Escuchar a Martin"
+   },
+   "puntos": [
+    {
+     "objeto": "anneliese",
+     "accion": "Hablar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "anneliese",
+       "emocion": "contento",
+       "texto": "Nunca pensé que iba a sentarme a comer con un Adler. Con dos."
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "neutral",
+       "texto": "Yo tampoco."
+      }
+     ]
+    },
+    {
+     "objeto": "lukas",
+     "accion": "Hablar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "lukas",
+       "emocion": "neutral",
+       "texto": "Este lugar es seguro. El dueño no hace preguntas."
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "neutral",
+       "texto": "Nadie hace preguntas hasta que alguien le paga para que las haga."
+      }
+     ]
+    },
+    {
+     "objeto": "thomas",
+     "accion": "Hablar",
+     "pasos": [
+      {
+       "tipo": "dialogo",
+       "quien": "thomas",
+       "emocion": "neutral",
+       "texto": "Viktor... tengo que contarte algo. Después. Cuando estemos solos."
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "neutral",
+       "texto": "Después."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "elegir",
+   "clave": "brindis",
+   "pregunta": "Martin levanta el vaso. ¿Por quién brinda Viktor?",
+   "opciones": [
+    {
+     "valor": "friedrich",
+     "texto": "Por Friedrich."
+    },
+    {
+     "valor": "ausentes",
+     "texto": "Por los que quedaron del otro lado."
+    },
+    {
+     "valor": "nosotros",
+     "texto": "Por nosotros. Por lo que queda."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "brindis",
+   "valor": "friedrich",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "martin",
+     "emocion": "neutral",
+     "texto": "Por Friedrich. No lo conocí, y me hubiera gustado."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "brindis",
+   "valor": "ausentes",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "triste",
+     "texto": "Por mi padre, entonces."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "brindis",
+   "valor": "nosotros",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "lukas",
+     "emocion": "neutral",
+     "texto": "Por nosotros."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "Tengo pruebas de que Konrad Weiss financia Projekt Morgen desde Occidente."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "Y Erich Falk no es el que manda. El que manda es un hombre al que llaman «Der Architekt»."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "martin",
+   "emocion": "neutral",
+   "texto": "El Arquitecto. Nadie sabe quién es. Pero tiene contactos en los dos bloques."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Thomas escucha con atención.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Ya vuelvo. Voy al baño."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "mover",
+   "actor": "thomas",
+   "a": "thomas_sale",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "desaparecer",
+   "actores": [
+    "thomas"
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Pasan diez minutos.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "¿Y Thomas?"
+  },
+  {
+   "tipo": "guardar",
+   "punto": "baño"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Fijate dónde está Thomas",
+   "zona": "bano",
+   "radio": 70,
+   "accion": "Revisar el baño"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "El baño está vacío. La ventana, abierta.",
+   "segundos": 3
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Salí a buscarlo",
+   "zona": "salida",
+   "radio": 70,
+   "accion": "Salir a la calle"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [],
+   "jugador": "viktor",
+   "props": [
+    "auto_abierto"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "calle"
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "auto_abierto",
+   "texto": "Revisá el auto",
+   "accion": "Mirar el auto",
+   "quedarse": true
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Las puertas abiertas. Sangre en el asiento de atrás.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Thomas..."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Thomas fue secuestrado.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 11",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

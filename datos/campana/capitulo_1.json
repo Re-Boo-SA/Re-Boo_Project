@@ -1,0 +1,406 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear.",
+ "id": "capitulo_1",
+ "titulo": "Capítulo 1: El dinero no tiene patria",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 250,
+  "logro": "nacht_capitulo_1"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Matón",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Cliente"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "neutral",
+   "texto": "La segunda foto es de un club de jazz de Kreuzberg. Atrás alguien escribió: «Otto. Julio de 1961»."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "Otto Weiss. Su nombre aparece en la libreta, al lado de una cruz."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "escondite",
+   "actores": [
+    "friedrich",
+    "thomas",
+    "anneliese"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "maleta",
+    "libreta"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · Julio de 1961",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "lista"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Anneliese",
+   "zona": "anneliese",
+   "radio": 80,
+   "accion": "Hablar con Anneliese"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Estos papeles tienen nombre. Lo llaman Nachtliste. La Lista de la Noche."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "¿Una lista de qué?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "De gente detenida, trasladada o desaparecida después de la guerra."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "neutral",
+   "texto": "¿Tanto lío por una lista de presos?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Hay algo peor. Algunos figuran como muertos. Otros, trabajando para el gobierno. Y algunos cobran de bancos occidentales."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "O sea que no es solo cosa del Este."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Alguien del Oeste está pagando."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "contento",
+   "texto": "Entonces vendamos una parte. Alguien va a pagar bien por esto."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "vender_lista",
+   "pregunta": "¿Qué hace Viktor con la lista?",
+   "opciones": [
+    {
+     "valor": "vender",
+     "texto": "Vendamos una parte."
+    },
+    {
+     "valor": "guardar",
+     "texto": "No. Primero entendamos qué tenemos."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "vender_lista",
+   "valor": "vender",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "contento",
+     "texto": "Así me gusta."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "vender_lista",
+   "valor": "guardar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "friedrich",
+     "emocion": "enojado",
+     "texto": "Con entender no se come, Viktor."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "Igual vamos a necesitar a Otto. Él sabe quién la quiere."
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "Otto Weiss se esconde en un club de jazz de Kreuzberg. El Silberfisch."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Kreuzberg · Club Silberfisch",
+   "segundos": 3
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "club",
+   "actores": [
+    "friedrich",
+    "anneliese",
+    "maton",
+    "otto",
+    "cliente_1",
+    "cliente_2",
+    "cliente_3",
+    "cliente_4"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "club"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Buscá a Otto en la trastienda",
+   "zona": "maton",
+   "radio": 70,
+   "accion": "Hablar con el portero"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "maton",
+   "emocion": "neutral",
+   "texto": "La mesa de atrás es para los que juegan."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Entonces juego."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "maton",
+   "emocion": "neutral",
+   "texto": "Pasá. Y no hagas lío."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Otto",
+   "zona": "otto",
+   "radio": 80,
+   "accion": "Hablar con Otto"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "triste",
+   "texto": "¿Viktor? ¿Qué hacés acá? Yo no sé nada, te lo juro."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Sabés lo suficiente para esconderte."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "neutral",
+   "texto": "En esta mesa no se habla. Se juega. Si me ganás, te cuento lo que sé."
+  },
+  {
+   "tipo": "guardar",
+   "punto": "mesa_otto"
+  },
+  {
+   "tipo": "partida",
+   "id": "mesa_otto",
+   "bot": 109,
+   "nombre": "La mesa de Otto",
+   "quien": "otto",
+   "reglas": {
+    "rondas": 1
+   },
+   "texto": "Ganale a Otto en su mesa de apuestas",
+   "invitacion": "Una ronda. Si ganás, hablo. Si perdés, te vas y nunca me viste.",
+   "perdiste": "Perdiste, Viktor. Una más y te vas.",
+   "enJuego": "La partida sigue en la mesa. Terminala."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "triste",
+   "texto": "Está bien, está bien..."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "triste",
+   "texto": "No sabía lo que llevaba. Me pagaron para mover papeles, nada más."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Tu nombre está en la lista, Otto. ¿Por qué?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "triste",
+   "texto": "Porque tu hermano no murió, Viktor."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "…"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "otto",
+   "emocion": "neutral",
+   "texto": "Lo vi hace tres años."
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "golpe"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Dónde?"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "apagon",
+   "segundos": 3
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "otto"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "friedrich",
+   "emocion": "enojado",
+   "texto": "¡Viktor! ¿Estás bien?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "triste",
+   "texto": "Otto..."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Alguien está eliminando a todos los que tocaron esos papeles."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "Y nosotros los tenemos."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 1",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

@@ -1,0 +1,413 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_16",
+ "titulo": "Capítulo 16: La ciudad arde",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 300,
+  "logro": "nacht_capitulo_16"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Falk",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado",
+  "samuel": "Samuel Hartmann"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto dieciséis es de una ventana con las cortinas cerradas. De día."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto VII · La caída de los hombres",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín se vuelve irrespirable. La organización perdió a varios de sus intermediarios. La policía busca a Viktor. A Anneliese la persiguen sus viejos contactos.",
+   "segundos": 5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "departamento",
+   "actores": [
+    "anneliese",
+    "thomas"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1962 · De noche",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "noche"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Thomas ya no duerme. Escucha ruidos todo el tiempo.",
+   "segundos": 3
+  },
+  {
+   "tipo": "paseo",
+   "texto": "Revisá la casa",
+   "minimo": 2,
+   "fin": {
+    "actor": "thomas",
+    "accion": "Hablar con Thomas"
+   },
+   "puntos": [
+    {
+     "objeto": "frente_ventana",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "Un auto estacionado con el motor apagado. Hace una hora que está ahí.",
+       "segundos": 3
+      },
+      {
+       "tipo": "dialogo",
+       "quien": "viktor",
+       "emocion": "neutral",
+       "texto": "Puede ser cualquiera."
+      }
+     ]
+    },
+    {
+     "objeto": "puerta",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "La cerradura nueva que puso Thomas. Tres vueltas. Y una silla trabando el picaporte.",
+       "segundos": 3
+      }
+     ]
+    },
+    {
+     "objeto": "fotos",
+     "accion": "Mirar",
+     "pasos": [
+      {
+       "tipo": "tarjeta",
+       "texto": "La foto de los tres hombres. Dos ya están muertos.",
+       "segundos": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "neutral",
+   "texto": "¿Escuchaste eso?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "No hay nada, Thomas."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "Siempre hay algo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "Vos nos condenaste, Anneliese. Desde el primer día, con tu Herr Schwarz."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "enojado",
+   "texto": "¿Yo? ¿Y quién siguió a Lukas una noche y no dijo nada?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Basta. Los dos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "¡Friedrich está muerto! ¡Martin está muerto! ¡Y seguimos haciendo exactamente lo mismo!"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Todavía podemos terminar con todo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "triste",
+   "texto": "¿Y después qué?"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Nadie responde.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "A la mañana siguiente",
+   "segundos": 2
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "culpar",
+   "pasos": [
+    {
+     "tipo": "escena",
+     "mapa": "departamento",
+     "actores": [
+      "anneliese"
+     ],
+     "jugador": "viktor",
+     "props": [
+      "fotos",
+      "carta",
+      "estuche"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "triste",
+     "texto": "Thomas no está. Dejó algo en la mesa."
+    },
+    {
+     "tipo": "interactuar",
+     "objeto": "carta",
+     "texto": "Leé lo que dejó Thomas",
+     "accion": "Leer la carta",
+     "quedarse": true
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Está cansado. No quiere morir. Juntó plata suficiente para intentar empezar una vida nueva.",
+     "segundos": 5,
+     "estilo": "documento"
+    },
+    {
+     "tipo": "interactuar",
+     "objeto": "estuche",
+     "texto": "Mirá lo que hay al lado de la carta",
+     "accion": "Mirar el estuche",
+     "quedarse": true
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Su estuche de ganzúas. El que nunca fallaba.",
+     "segundos": 3
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "neutral",
+     "texto": "¿Lo vamos a buscar?"
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "triste",
+     "texto": "No."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor decide no perseguirlo.",
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "escena",
+     "mapa": "departamento",
+     "actores": [
+      "anneliese",
+      "thomas"
+     ],
+     "jugador": "viktor",
+     "props": [
+      "fotos",
+      "estuche"
+     ]
+    },
+    {
+     "tipo": "fundido",
+     "a": "escena",
+     "segundos": 1
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Thomas está sentado a la mesa, con su estuche de ganzúas abierto.",
+     "segundos": 3
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "No me fui."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "neutral",
+     "texto": "Ya veo."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "Me quedo hasta el final. Pero cuando esto termine, me voy lejos. Y no me van a buscar."
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "viktor",
+     "emocion": "neutral",
+     "texto": "Trato."
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "manana"
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "culpar",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "El grupo queda reducido a Viktor y Anneliese. Lukas sigue desaparecido. Erich Falk todavía controla gran parte de la operación.",
+     "segundos": 5
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Quedan tres: Viktor, Anneliese y Thomas. Lukas sigue desaparecido. Erich Falk todavía controla gran parte de la operación.",
+     "segundos": 5
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 16",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

@@ -1,0 +1,431 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_15",
+ "titulo": "Capítulo 15: El verdadero traidor",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 400,
+  "logro": "nacht_capitulo_15"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Weiss",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto quince es un recorte de diario: «Muere el empresario Konrad Weiss en su casa de las afueras». La policía no detuvo a nadie."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "mansion",
+   "actores": [
+    "weiss",
+    "anneliese",
+    "thomas",
+    "lukas",
+    "guardia_1",
+    "guardia_2",
+    "guardia_3"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "fotos",
+    "carta"
+   ]
+  },
+  {
+   "tipo": "mover",
+   "actor": "weiss",
+   "a": "weiss_rincon",
+   "segundos": 0.2
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "verdad"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Encará a Lukas",
+   "zona": "lukas",
+   "radio": 80,
+   "accion": "Hablar con Lukas"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Nunca me escapé del Este, Viktor. Mi llegada estaba organizada."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Tenía que encontrar los documentos, encontrar a Martin y recuperar la grabación. Trabajaba para Erich Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Mi padre fue uno de los que crearon Projekt Morgen. Lo mataron cuando la red decidió que sabía demasiado."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "No quiero destruir la red. Quiero recuperarla."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Y por qué nos ayudaste?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Porque necesitaba que encontraras a tu hermano."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Para qué?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Porque Martin era el único que sabía dónde está el archivo original."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Está escondido en una instalación militar abandonada. Y la grabación de tu padre tiene la pista para encontrarlo."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor levanta el arma. Lukas es más rápido: sale por el pasillo y los hombres de Weiss entran disparando.",
+   "segundos": 4
+  },
+  {
+   "tipo": "mover",
+   "actor": "lukas",
+   "a": "lukas_huye",
+   "segundos": 1.5,
+   "esperar": false
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tiroteo"
+  },
+  {
+   "tipo": "combate",
+   "id": "mansion",
+   "mapa": "mansion",
+   "lider": "viktor",
+   "objetivo": {
+    "tipo": "eliminar",
+    "rondas": 10
+   },
+   "texto": "Los hombres de Weiss entran a la oficina: derribalos antes de que lleguen más (10 rondas)",
+   "unidades": {
+    "viktor": {
+     "lado": "aliado",
+     "celda": [
+      18,
+      6
+     ],
+     "vida": 4,
+     "mov": 4,
+     "punteria": 80
+    },
+    "anneliese": {
+     "lado": "aliado",
+     "celda": [
+      20,
+      7
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 60
+    },
+    "thomas": {
+     "lado": "aliado",
+     "celda": [
+      21,
+      6
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 60
+    },
+    "guardia_1": {
+     "lado": "enemigo",
+     "celda": [
+      14,
+      3
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 55
+    },
+    "guardia_2": {
+     "lado": "enemigo",
+     "celda": [
+      14,
+      7
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 55
+    },
+    "guardia_3": {
+     "lado": "enemigo",
+     "celda": [
+      13,
+      11
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 50
+    }
+   }
+  },
+  {
+   "tipo": "desaparecer",
+   "actores": [
+    "lukas"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "weiss"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Konrad Weiss quedó en el medio del tiroteo. No se levanta.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "enojado",
+   "texto": "¡Suben más por la escalera!"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "guardia_4",
+    "guardia_5"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "huida"
+  },
+  {
+   "tipo": "persecucion",
+   "perseguidores": [
+    "guardia_4",
+    "guardia_5"
+   ],
+   "meta": "salida",
+   "radio": 50,
+   "retraso": 1.3,
+   "velocidad": 0.85,
+   "texto": "Salí de la mansión"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "calle",
+   "actores": [
+    "anneliese",
+    "thomas"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "calle"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Lukas. Todo este tiempo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "triste",
+   "texto": "Viktor... yo lo sabía. Lo seguí una noche, hace meses. Lo oí hablar con un hombre de Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "thomas",
+   "emocion": "triste",
+   "texto": "No te dije nada. Tenía miedo de lo que ibas a hacer."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "trato_thomas",
+   "pregunta": "¿Qué le dice Viktor?",
+   "opciones": [
+    {
+     "valor": "entender",
+     "texto": "Tenías miedo de mí. Lo entiendo. Yo también me tendría miedo."
+    },
+    {
+     "valor": "culpar",
+     "texto": "Por tu silencio casi nos matan a todos."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "Gracias, Viktor."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "culpar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "triste",
+     "texto": "..."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Thomas no contesta. Esa noche no vuelve a hablar.",
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Ahora los persiguen Erich Falk y Lukas Brandt. Y el archivo original guarda la verdad definitiva.",
+   "segundos": 5
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto VI",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

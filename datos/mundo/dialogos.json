@@ -1,0 +1,766 @@
+{
+  "_leeme": "Diálogos libres con los contactos (etapa A de 'Berlín vivo'). Cada contacto tiene 'entradas' (se usa la primera cuya condición se cumple) y 'nodos'. Condiciones: confianzaMin, confianzaMax, recuerdo, sinRecuerdo, bando, animo (lista), suceso (el suceso que está pasando: ver sucesos.json). Efectos: confianza (suma o resta), recuerdo (lo que el personaje recuerda de vos). Cada efecto de una opción se aplica una sola vez. emocion: neutral | contento | enojado | triste (el retrato). Sin opciones = fin de la charla.",
+  "periodista": {
+    "entradas": [
+      {
+        "cond": {
+          "confianzaMax": -30
+        },
+        "nodo": "fria"
+      },
+      {
+        "cond": {
+          "suceso": "manifestacion"
+        },
+        "nodo": "suceso_manifestacion"
+      },
+      {
+        "cond": {
+          "suceso": "control_checkpoint"
+        },
+        "nodo": "suceso_control_checkpoint"
+      },
+      {
+        "cond": {
+          "recuerdo": "ingrid_te_conto_la_nota"
+        },
+        "nodo": "reencuentro"
+      },
+      {
+        "nodo": "inicio"
+      }
+    ],
+    "nodos": {
+      "inicio": {
+        "texto": "¿Venís a contarme algo o a preguntarme algo? Las dos cosas me sirven.",
+        "textoPorAnimo": {
+          "malhumorado": "Hoy no es un buen día. Rápido, ¿qué necesitás?",
+          "animado": "Llegás justo: tengo la cabeza llena de ideas. ¿Qué necesitás?"
+        },
+        "opciones": [
+          {
+            "texto": "¿En qué estás trabajando?",
+            "siguiente": "trabajo"
+          },
+          {
+            "texto": "Solo pasaba a saludar.",
+            "siguiente": "saludo",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "¿Por qué te importa tanto el Muro?",
+            "siguiente": "nota",
+            "cond": {
+              "confianzaMin": 20
+            }
+          }
+        ]
+      },
+      "trabajo": {
+        "texto": "En una nota sobre los que esperan en los cruces. Todos tienen a alguien del otro lado.",
+        "opciones": [
+          {
+            "texto": "Te puedo ayudar con eso.",
+            "siguiente": "gracias",
+            "efectos": {
+              "confianza": 3,
+              "recuerdo": "ofreciste_ayuda_a_ingrid"
+            }
+          },
+          {
+            "texto": "Suena peligroso.",
+            "siguiente": "peligro"
+          }
+        ]
+      },
+      "peligro": {
+        "texto": "Más peligroso es no contarlo.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "gracias": {
+        "texto": "Te tomo la palabra. Pasá cuando quieras.",
+        "emocion": "contento",
+        "opciones": []
+      },
+      "saludo": {
+        "texto": "Saludos a vos también. Cuidate cerca del paso.",
+        "emocion": "contento",
+        "opciones": []
+      },
+      "nota": {
+        "texto": "Un periodista del Este me mandó su última nota antes de desaparecer. Nunca la publiqué. Todavía no sé si fue prudencia o cobardía.",
+        "emocion": "triste",
+        "efectos": {
+          "recuerdo": "ingrid_te_conto_la_nota",
+          "confianza": 5
+        },
+        "opciones": [
+          {
+            "texto": "Quizás todavía estás a tiempo.",
+            "siguiente": "tiempo",
+            "efectos": {
+              "confianza": 3
+            }
+          },
+          {
+            "texto": "Hiciste bien en esperar.",
+            "siguiente": "esperar",
+            "efectos": {
+              "confianza": -2
+            }
+          }
+        ]
+      },
+      "tiempo": {
+        "texto": "Quizás. Cuando tenga algo que lo respalde.",
+        "emocion": "triste",
+        "opciones": []
+      },
+      "esperar": {
+        "texto": "No me consueles. No me sirve.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "reencuentro": {
+        "texto": "Sigo pensando en lo que te conté. Gracias por no andar repitiéndolo.",
+        "opciones": [
+          {
+            "texto": "¿En qué estás trabajando?",
+            "siguiente": "trabajo"
+          },
+          {
+            "texto": "Nos vemos.",
+            "siguiente": "saludo"
+          }
+        ]
+      },
+      "fria": {
+        "texto": "Prefiero no hablar con vos. Ya sabés por qué.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "suceso_manifestacion": {
+        "texto": "¿Viste la manifestación? Me voy a cubrirla. Si querés, vení: dos pares de ojos ven más que uno.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "Voy con vos.",
+            "siguiente": "saludo",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "Prefiero no meterme.",
+            "siguiente": "peligro"
+          }
+        ]
+      },
+      "suceso_control_checkpoint": {
+        "texto": "Hoy revisan a todos en el paso. Así no se puede trabajar: mis fuentes no llegan.",
+        "emocion": "enojado",
+        "opciones": [
+          {
+            "texto": "¿Qué buscan?",
+            "siguiente": "trabajo"
+          },
+          {
+            "texto": "Ya va a pasar.",
+            "siguiente": "cierre_suceso"
+          }
+        ]
+      },
+      "cierre_suceso": {
+        "texto": "Ojalá. Cuidate.",
+        "opciones": []
+      }
+    }
+  },
+  "obrero": {
+    "entradas": [
+      {
+        "cond": {
+          "confianzaMax": -30
+        },
+        "nodo": "fria"
+      },
+      {
+        "cond": {
+          "suceso": "control_checkpoint"
+        },
+        "nodo": "suceso_control_checkpoint"
+      },
+      {
+        "cond": {
+          "suceso": "apagon"
+        },
+        "nodo": "suceso_apagon"
+      },
+      {
+        "cond": {
+          "suceso": "torneo_cafe"
+        },
+        "nodo": "suceso_torneo_cafe"
+      },
+      {
+        "cond": {
+          "bando": "oeste",
+          "sinRecuerdo": "paul_te_conoce"
+        },
+        "nodo": "desconfiado"
+      },
+      {
+        "nodo": "inicio"
+      }
+    ],
+    "nodos": {
+      "desconfiado": {
+        "texto": "¿Del otro lado, vos? Acá no se habla mucho con los del Oeste.",
+        "emocion": "enojado",
+        "opciones": [
+          {
+            "texto": "Solo quiero conocer la ciudad.",
+            "siguiente": "conocer",
+            "efectos": {
+              "confianza": 2,
+              "recuerdo": "paul_te_conoce"
+            }
+          },
+          {
+            "texto": "Tranquilo, no muerdo.",
+            "siguiente": "seco",
+            "efectos": {
+              "confianza": -2
+            }
+          }
+        ]
+      },
+      "conocer": {
+        "texto": "La ciudad es la misma de los dos lados. Lo que cambia es quién te mira.",
+        "opciones": []
+      },
+      "seco": {
+        "texto": "Eso dicen todos.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "inicio": {
+        "texto": "Otro día de obra. ¿Qué querés?",
+        "textoPorAnimo": {
+          "malhumorado": "Con este tiempo no se puede trabajar. ¿Qué querés?",
+          "animado": "¡Hoy el hormigón fragua solo! ¿Qué se te ofrece?"
+        },
+        "opciones": [
+          {
+            "texto": "¿Qué están construyendo?",
+            "siguiente": "obra"
+          },
+          {
+            "texto": "¿Tenés familia acá?",
+            "siguiente": "familia",
+            "cond": {
+              "confianzaMin": 25
+            }
+          },
+          {
+            "texto": "Nada, seguí nomás.",
+            "siguiente": "nada"
+          }
+        ]
+      },
+      "obra": {
+        "texto": "Viviendas. Bloques de paneles. No son lindos, pero tienen calefacción, y eso en invierno vale oro.",
+        "opciones": [
+          {
+            "texto": "Es un trabajo importante.",
+            "siguiente": "orgullo",
+            "efectos": {
+              "confianza": 3
+            }
+          },
+          {
+            "texto": "Parecen todos iguales.",
+            "siguiente": "iguales",
+            "efectos": {
+              "confianza": -1
+            }
+          }
+        ]
+      },
+      "orgullo": {
+        "texto": "Alguien tiene que hacerlo.",
+        "emocion": "contento",
+        "opciones": []
+      },
+      "iguales": {
+        "texto": "Las del otro lado también, seguro. Pero con publicidad.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "familia": {
+        "texto": "Mi hermano quedó del otro lado en el 61. Le escribo. A veces contesta.",
+        "emocion": "triste",
+        "efectos": {
+          "recuerdo": "paul_te_conto_del_hermano",
+          "confianza": 5
+        },
+        "opciones": [
+          {
+            "texto": "Lo siento mucho.",
+            "siguiente": "gracias",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "¿Pensaste en cruzar?",
+            "siguiente": "cuidado",
+            "efectos": {
+              "confianza": -5,
+              "recuerdo": "le_preguntaste_a_paul_por_cruzar"
+            }
+          }
+        ]
+      },
+      "gracias": {
+        "texto": "No es culpa tuya.",
+        "emocion": "triste",
+        "opciones": []
+      },
+      "cuidado": {
+        "texto": "Esas preguntas no se hacen en voz alta. Nunca.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "nada": {
+        "texto": "Bueno.",
+        "opciones": []
+      },
+      "fria": {
+        "texto": "No tengo nada que hablar con vos.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "suceso_control_checkpoint": {
+        "texto": "Hoy revisan hasta los bolsillos en el paso. Lo que mi hermano me mandó no va a llegar.",
+        "emocion": "triste",
+        "opciones": [
+          {
+            "texto": "Lo siento.",
+            "siguiente": "gracias",
+            "efectos": {
+              "confianza": 1
+            }
+          },
+          {
+            "texto": "¿Qué te mandó?",
+            "siguiente": "cuidado"
+          }
+        ]
+      },
+      "suceso_apagon": {
+        "texto": "Sin luz, sin obra. Lo único bueno es que hoy salgo temprano.",
+        "emocion": "neutral",
+        "opciones": [
+          {
+            "texto": "Aprovechá.",
+            "siguiente": "nada"
+          }
+        ]
+      },
+      "suceso_torneo_cafe": {
+        "texto": "¡Esta noche hay torneo en un café! Los de la brigada no hablan de otra cosa.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "¿Vas a jugar?",
+            "siguiente": "orgullo"
+          }
+        ]
+      },
+      "cierre_suceso": {
+        "texto": "Ojalá. Cuidate.",
+        "opciones": []
+      }
+    }
+  },
+  "funcionaria": {
+    "entradas": [
+      {
+        "cond": {
+          "confianzaMax": -30
+        },
+        "nodo": "fria"
+      },
+      {
+        "cond": {
+          "suceso": "visita_oficial"
+        },
+        "nodo": "suceso_visita_oficial"
+      },
+      {
+        "cond": {
+          "suceso": "apagon"
+        },
+        "nodo": "suceso_apagon"
+      },
+      {
+        "cond": {
+          "recuerdo": "gertrud_te_hablo_de_samuel"
+        },
+        "nodo": "confidencia"
+      },
+      {
+        "nodo": "inicio"
+      }
+    ],
+    "nodos": {
+      "inicio": {
+        "texto": "Oficina de registro. ¿Tiene turno?",
+        "textoPorAnimo": {
+          "animado": "Buenas tardes. Hoy hay poca gente, por suerte. ¿Tiene turno?",
+          "malhumorado": "Si no tiene turno, no puedo atenderlo."
+        },
+        "opciones": [
+          {
+            "texto": "No, solo quería conversar.",
+            "siguiente": "conversar"
+          },
+          {
+            "texto": "¿Qué se registra acá?",
+            "siguiente": "registro"
+          },
+          {
+            "texto": "¿Siempre trabajó acá?",
+            "siguiente": "samuel",
+            "cond": {
+              "confianzaMin": 30
+            }
+          }
+        ]
+      },
+      "conversar": {
+        "texto": "Conversar no figura entre los trámites. Pero... está bien, un momento.",
+        "opciones": [
+          {
+            "texto": "Gracias por su tiempo.",
+            "siguiente": "cortes",
+            "efectos": {
+              "confianza": 2
+            }
+          }
+        ]
+      },
+      "registro": {
+        "texto": "Nacimientos, mudanzas, cambios de domicilio. Todo lo que hace que una persona exista en los papeles.",
+        "opciones": [
+          {
+            "texto": "¿Y si alguien desaparece de los papeles?",
+            "siguiente": "incomoda",
+            "efectos": {
+              "confianza": -3,
+              "recuerdo": "le_preguntaste_a_gertrud_por_desaparecidos"
+            }
+          },
+          {
+            "texto": "Debe ser mucho trabajo.",
+            "siguiente": "trabajo",
+            "efectos": {
+              "confianza": 2
+            }
+          }
+        ]
+      },
+      "incomoda": {
+        "texto": "Eso no pasa. Los papeles no se equivocan.",
+        "emocion": "triste",
+        "opciones": []
+      },
+      "trabajo": {
+        "texto": "Mucho. Y nadie lo agradece.",
+        "opciones": []
+      },
+      "samuel": {
+        "texto": "Desde el 59. Mi hermano Samuel se fue al Oeste antes de que cerraran. Él tuvo suerte. O eso quiero creer.",
+        "emocion": "triste",
+        "efectos": {
+          "recuerdo": "gertrud_te_hablo_de_samuel",
+          "confianza": 5
+        },
+        "opciones": [
+          {
+            "texto": "¿Lo extraña?",
+            "siguiente": "extrana",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "Quizás algún día se vuelvan a ver.",
+            "siguiente": "algundia",
+            "efectos": {
+              "confianza": 1
+            }
+          }
+        ]
+      },
+      "extrana": {
+        "texto": "Todos los días. Pero eso no se escribe en ningún formulario.",
+        "emocion": "triste",
+        "opciones": []
+      },
+      "algundia": {
+        "texto": "Quizás. No me haga ilusiones.",
+        "opciones": []
+      },
+      "confidencia": {
+        "texto": "No le cuente a nadie lo de mi hermano, por favor.",
+        "emocion": "triste",
+        "opciones": [
+          {
+            "texto": "Quédese tranquila.",
+            "siguiente": "cortes",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "¿Qué se registra acá?",
+            "siguiente": "registro"
+          }
+        ]
+      },
+      "cortes": {
+        "texto": "Que tenga buen día.",
+        "emocion": "contento",
+        "opciones": []
+      },
+      "fria": {
+        "texto": "No tengo trámites pendientes con usted.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "suceso_visita_oficial": {
+        "texto": "Hoy viene gente importante. Todo tiene que estar perfecto. No tengo tiempo para conversar.",
+        "emocion": "enojado",
+        "opciones": [
+          {
+            "texto": "Perdón, vuelvo otro día.",
+            "siguiente": "cortes",
+            "efectos": {
+              "confianza": 1
+            }
+          }
+        ]
+      },
+      "suceso_apagon": {
+        "texto": "Sin luz no se puede registrar nada. Y el trabajo se acumula igual.",
+        "emocion": "triste",
+        "opciones": [
+          {
+            "texto": "Debe ser frustrante.",
+            "siguiente": "trabajo",
+            "efectos": {
+              "confianza": 1
+            }
+          }
+        ]
+      },
+      "cierre_suceso": {
+        "texto": "Ojalá. Cuidate.",
+        "opciones": []
+      }
+    }
+  },
+  "espia": {
+    "entradas": [
+      {
+        "cond": {
+          "confianzaMax": -30
+        },
+        "nodo": "fria"
+      },
+      {
+        "cond": {
+          "suceso": "visita_oficial"
+        },
+        "nodo": "suceso_visita_oficial"
+      },
+      {
+        "cond": {
+          "suceso": "concierto"
+        },
+        "nodo": "suceso_concierto"
+      },
+      {
+        "cond": {
+          "suceso": "apagon"
+        },
+        "nodo": "suceso_apagon"
+      },
+      {
+        "cond": {
+          "confianzaMin": 40
+        },
+        "nodo": "confianza"
+      },
+      {
+        "nodo": "inicio"
+      }
+    ],
+    "nodos": {
+      "inicio": {
+        "texto": "No te conozco. Y sin embargo acá estás.",
+        "textoPorAnimo": {
+          "animado": "Linda noche para que nadie te vea, ¿no?",
+          "malhumorado": "Demasiado sol. Demasiada gente mirando. ¿Qué querés?"
+        },
+        "opciones": [
+          {
+            "texto": "Te vi por acá antes.",
+            "siguiente": "observadora"
+          },
+          {
+            "texto": "¿A qué te dedicás?",
+            "siguiente": "dedica"
+          },
+          {
+            "texto": "Perdón, me equivoqué de persona.",
+            "siguiente": "equivoco"
+          }
+        ]
+      },
+      "observadora": {
+        "texto": "Y yo a vos. Más veces de las que creés.",
+        "efectos": {
+          "recuerdo": "lotte_te_observa"
+        },
+        "opciones": [
+          {
+            "texto": "¿Me estás siguiendo?",
+            "siguiente": "siguiendo"
+          },
+          {
+            "texto": "Entonces ya sabés que soy de confiar.",
+            "siguiente": "veremos",
+            "efectos": {
+              "confianza": 3
+            }
+          }
+        ]
+      },
+      "siguiendo": {
+        "texto": "No hace falta seguir a nadie en esta ciudad. Todos terminan pasando por el mismo lugar.",
+        "opciones": []
+      },
+      "veremos": {
+        "texto": "Eso lo decido yo.",
+        "opciones": []
+      },
+      "dedica": {
+        "texto": "A escuchar. Es más útil que hablar.",
+        "opciones": [
+          {
+            "texto": "Yo también sé escuchar.",
+            "siguiente": "escuchar",
+            "efectos": {
+              "confianza": 2
+            }
+          },
+          {
+            "texto": "Suena a excusa.",
+            "siguiente": "excusa",
+            "efectos": {
+              "confianza": -3
+            }
+          }
+        ]
+      },
+      "escuchar": {
+        "texto": "Ya veremos.",
+        "opciones": []
+      },
+      "excusa": {
+        "texto": "Todo en Berlín suena a excusa. Acostumbrate.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "equivoco": {
+        "texto": "Nadie se equivoca de persona cerca del Reichstag.",
+        "opciones": []
+      },
+      "confianza": {
+        "texto": "Estás aprendiendo a moverte. Eso me gusta.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "¿Qué sabés de la Lista de la Noche?",
+            "siguiente": "lista",
+            "efectos": {
+              "recuerdo": "le_preguntaste_a_lotte_por_la_lista"
+            }
+          },
+          {
+            "texto": "Nos vemos.",
+            "siguiente": "adios"
+          }
+        ]
+      },
+      "lista": {
+        "texto": "Que es mejor no nombrarla en voz alta. Preguntale a la periodista: tiene algo que nunca publicó.",
+        "emocion": "triste",
+        "opciones": []
+      },
+      "adios": {
+        "texto": "No me busques. Te encuentro yo.",
+        "opciones": []
+      },
+      "fria": {
+        "texto": "Seguí caminando.",
+        "emocion": "enojado",
+        "opciones": []
+      },
+      "suceso_visita_oficial": {
+        "texto": "Mucha gente importante en la ciudad. Mucha gente mirando. Me gusta.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "¿Mirando a quién?",
+            "siguiente": "siguiendo"
+          }
+        ]
+      },
+      "suceso_concierto": {
+        "texto": "La música tapa las conversaciones. Por eso me gustan los conciertos.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "¿Con quién hablás?",
+            "siguiente": "excusa"
+          },
+          {
+            "texto": "Disfrutalo.",
+            "siguiente": "adios"
+          }
+        ]
+      },
+      "suceso_apagon": {
+        "texto": "Sin luz, la ciudad es honesta: nadie ve nada, así que nadie miente.",
+        "emocion": "contento",
+        "opciones": [
+          {
+            "texto": "Qué manera de verlo.",
+            "siguiente": "veremos"
+          }
+        ]
+      },
+      "cierre_suceso": {
+        "texto": "Ojalá. Cuidate.",
+        "opciones": []
+      }
+    }
+  }
+}

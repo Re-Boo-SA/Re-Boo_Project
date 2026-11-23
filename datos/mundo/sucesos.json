@@ -1,0 +1,77 @@
+{
+  "_leeme": "Sucesos del mundo abierto (Berlín vivo, etapa B). Se sortean como el clima, por tramos de 10 minutos, con la hora del servidor: todos viven el mismo suceso a la vez. 'probabilidad' = % de tramos con suceso. 'distritos': lista de ids, 'todos', 'oeste' o 'este'. Efectos que valida el servidor: velocidadPaso (se cruza Checkpoint Charlie más lento), influencia (multiplica la influencia de las partidas de ese café), xpVisita (visitar al vendedor da XP una vez por suceso). Los demás cambian lo que se ve y lo que dicen los contactos.",
+  "duracionTramo": 600,
+  "probabilidad": 70,
+  "tipos": [
+    {
+      "id": "control_checkpoint",
+      "peso": 20,
+      "titulo": "Control sorpresa en Checkpoint Charlie",
+      "icono": "🛂",
+      "descripcion": "Los guardias revisan documentos uno por uno: cruzar lleva más tiempo.",
+      "lugar": [
+        1180,
+        940
+      ],
+      "efecto": {
+        "velocidadPaso": 0.4
+      }
+    },
+    {
+      "id": "torneo_cafe",
+      "peso": 20,
+      "titulo": "Noche de torneo en el café de {distrito}",
+      "icono": "🏆",
+      "descripcion": "Las partidas que se jueguen en ese café valen doble influencia.",
+      "distritos": "todos",
+      "efecto": {
+        "influencia": 2
+      }
+    },
+    {
+      "id": "mercado",
+      "peso": 18,
+      "titulo": "Mercado callejero en {distrito}",
+      "icono": "🛍",
+      "descripcion": "Puestos de libros viejos, discos y postales. Pasá a dar una vuelta.",
+      "distritos": "todos",
+      "efecto": {
+        "xpVisita": 25
+      }
+    },
+    {
+      "id": "apagon",
+      "peso": 14,
+      "titulo": "Apagón en {distrito}",
+      "icono": "🔌",
+      "descripcion": "Se cortó la luz en todo el distrito. De noche no se ve nada.",
+      "distritos": "todos"
+    },
+    {
+      "id": "manifestacion",
+      "peso": 12,
+      "titulo": "Manifestación en {distrito}",
+      "icono": "📣",
+      "descripcion": "Cientos de personas marchan con carteles. La policía mira de cerca.",
+      "distritos": "oeste"
+    },
+    {
+      "id": "concierto",
+      "peso": 8,
+      "titulo": "Concierto al aire libre en Tiergarten",
+      "icono": "🎺",
+      "descripcion": "Una banda toca en el parque. Medio Berlín Oeste está ahí.",
+      "distritos": [
+        4
+      ]
+    },
+    {
+      "id": "visita_oficial",
+      "peso": 8,
+      "titulo": "Visita oficial en {distrito}",
+      "icono": "🚗",
+      "descripcion": "Una caravana de autos negros cruza la ciudad. Calles cortadas y mucha custodia.",
+      "distritos": "todos"
+    }
+  ]
+}

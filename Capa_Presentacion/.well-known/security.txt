@@ -1,0 +1,5 @@
+# Si encontrás un problema de seguridad en Draft Der Mauer, avisanos por acá.
+# Por favor no lo publiques hasta que lo hayamos corregido.
+Contact: email:seguridad@reboo.uy
+Expires: 2027-11-01T00:00:00.000Z
+Preferred-Languages: es, en

@@ -1,0 +1,507 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_17",
+ "titulo": "Capítulo 17: El último aliado",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 400,
+  "logro": "nacht_capitulo_17"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un secuestrador",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Falk",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado",
+  "samuel": "Samuel Hartmann"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "La foto diecisiete: un hombre mayor con sombrero, en la puerta de una librería. Atrás, dos iniciales: «S. H.»"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "neutral",
+   "texto": "S. H.... ¿Hartmann? La señora del registro de Mitte tiene un hermano que se llama Samuel."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "restaurante",
+   "actores": [
+    "anneliese",
+    "samuel"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "aparecer",
+     "actores": [
+      "thomas"
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1962 · Un café de Schöneberg",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "samuel"
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Hablá con Samuel Hartmann",
+   "zona": "samuel",
+   "radio": 80,
+   "accion": "Hablar con Samuel"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "samuel",
+   "emocion": "neutral",
+   "texto": "Trabajé para los americanos hasta que entendí que mis jefes también le pagaban a Weiss."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "samuel",
+   "emocion": "neutral",
+   "texto": "El archivo original lo trasladaron a un depósito subterráneo, en una instalación militar abandonada."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "samuel",
+   "emocion": "neutral",
+   "texto": "Para entrar hace falta un código de acceso. Lo tiene Erich Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "¿Por qué nos ayuda?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "samuel",
+   "emocion": "neutral",
+   "texto": "Tengo una hermana del otro lado del Muro. Gertrud. Trabaja en un registro, en Mitte. Cree que yo tuve suerte."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "samuel",
+   "emocion": "triste",
+   "texto": "Quiero que algún día eso sea verdad."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "Entonces voy a buscar a Falk."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "No así. Esta vez, a mi manera: el jueves tiene una reunión privada. Lo sacamos sin un tiro."
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "neutral",
+     "texto": "Yo abro las puertas."
+    }
+   ]
+  },
+  {
+   "tipo": "elegir",
+   "clave": "plan_falk",
+   "pregunta": "¿Qué hace Viktor?",
+   "opciones": [
+    {
+     "valor": "escuchar",
+     "texto": "Está bien. A tu manera."
+    },
+    {
+     "valor": "a_mi_manera",
+     "texto": "No. Entramos y lo sacamos."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "plan_falk",
+   "valor": "escuchar",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Por primera vez, Viktor la escucha.",
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1
+  },
+  {
+   "tipo": "escena",
+   "mapa": "restaurante",
+   "actores": [
+    "falk",
+    "anneliese",
+    "guardia_1",
+    "guardia_2",
+    "guardia_3"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "El jueves · Un salón privado",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "reunion"
+  },
+  {
+   "tipo": "si",
+   "clave": "plan_falk",
+   "valor": "escuchar",
+   "pasos": [
+    {
+     "tipo": "sigilo",
+     "guardias": [
+      "guardia_1",
+      "guardia_2"
+     ],
+     "meta": "frente_falk",
+     "radio": 45,
+     "texto": "Llegá hasta Falk sin que te vean"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "plan_falk",
+   "valor": "a_mi_manera",
+   "pasos": [
+    {
+     "tipo": "combate",
+     "id": "reunion_falk",
+     "mapa": "restaurante",
+     "lider": "viktor",
+     "objetivo": {
+      "tipo": "eliminar",
+      "rondas": 10
+     },
+     "texto": "Entran a la reunión: derribá a los guardias de Falk antes de que se lo lleven (10 rondas)",
+     "unidades": {
+      "viktor": {
+       "lado": "aliado",
+       "celda": [
+        9,
+        11
+       ],
+       "vida": 5,
+       "mov": 4,
+       "punteria": 80
+      },
+      "anneliese": {
+       "lado": "aliado",
+       "celda": [
+        7,
+        11
+       ],
+       "vida": 4,
+       "mov": 4,
+       "punteria": 65
+      },
+      "guardia_1": {
+       "lado": "enemigo",
+       "celda": [
+        14,
+        5
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      },
+      "guardia_2": {
+       "lado": "enemigo",
+       "celda": [
+        16,
+        9
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      },
+      "guardia_3": {
+       "lado": "enemigo",
+       "celda": [
+        5,
+        6
+       ],
+       "vida": 3,
+       "mov": 4,
+       "punteria": 50
+      }
+     }
+    }
+   ]
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "falk",
+   "texto": "Agarrá a Falk",
+   "accion": "Reducir a Falk"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "Adler. Tenía que ser."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "sala_interrogatorio",
+   "actores": [
+    "anneliese"
+   ],
+   "jugador": "viktor"
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "falk"
+   ],
+   "en": "falk_silla"
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "guardar",
+   "punto": "interrogatorio"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "La misma sala. Ahora el de la silla es Falk.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "Projekt Morgen nunca fue para controlar Alemania. Es una red de chantaje y de plata, hecha para sobrevivir a cualquier gobierno."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "Durante años usamos el miedo a otra guerra para quedarnos donde estábamos."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "El archivo tiene todo: asesinatos, operaciones clandestinas, identidades falsas, acuerdos que nadie firmó en público."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Quién es el Arquitecto?"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Falk sonríe.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "contento",
+   "texto": "No hay un solo Arquitecto."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "¿Qué?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "Siempre hubo alguien detrás de nosotros. Pero nunca fue la misma persona."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "La organización está hecha para sobrevivir a sus jefes. Y Lukas ya está armando la próxima."
+  },
+  {
+   "tipo": "elegir",
+   "clave": "destino_falk",
+   "pregunta": "¿Qué hace Viktor con Falk?",
+   "opciones": [
+    {
+     "valor": "disparar",
+     "texto": "Apretar el gatillo."
+    },
+    {
+     "valor": "usarlo",
+     "texto": "Bajar el arma. Todavía sirve."
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "destino_falk",
+   "valor": "disparar",
+   "pasos": [
+    {
+     "tipo": "dialogo",
+     "quien": "anneliese",
+     "emocion": "enojado",
+     "texto": "¡No! Si lo matás, no hay archivo."
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor baja el arma. Le tiembla la mano.",
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "destino_falk",
+   "valor": "usarlo",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor baja el arma.",
+     "segundos": 2
+    }
+   ]
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "contento",
+   "texto": "Sabía que eras más listo que tu hermano."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Matar a Erich no terminaría nada. Pero Erich todavía puede llevarlos hasta el archivo.",
+   "segundos": 5
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Acto VII",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

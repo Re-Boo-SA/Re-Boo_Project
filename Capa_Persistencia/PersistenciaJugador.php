@@ -1,0 +1,333 @@
+<?php
+
+require_once(__DIR__ . '/../DTO/UsuarioDTO.php');
+require_once(__DIR__ . '/../DTO/JugadorDTO.php');
+require_once(__DIR__ . '/IPersistenciaJugador.php');
+require_once(__DIR__ . '/../Conexion/ConexionBD.php');
+
+class PersistenciaJugador implements IPersistenciaJugador
+{
+    private $conn = null;
+    private static ?PersistenciaJugador $instancia = null;
+
+    public static function getInstancia(): PersistenciaJugador
+    {
+        if (self::$instancia === null) {
+            self::$instancia = new self();
+        }
+        return self::$instancia;
+    }
+
+    private function __clone()
+    {
+    }
+
+    public function __wakeup()
+    {
+        throw new \Exception("No se puede deserializar el singleton de PersistenciaJugador");
+    }
+
+    private function __construct()
+    {
+        try {
+            $conexionBD = new ConexionBD();
+            $this->conn = $conexionBD->connect();
+        } catch (Exception $e) {
+            error_log("Error de conexión en PersistenciaJugador: "  . $e->getMessage());
+        }
+    }
+
+    public function altaJugador(Usuario $usuario, Jugador $jugador): bool
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+        if ($usuario !== null || $jugador !== null) {
+            try {
+                $this->conn->beginTransaction();
+
+                $sqlUsuario = "INSERT INTO USUARIOS (Correo, Contra, NombreUsuario, Rol, BajaLogica) 
+                           VALUES (:correo, :contra, :nombreUsuario, 'jugador', 0)";
+                $stmtUsuario = $this->conn->prepare($sqlUsuario);
+                $stmtUsuario->execute([
+                    ':correo' => $usuario->getCorreo(),
+                    ':contra' => $usuario->getContra(),
+                    ':nombreUsuario' => $usuario->getNombreUsuario()
+                ]);
+
+                $idGenerado = (int) $this->conn->lastInsertId();
+                $usuario->setIdUsuario($idGenerado);
+                $jugador->setIdUsuario($idGenerado);
+
+                $sqlJugador = "INSERT INTO JUGADORES (IDUsuario, FichasActuales, CantidadFichas, PntsPartida, PartidasJugadas, PartidasGanadas, BajaLogica) 
+                           VALUES (:idUsuario, :fichasActuales, :cantidadFichas, :pntsPartida, :partidasJugadas, :partidasGanadas, 0)";
+                $stmtJugador = $this->conn->prepare($sqlJugador);
+                $stmtJugador->execute([
+                    ':idUsuario' => $idGenerado,
+                    ':fichasActuales' => $jugador->getFichasActuales(),
+                    ':cantidadFichas' => $jugador->getCantidadFichas(),
+                    ':pntsPartida' => $jugador->getPntsPartida(),
+                    ':partidasJugadas' => $jugador->getPartidasJugadas(),
+                    ':partidasGanadas' => $jugador->getPartidasGanadas()
+                ]);
+
+                $this->conn->commit();
+                return true;
+            } catch (\Exception $e) {
+                if ($this->conn->inTransaction()) {
+                    $this->conn->rollBack();
+                }
+                error_log("Error al dar de alta jugador completo: " . $e->getMessage());
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function buscarJugador(int $idUsuario): ?Jugador
+    {
+        if ($this->conn === null) {
+            return null;
+        }
+
+        $sql = "SELECT u.IDUsuario, u.Correo, u.Contra, u.NombreUsuario, u.Rol,
+                       j.FichasActuales, j.CantidadFichas, j.PntsPartida,
+                       j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica,
+                       j.Biografia, j.Estado, j.MMR, j.PuntosHistoricos, j.EsBot
+                FROM JUGADORES j
+                INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+                WHERE j.IDUsuario = :iDUsuario
+                    AND j.BajaLogica = 0
+                    AND u.BajaLogica = 0
+                LIMIT 1";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':iDUsuario' => $idUsuario]);
+            $reader = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($reader) {
+                $jugador = new Jugador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    $reader['Contra'],
+                    $reader['NombreUsuario'],
+                    (int) $reader['FichasActuales'],
+                    (int) $reader['CantidadFichas'],
+                    (int) $reader['PntsPartida'],
+                    (int) $reader['PartidasJugadas'],
+                    (int) $reader['PartidasGanadas'],
+                    (bool) $reader['BajaLogica'],
+                    $reader['Biografia'] ?? '',
+                    $reader['Estado'] ?? 'ocupado'
+                );
+                $jugador->setDatosRanking((int) $reader['MMR'], (int) $reader['PuntosHistoricos'], (bool) $reader['EsBot']);
+
+                return $jugador;
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            error_log("Error al buscar jugador: " . $e->getMessage());
+        }
+
+        return null;
+    }
+
+    public function listarJugadores(): array
+    {
+        $jugadores = [];
+        if ($this->conn === null) {
+            return $jugadores;
+        }
+
+        $sql = "SELECT u.IDUsuario, u.NombreUsuario, u.Correo, u.Rol,
+                   j.FichasActuales, j.CantidadFichas, j.PntsPartida,
+                   j.PartidasJugadas, j.PartidasGanadas, j.BajaLogica
+            FROM JUGADORES j
+            INNER JOIN USUARIOS u ON j.IDUsuario = u.IDUsuario
+            WHERE j.BajaLogica = 0 AND u.BajaLogica = 0";
+
+        try {
+            $stmt = $this->conn->query($sql);
+            while ($reader = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                $jugadores[] = new Jugador(
+                    (int) $reader['IDUsuario'],
+                    $reader['Correo'],
+                    '',
+                    $reader['NombreUsuario'],
+                    (int) $reader['FichasActuales'],
+                    (int) $reader['CantidadFichas'],
+                    (int) $reader['PntsPartida'],
+                    (int) $reader['PartidasJugadas'],
+                    (int) $reader['PartidasGanadas'],
+                    (bool) $reader['BajaLogica']
+                );
+            }
+            $stmt->closeCursor();
+        } catch (\PDOException $e) {
+            error_log("Error al listar jugadores: " . $e->getMessage());
+        }
+
+        return $jugadores;
+    }
+
+    public function bajaLogicaJugador(int $idUsuario): bool
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+
+        $sql = "CALL bajaJugador(?)";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$idUsuario]);
+            $stmt->closeCursor();
+            return true;
+        } catch (\PDOException $e) {
+            error_log("Error al dar de baja jugador: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function gestionarBajaJugador(int $idUsuario): string
+    {
+        if ($this->conn === null) {
+            return 'error';
+        }
+
+        try {
+            $this->conn->beginTransaction();
+
+            $stmtJugador = $this->conn->prepare(
+                "SELECT 1 FROM JUGADORES j
+                 INNER JOIN USUARIOS u ON u.IDUsuario = j.IDUsuario
+                 WHERE j.IDUsuario = ? AND j.BajaLogica = 0 AND u.BajaLogica = 0
+                 LIMIT 1"
+            );
+            $stmtJugador->execute([$idUsuario]);
+
+            if (!$stmtJugador->fetchColumn()) {
+                $this->conn->rollBack();
+                return 'no_encontrado';
+            }
+
+            $stmtJugadas = $this->conn->prepare(
+                "SELECT COUNT(*) FROM JUGADAS WHERE IDUsuario = ?"
+            );
+            $stmtJugadas->execute([$idUsuario]);
+            $tieneJugadas = (int) $stmtJugadas->fetchColumn() > 0;
+
+            if ($tieneJugadas) {
+                $stmtBajaJugador = $this->conn->prepare(
+                    "UPDATE JUGADORES SET BajaLogica = 1 WHERE IDUsuario = ?"
+                );
+                $stmtBajaJugador->execute([$idUsuario]);
+
+                $stmtBajaUsuario = $this->conn->prepare(
+                    "UPDATE USUARIOS SET BajaLogica = 1 WHERE IDUsuario = ? AND Rol = 'jugador'"
+                );
+                $stmtBajaUsuario->execute([$idUsuario]);
+                $this->conn->commit();
+                return 'baja';
+            }
+
+            $stmtAccesoTienda = $this->conn->prepare(
+                "DELETE FROM acceso_jugador_tienda WHERE IDUsuario = ?"
+            );
+            $stmtAccesoTienda->execute([$idUsuario]);
+
+            $stmtEliminarJugador = $this->conn->prepare(
+                "DELETE FROM JUGADORES WHERE IDUsuario = ?"
+            );
+            $stmtEliminarJugador->execute([$idUsuario]);
+
+            $stmtEliminarUsuario = $this->conn->prepare(
+                "DELETE FROM USUARIOS WHERE IDUsuario = ? AND Rol = 'jugador'"
+            );
+            $stmtEliminarUsuario->execute([$idUsuario]);
+            $this->conn->commit();
+            return 'eliminado';
+        } catch (\PDOException $e) {
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            error_log("Error al gestionar la baja del jugador: " . $e->getMessage());
+            return 'error';
+        }
+    }
+
+    public function modificarJugador(Usuario $usuario, Jugador $jugador): bool
+    {     
+        if ($this->conn === null) {
+            return false;
+        }
+
+        try {
+            $this->conn->beginTransaction();
+
+            // 1. Actualizar NombreUsuario en la tabla USUARIOS
+            $sqlUsuario = "UPDATE USUARIOS 
+                           SET NombreUsuario = :nombreUsuario 
+                           WHERE IDUsuario = :idUsuario AND BajaLogica = 0";
+            $stmtUsuario = $this->conn->prepare($sqlUsuario);
+            $stmtUsuario->execute([
+                ':nombreUsuario' => $usuario->getNombreUsuario(),
+                ':idUsuario'     => $usuario->getIdUsuario()
+            ]);
+
+            // 2. Actualizar Biografía y Estado en la tabla JUGADORES
+            $sqlJugador = "UPDATE JUGADORES 
+                           SET Biografia = :biografia, Estado = :estado 
+                           WHERE IDUsuario = :idUsuario AND BajaLogica = 0";
+            $stmtJugador = $this->conn->prepare($sqlJugador);
+            $stmtJugador->execute([
+                ':biografia' => $jugador->getBiografia(),
+                ':estado'    => $jugador->getEstado(),
+                ':idUsuario' => $jugador->getIdUsuario()
+            ]);
+
+            $this->conn->commit();
+            return true;
+        } catch (\PDOException $e) {
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            error_log("Error al modificar el jugador: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /** RF06: si el jugador ya vio (o salteó) el tutorial. Ante un error se asume que sí, para no insistir. */
+    public function tutorialVisto(int $idUsuario): bool
+    {
+        if ($this->conn === null) {
+            return true;
+        }
+        try {
+            $stmt = $this->conn->prepare('SELECT TutorialVisto FROM JUGADORES WHERE IDUsuario = :u');
+            $stmt->execute([':u' => $idUsuario]);
+            $valor = $stmt->fetchColumn();
+            return $valor === false || (int) $valor === 1;
+        } catch (\PDOException $e) {
+            error_log('Error al consultar el tutorial: ' . $e->getMessage());
+            return true;
+        }
+    }
+
+    public function marcarTutorialVisto(int $idUsuario, bool $visto): bool
+    {
+        if ($this->conn === null) {
+            return false;
+        }
+        try {
+            $stmt = $this->conn->prepare('UPDATE JUGADORES SET TutorialVisto = :v WHERE IDUsuario = :u AND EsBot = 0');
+            $stmt->execute([':v' => $visto ? 1 : 0, ':u' => $idUsuario]);
+            return true;
+        } catch (\PDOException $e) {
+            error_log('Error al guardar el tutorial: ' . $e->getMessage());
+            return false;
+        }
+    }
+}
+?>

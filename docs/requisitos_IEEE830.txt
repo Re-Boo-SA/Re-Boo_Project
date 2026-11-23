@@ -1,0 +1,307 @@
+
+3°BT - Equipo de “Re-Boo” 2026 IEP
+
+
+Primera Entrega
+
+Bergara, Ramiro
+Ciambelli, Joaquin
+Vellozo, Juan Ignacio
+Bragança, Juan Diego
+Índice
+
+
+1. Introducción
+1.1. Propósito
+
+El presente documento tiene como propósito especificar los requisitos funcionales y no funcionales del videojuego “Draft der Mauer”. Esta especificación servirá como guía para el diseño, desarrollo, pruebas y mantenimiento del sistema, permitiendo que desarrolladores, diseñadores y demás interesados comprendan claramente las funcionalidades y características que deberá poseer el producto final. 
+1.2. Ámbito del Sistema
+
+Nombre del Sistema: “Draft der mauer”
+Funcionalidades del Sistema (Administrador y usuarios):
+	En este apartado del ámbito del sistema, profundizaremos en las funcionalidades del sistema, en esta, las dividiremos en dos secciones, tanto como usuario, como en administrador.
+Administrador:
+Gestión de sanciones y cuentas: Habilidad para suspender de forma temporal o definitiva (banear) cuentas de jugadores que infrinjan las normas comunitarias o alteren el transcurso normal del juego.
+Moderación y control de soporte: Monitoreo y resolución de incidentes técnicos reportados por los usuarios ante la presencia de errores lógicos (bugs) o denuncias de comportamientos abusivos dentro de las partidas.
+Control de inventarios: Capacidad para supervisar los inventarios de aspectos asociados a cada una de las cuentas de los jugadores.
+Gestión de tienda y ofertas: Habilidad para actualizar el catálogo de aspectos visuales del juego, modificar artículos disponibles y ajustar los precios o promociones del día dentro del mercado.
+Usuarios:
+Gestión de la cuenta y sesión: Opciones para el registro de nuevos perfiles, inicio de sesión seguro, cierre de sesión activa y el acceso de solicitar la eliminación definitiva de la cuenta mediante procesos de inactivación del sistema.
+Personalización y ajustes de perfil: Interfaz para la modificación de datos del perfil, selección de avatares, equipamiento de skins de fichas adquiridas y control de preferencias de accesibilidad (alternar entre Modo Claro y Modo Oscuro, y activación o desactivación de los efectos de sonido de la aplicación).
+	Selector de idioma bilingüe: Opción global en el menú para 		cambiar el idioma de toda la plataforma entre español e inglés, 		afectando interfaces, tableros y contenido informativo.
+	Operaciones de partida: Habilidad para crear salas o unirse a 		partidas en línea, lanzar dados, seleccionar fichas estratégicamente y 	ejecutar el posicionamiento o desplazamiento de estas sobre el 		tablero dividido en recintos.
+
+
+Objetivo General del Sistema:
+Desarrollar una plataforma digital competitiva, bilingüe y segura que traslade las mecánicas de selección táctica de los juegos de mesa a un entorno virtual ágil, proporcionando un espacio interactivo de juego en línea.
+Beneficios Esperados:
+Para los Usuarios: Disponer de un entorno accesible de esparcimiento gratuito y sin necesidad de descargas, que estimula el pensamiento estratégico y el conocimiento histórico general.
+Para la Organización: Contar con un canal centralizado de administración que permita supervisar la actividad de la comunidad, moderar el comportamiento en las salas de juego y gestionar de forma eficiente el catálogo de contenidos disponibles en la aplicación.
+
+1.3.	Definiciones, Acrónimos y Abreviaturas 
+	En esta sección veremos una breve explicación de las definiciones, acrónimos y abreviaturas para facilitar la comprensión de terminologías usadas en este documento y en el documento principal.
+
+Definiciones:
+	Draft der Mauer: Es el nombre oficial de tu producto y sistema, el cual 		debería tener una breve definición o traducción contextual al inicio.
+
+	Drafting (Selección Táctica): Mecánica principal del juego de mesa donde 	los participantes eligen una pieza (ficha/carta) de una reserva común y pasan 	el resto a los jugadores de forma rotativa. 
+ 
+	XAMPP / WampServer: Entornos de desarrollo local preconfigurados que 	asumes se utilizarán en la fase de creación.
+
+	Puntos de partida: Es la moneda interna del sistema que los usuarios 		Se utilizan para transacciones comerciales en la tienda virtual. 
+
+	Bugs: Error en el juego, tanto como el menú principal como en las partidas u      	otros errores que dificultan el uso del sistema a los usuarios.
+Banear: También conocido como “ban” o “baneo”, viene del anglicismo 	adaptado al español añadiendo la terminación “-ear”, que en inglés “ban” significa prohibición.
+
+Patrones Facade y Singleton: Patrones de diseño de software de uso obligatorio para estructurar el código. 
+
+Matchmaking: También conocido como emparejamiento , es la terminología que se utiliza para definir la acción de juntar a jugadores para una partida, la cantidad depende de la seleccionada por el jugador que crea la misma.
+
+Skins: Objetos modificables de carácter cosmético que no influyen en las partidas en cuanto a juego, solo son decoraciones.
+
+Frontend: El frontend es la parte de una aplicación o sitio web con la que interactúa directamente el usuario. Incluye todos los elementos visuales, como botones, menús, imágenes, textos, formularios y pantallas.
+
+Backend: El backend es la parte de un sistema que funciona "detrás de escena" y que los usuarios no pueden ver directamente. Se encarga de procesar la información, ejecutar la lógica del programa, gestionar las bases de datos y garantizar que todas las funciones del sistema operen correctamente. 
+
+Servidor: Equipo o servicio encargado de procesar solicitudes y proporcionar recursos a los usuarios. 
+
+Base de datos: Conjunto organizado de información almacenada electrónicamente para su posterior consulta y gestión. 
+
+Multijugador: Modalidad de juego que permite la participación simultánea de varios usuarios. 
+
+Modo cooperativo: Modalidad en la que los jugadores colaboran para alcanzar un objetivo común. 
+
+Rango: Nivel o categoría asignada a un jugador según su desempeño dentro del sistema. 
+
+Cosmético: Elemento visual que modifica la apariencia de objetos o personajes sin afectar la jugabilidad. 
+
+Sistema de recompensas: Mecanismo mediante el cual los usuarios obtienen beneficios por cumplir determinadas condiciones o logros. 
+
+Hardening: Proceso de endurecimiento de la seguridad del servidor y la base de datos. 
+
+Logs: Registros constantes de la actividad en el sistema utilizados para auditoría. 
+	
+Acrónimos y abreviaturas:
+	ERS (Especificación de Requisitos de Software): Documento que describe 	de forma detallada los requisitos funcionales y no funcionales del sistema.
+	IEEE: Institute of Electrical and Electronics Engineers, organización que 		desarrolla estándares técnicos utilizados internacionalmente.
+	API: Conjunto de reglas y mecanismos que permiten la comunicación entre 	diferentes aplicaciones o sistemas.
+	Interfaz de usuario (UI): Medio visual mediante el cual los usuarios 		interactúan con el sistema.
+	Experiencia de usuario (UX): Conjunto de percepciones y sensaciones que 	experimenta una persona al utilizar el sistema.
+	SQL (Structured Query Language): Lenguaje utilizado para crear, consultar, 	Modificar y administrar bases de datos relacionales.
+	HTML (HyperText Markup Language): Lenguaje de marcado utilizado para 	Definir la estructura y el contenido de las páginas web.
+	CSS (Cascading Style Sheets): Lenguaje utilizado para definir la apariencia 	visual y el diseño de las páginas web, incluyendo colores, fuentes y 		distribución de elementos.
+	PHP (PHP: Hypertext Preprocessor): Lenguaje de programación orientado al 	desarrollo web que se ejecuta en el servidor y permite generar contenido 		dinámico e interactuar con bases de datos.
+	JavaScript (JS): Lenguaje de programación que se ejecuta principalmente en 	el navegador y permite agregar interactividad y dinamismo a las páginas 		web, como animaciones, validación de formularios y actualización de 		contenido en tiempo real.
+	HTTPS: HyperText Transfer Protocol Secure. El protocolo de comunicación 	segura que debe usar la aplicación. 
+	SSH: Secure Shell. Protocolo mencionado para el endurecimiento 		(hardening) del servidor. 
+	IDS: Sistemas de Detección de Intrusos. Elemento de seguridad requerido 	para la infraestructura. 
+	DTO (Data Transfer Object / Objeto de Transferencia de Datos): Patrón 	de 	diseño de software utilizado para encapsular y transportar datos entre la 		interfaz de usuario (frontend) y el servidor (backend) en una sola llamada, 	optimizando el rendimiento y la seguridad. 
+
+
+
+
+1.4.Referencias
+
+
+1.5 Visión general del Documento
+El presente documento describe los requisitos del sistema “draft der mauer”. Está organizado en diferentes secciones donde se detallan las características, restricciones y funcionalidades del software.
+Sección 1: Introducción, se presenta el propósito del documento, el alcance del sistema, definiciones utilizadas y referencias relacionadas.
+Sección 2: Descripción general, se explica la perspectiva del producto, sus funciones principales, los tipos de usuarios que utilizarán el sistema y las restricciones existentes.
+Sección 3: Requisitos específicos, se detallan los requisitos funcionales y no funcionales que debe cumplir el sistema, además de sus interfaces externas y reglas necesarias.
+
+2. Descripción General
+2.1. Perspectiva del Producto
+El producto desarrollado por “Re-boo” se orienta al mercado de juegos educativos centrados en la historia moderna. Actualmente existen diversas alternativas que combinan el aprendizaje con la recreación, entre las que se destacan juegos de mesa educativos y videojuegos históricos. Entre las principales competencias se encuentran aquellos productos que permiten a los usuarios aprender acontecimientos históricos mediante desafíos, preguntas y actividades interactivas. Sin embargo, el producto propuesto busca diferenciarse mediante una experiencia más accesible, dinámica y adaptada a estudiantes de educación media. 
+
+2.2. Funciones del Producto
+El producto permitirá a los usuarios participar en partidas recreativas basadas en acontecimientos y personajes de la Alemania post segunda guerra mundial. Los jugadores podrán interactuar con sus fichas, tomar decisiones estratégicas y competir con otros participantes con el objetivo de obtener la mayor cantidad de puntos posible.
+Además de brindar una experiencia de entretenimiento, el sistema incorporará contenidos históricos que contribuirán al aprendizaje de los usuarios de forma dinámica y lúdica. Entre sus principales funciones se encuentran la gestión de partidas, el registro de puntuaciones, la aplicación de reglas del juego, la administración de los recursos necesarios para cada partida y la presentación de información histórica relacionada con los eventos representados.
+
+2.3. Caracteristicas de los Usuarios
+El sistema contempla dos perfiles principales de usuarios, cada uno con características, responsabilidades y niveles de experiencia técnica distintos: 
+	
+Jugadores: Constituyen el público objetivo principal del juego. Este grupo está compuesto por personas apasionadas por los juegos de mesa digitalizados, sin distinción de edad , aunque el producto está especialmente diseñado para resultar accesible y dinámico para estudiantes de educación media. No requieren conocimientos técnicos avanzados; únicamente necesitan habilidades básicas para el uso de navegadores web, dispositivos informáticos e interacción con interfaces gráficas. 
+
+Administradores: Son los encargados de la configuración, el mantenimiento del sistema y la moderación de la comunidad (como la suspensión o baneo de jugadores y la revisión de reportes por bugs). Este perfil será ocupado por los integrantes fundadores de la empresa "Re-Boo". Requieren conocimientos técnicos avanzados en bases de datos relacionales (MySQL), gestión de infraestructura en servidores Linux y administración interna de la aplicación web 
+2.4. Restricciones
+Esta subsección va a enumerar aquellas limitaciones que se imponen sobre los desarrolladores del producto.
+Lenguajes de Programación: 
+PHP
+SQL
+HTML
+CSS
+JS
+Herramientas de Organización:
+Trello
+Miro
+Discord
+WhatsApp
+Jira
+Gantt Project
+Google Drive
+Limitaciones de hardware:
+Servidor:
+Procesador: Intel Core i7 12700H, 14 núcleos (8 x Eficientes 3,5 GHz / 6 x Rendimiento 4,7 GHz 
+Gráficos integrados: Intel Iris Xe
+Sistema operativo: Ubuntu Server
+Memoria RAM: Memoria Ram Lexar 32gb 5600mhz Ddr5
+Ranuras RAM: 2 x SODIMM DDR 5 4800 MHz, hasta 32 GB x 2
+Almacenamiento: Disco sólido Ssd M.2 1tb
+Ranuras SSD: 1 x M.2 2280 PCIe Gen4 para SSD 128 GB - 2 TB
+Conectividad: Wi-Fi 6E, Bluetooth 5
+Seguridad: Cerradura de seguridad Kensington
+PC’s de desarrollo:
+Procesador: Intel Core i7 12700H, 14 núcleos (8 x Eficientes 3,5 GHz / 6 x Rendimiento 4,7 GHz)
+Gráficos integrados: Intel Iris Xe
+Sistema operativo: Windows 10/11
+Memoria RAM: Memoria Ram Lexar 32gb 5600mhz Ddr5 Sodimm 
+Ranuras RAM: 2 x SODIMM DDR5 4800 MHz, hasta 32 GB x 2
+Almacenamiento: Disco sólido Ssd 
+Ranuras SSD: 1 x M.2 2280 PCIe Gen4 para SSD 128 GB - 2 TB
+Conectividad: Wi-Fi 6E, Bluetooth 5
+2.5. Suposiciones y dependencias
+	Dependencias de Infraestructura de Red: Se asume que los usuarios dispondrán de una computadora con conexión a internet estable para poder registrarse, iniciar sesión y utilizar todas las funciones en línea del sistema. 
+Dependencias del Servidor: Para la implementación final en producción, el correcto funcionamiento del software depende de la configuración manual de un entorno LAMP (Linux, Apache, MySQL, PHP) en el servidor de alojamiento 
+
+Entorno de Desarrollo: Durante la fase de creación, se asume y depende del uso de entornos de desarrollo local preconfigurados, específicamente XAMPP o WampServer. 
+
+Disponibilidad de Datos: El sistema dependerá de manera crítica de la estabilidad y disponibilidad ininterrumpida de la base de datos MySQL Workbench, lugar donde se almacenará el historial de puntuaciones, el registro de usuarios y el estado de las partidas. 
+
+
+
+Aquí unos ejemplos de las suposiciones y dependencias:
+Se asume que los usuarios dispondrán de una computadora con acceso a internet para utilizar las funciones en línea del sistema.
+El sistema dependerá de la disponibilidad y correcto funcionamiento de la base de datos donde se almacenará la información de los usuarios y las partidas.
+Se supone que el software será ejecutado en sistemas operativos compatibles con las tecnologías utilizadas durante el desarrollo.
+El proyecto depende de la disponibilidad de recursos gráficos, sonoros y audiovisuales necesarios para la experiencia de juego.
+Se asume que los contenidos históricos utilizados en el juego serán considerados válidos y no requerirán modificaciones significativas durante el desarrollo.
+El sistema dependerá de la estabilidad de los servicios externos utilizados, en caso de incorporarse herramientas de autenticación, almacenamiento en la nube u otros servicios de terceros.
+Se supone que los usuarios poseen conocimientos básicos sobre el uso de dispositivos informáticos y la interacción con interfaces gráficas.
+El desarrollo del proyecto dependerá de la disponibilidad de los integrantes del equipo para cumplir con las tareas planificadas en los plazos establecidos.
+Se asume que los requisitos curriculares y educativos que inspiran el contenido del juego no sufrirán cambios importantes durante el período de desarrollo.
+El sistema dependerá de la disponibilidad de los equipos de hardware necesarios para realizar pruebas y validaciones antes de su lanzamiento.
+
+Estabilidad del Contenido: Se presupone que el marco teórico y los contenidos históricos relacionados a la Alemania de la Guerra Fría (1961-1989) se mantendrán vigentes y no requerirán alteraciones significativas en su validación a lo largo del desarrollo. 
+
+2.6. Requisitos Futuros 
+En esta subsección se explorarán futuras mejoras que podrían analizarse e implementarse en un futuro del sistema.
+
+Sistema de chat entre jugadores
+Sistema de amigos
+Sistema de partidas personalizadas
+Sistema de puntuaciones global
+Sistema de “Rankeds” (competitivo)
+3.  Requisitos específicos
+3.1. Interfaces Externas 
+En esta sección se describen los principales requisitos que afecten a la interfaz de usuario, de hardware y software, entre otras interfaces de comunicación:
+3.1.1 Interfaz de usuario:
+El usuario verá un tablero donde podrá  buscar partida y modificar las skins de personajes.
+El usuario verá un botón de engranaje donde accedes a la pantalla de configuración.
+El usuario podrá interactuar con los botones dentro del apartado de configuración para que su juego sea más accesible.
+3.1.2 Interfaz de hardware
+
+El sistema debe poder tener entrada táctil en pc para laptops y/o monitores táctiles
+El sistema deberá conectarse a una impresora paras imprimir los reportes semanales de usuarios
+3.1.3 Interfaz de comunicación
+La aplicación debe comunicarse mediante HTTPS para proteger los datos.
+La aplicación debe comunicarse mediante red wifi con el servidor
+3.2. Funciones 
+En esta sección se detallan las funciones que deberá cumplir el sistema para satisfacer las necesidades de los usuarios y alcanzar los objetivos establecidos para el proyecto. Se ha optado por organizar las funciones por objetivos, ya que esta estructura permite describir de forma clara los servicios que ofrecerá el videojuego y las acciones necesarias para que los jugadores interactúen con él.
+3.2.1. Gestión de partidas
+RF01: Inicialización de nueva partida
+El sistema permitirá a un usuario crear y configurar una nueva sala de juego, activando el emparejamiento automático permitiendo en una partida entre 2 a 5 jugadores.
+RF02: Asignación de turnos aleatoria
+Al iniciar la partida, el backend en PHP ejecutará un algoritmo aleatorio para determinar de forma equitativa el orden en el que los participantes de la misma tendrán su respectivo turno para actuar.
+RF03: Persistencia del progreso
+El sistema guardará el estado de la partida en la base de datos, registrando de forma continua la ronda en curso, el turno activo y el posicionamiento de las fichas.
+3.2.2. Desarrollo del Juego
+RF04: Renderizado de la Interfaz del Tablero
+El frontend (HTML/CSS/JS) mostrará la representación gráfica del escenario de juego, segmentado visualmente según las zonas del mapa (recintos).
+RF05: Ejecución y registro de acciones 
+El sistema habilitará al jugador a interactuar con los controles web para lanzar los dados, seleccionar sus fichas y posicionarlas o desplazarlas en el tablero dentro del límite de 2 rondas con 6 turnos cada una.
+RF06: Control del tutorial 
+El sistema proveerá un tutorial para introducir las reglas del juego. El usuario tendrá la posibilidad de proseguir con este o saltearlo en cualquier momento, registrando este estado en su perfil para no volver a desplegarlo de forma automática.
+
+3.2.3. Apartado informativo y demostrativo de fichas 
+RF07: Visualización estética y previsualización de fichas
+El sistema dispondrá de un apartado especial en el menú principal que funcionará como galería. El usuario podrá seleccionar cualquier ficha del juego para visualizar su modelado, inspeccionar cómo se renderiza dentro del tablero y analizar visualmente su zona de influencia en su respectivo recinto.
+RF08: Despliegue de información histórica
+Dentro de la galería de cada ficha, el sistema presentará en forma de bloque de texto informativo e histórico verificado acerca del rol, contexto o relevancia de dicho componente en la Alemania de la Guerra Fría. Esta interfaz será solo de lectura para el usuario.
+RF09: Equipamiento y gestión de Skins
+Desde la interfaz de la galería de fichas, el sistema permitirá al jugador seleccionar e intercalar entre las skins habilitadas en su cuenta, asociando dicho diseño visual a la ficha correspondiente para sus próximas partidas en línea.
+3.2.4. Módulo de tienda virtual 
+RF10: Catálogo de la tienda
+El sistema listará en una interfaz comercial el inventario completo de aspectos disponibles para su compra.
+RF11: Ofertas y ajuste de precios
+La tienda refleja visualmente los precios en puntos de partida del juego y destacó las ofertas promocionales activas del día, decididas y verificada por cada uno de los administradores.
+RF12: Procesamiento de transacciones comerciales
+El sistema validará si el saldo actual del jugador (puntos de partida) es suficiente para cubrir el precio del aspecto seleccionado. De ser aprobado, restará el monto adecuado de forma automática, añadiendo la nueva skin al inventario del usuario.
+RF13: Recompensas por victoria y moneda del sistema
+Al finalizar una partida, el backend verificará el ID del jugador vencedor y calculará matemáticamente los puntos de partida obtenidos. El sistema impactará directamente en el sueldo del ganador.
+RF14: Verificación de propiedad de aspectos
+Antes de listar una oferta o procesar una transacción, el sistema verificara el inventario del usuario logueado en la base de datos. Si el jugador ya posee la skin seleccionada, el botón de compra se deshabilitará automáticamente y se mostrará el artículo cómo "Adquirido", impidiendo transacciones duplicadas.
+
+3.2.5. Sistema de puntuación e historial
+RF15: Despliegue de clasificación 
+La aplicación mostrará dentro de la partida una tabla de posiciones interactiva ordenando de forma descendente a los jugadores de la partida según sus puntajes.
+RF16: Cierre de partida y registro histórico
+Al completarse los turnos reglamentarios, el backend detendrá las acciones, definirá los puntajes definitivos, declarará al ganador de la sesión y guardará registros que el usuario podrá ver es sus estadísticas.
+RF17: Estadísticas y rendimiento
+El sistema calculará y mostrará al usuario un panel con sus estadísticas acumuladas extraídas de la base de datos. Este reporte incluirá obligatoriamente: el saldo total de la moneda del juego, el historial de puntos acumulados en sesiones previas, la cantidad de partidas jugadas y cuáles de esas son partidas ganadas.
+
+3.2.6. Control de usuarios y accesos
+RF18: Transporte seguro de datos
+El flujo de intercambio de información sensible del perfil de usuario, configuraciones de idioma o actualizaciones estéticas del inventario entre la capa de presentación y el servidor se ejecutará encapsulado mediante objetos planos de transferencia de datos, evitando vulnerabilidades y mitigando el bajo rendimiento en el backend.
+RF19: Restricción excluyente de roles
+El sistema forzará de forma estricta que las credenciales autenticadas actúen bajo un solo rol específico (Jugador o Administrador), bloqueando el acceso a ciertos apartados para dar cumplimiento a las restricciones de la base de datos.
+RF20: Configuración de preferencias de interfaz
+El sistema permitirá al usuario alternar la visualización estética de la plataforma entre modo claro y modo oscuro, así como activar o desactivar los efectos de sonido de las partidas o menu.
+	RF21: Selección de Idioma Bilingüe
+La interfaz dispondrá de un selector para cambiar el idioma del software entre español e inglés (por defecto estará seleccionado el español , adaptando dinámicamente las etiquetas de los menús, las opciones del tablero, los textos didácticos de la enciclopedia de fichas y todo lo relacionado con lo propio del sistema.
+RF22: Inactivación de cuenta 
+Cuando un usuario ejecuta la acción de "Eliminar cuenta", el sistema no borra el registro para resguardar la integridad del historial de partidas de la base de datos. En su lugar, el backend modificará el modo del usuario cambiándolo a inactivo, bloqueando de forma permanente el inicio de sesión para dichas credenciales e inactivando el perfil de forma segura.
+
+RF23: Autenticación y registro seguro
+El sistema debe permitir la creación e inicio de sesión de cuentas únicas mediante credenciales convencionales (correo electrónico, nombre de usuario y contraseña), integrando validación Captcha y la API de autenticación federada de Google.
+RF24: Control de acceso basado en roles: 
+El sistema debe validar de forma restrictiva el rol de la cuenta activa. El rol Jugador habilitará el acceso a la creación de partidas y transacciones en la tienda, mientras que el rol Administrador otorgará permisos exclusivos para auditar eventos, moderar reportes y modificar el catálogo comercial.
+RF25: Gestión de sanciones y bloqueos (Baneo)
+El sistema debe permitir a los usuarios con rol de Administrador aplicar suspensiones temporales o definitivas (baneos) sobre aquellas cuentas de jugadores que infrinjan las normas comunitarias o alteren el transcurso normal del juego, restringiendo inmediatamente su acceso a las salas de partida.
+RF26: Moderación y control de soporte:
+ El sistema debe proporcionar una interfaz exclusiva para administradores encargada de registrar, monitorear y resolver incidentes técnicos (bugs) reportados por los usuarios, así como centralizar el procesamiento de denuncias por comportamientos abusivos dentro de las partidas.
+
+RF27: Emisión de reportes e incidentes
+ El sistema debe proveer a los usuarios con rol de Jugador una interfaz o formulario accesible desde la partida o el menú principal para enviar reportes técnicos ante la presencia de errores lógicos (bugs) o registrar denuncias formales sobre comportamientos abusivos de otros participantes. 
+
+
+3.3. Requisitos de Rendimiento
+
+Capacidad de Usuarios: El sistema deberá poseer una infraestructura capaz de soportar la concurrencia y el registro de al menos 1000 usuarios durante su primer año de funcionamiento 
+
+Gestión de Partidas Simultáneas: El servidor web y la base de datos deberán estar optimizados para gestionar múltiples partidas concurrentes, procesando fluidamente las sesiones de juego que albergarán entre 2 y 5 jugadores por tablero. 
+
+Actualizaciones en Tiempo Real: El sistema de procesamiento lógico deberá ser capaz de validar acciones (como el lanzamiento de dados o la colocación de fichas militares, obreras, políticas o de espionaje), actualizar la puntuación y modificar el estado visual de la partida sin generar latencia perceptible para los usuarios. 
+3.4. Restricciones de Diseño
+ 	El diseño y la arquitectura del software están estrictamente limitados por los requerimientos técnicos exigidos por el cuerpo docente del IEP para la aprobación del proyecto. En este sentido, la arquitectura de software debe desarrollarse de forma segmentada mediante una estructura en capas separadas, abarcando la Capa de Presentación, la Capa Lógica y la Capa de Persistencia. Además, es de carácter obligatorio implementar los patrones de diseño Facade y Singleton para estructurar las soluciones de código, así como el uso de Data Transfer Objects (DTO).
+A nivel de tecnologías obligatorias, el desarrollo web debe realizarse utilizando estrictamente PHP (versión 8.x) en el backend, en conjunto con HTML, CSS y JavaScript para el frontend. La base de datos relacional del sistema deberá estar normalizada como mínimo hasta la Tercera Forma Normal (3NF) e implementarse mediante MySQL.
+Por otro lado, la interfaz gráfica de la aplicación deberá desarrollarse con soporte nativo bilingüe, garantizando su accesibilidad mediante la internacionalización tanto en idioma Español como en Inglés. Finalmente, todo el código fuente generado deberá gestionarse obligatoriamente en un repositorio privado utilizando la plataforma GitHub para el control de versiones.
+
+3.5. Atributos del Sistema 
+La seguridad y ciberseguridad representan atributos críticos del producto, por lo que el sistema deberá implementar medidas criptográficas robustas para asegurar las contraseñas de los usuarios. Debe contar además con un sistema de autenticación por formulario y un control de acceso que bloquee inmediatamente el ingreso de usuarios no autenticados a secciones protegidas. A nivel de infraestructura, la conexión debe estar asegurada por HTTPS y el servidor debe implementar medidas de endurecimiento (hardening) para SSH y el sistema gestor de bases de datos, apoyado por reglas de Firewall y sistemas de detección de intrusos (IDS).
+En cuanto a la fiabilidad, el sistema debe garantizar la preservación ininterrumpida de la información a través de rutinas automatizadas de respaldos (backups) y scripts de contingencia que permitan la alta disponibilidad y eviten la pérdida de datos vitales de las partidas o de las cuentas de los jugadores.
+Respecto a la mantenibilidad, el código backend y los scripts de administración del servidor Linux deberán programarse de manera modular, segmentados en partes pequeñas y reutilizables. Esto facilitará enormemente las labores de depuración de bugs, la aplicación de actualizaciones futuras de seguridad y la escalabilidad general de la aplicación.
+Por último, dada su naturaleza de aplicación web, el atributo de portabilidad dicta que el software debe ser completamente compatible y funcional en cualquier computadora estándar que posea acceso a un navegador web actualizado, independientemente del sistema operativo del cliente.
+
+3.6. Otros Requisitos 
+El software debe estar acompañado obligatoriamente de una documentación de instalación orientada a administradores, constituida por un manual que detalle con capturas de pantalla la instalación y puesta a punto del servidor Linux, aplicando distribuciones empresariales como SUSE, Red Hat o CentOS, y abarcando el despliegue completo del entorno LAMP. Asimismo, se deberá proporcionar una documentación de usuario exhaustiva que explique de forma sencilla el uso general de la aplicación, el proceso de creación de partidas y las reglas del sistema de juego.
+Finalmente, se requiere un apartado de auditoría y gestión de servidor donde se aloja el juego, el cual deberá ejecutar scripts avanzados para la administración modular de la infraestructura. Esto incluye el registro constante de la actividad en el sistema mediante la gestión de logs, permitiendo así auditar eventos relevantes, supervisar las actualizaciones del sistema operativo y detectar de manera temprana intentos de ataques o comportamientos abusivos por parte de los usuarios.
+
+ 4.  Descripción General
+En esta última sección del ERS del IEEE 830, veremos todos las dependencias que pueden contener información relevante para el ERS, que propiamente no forman parte del ERS.
+Captcha: Servirá para evitar el ataque de bots y evitar el intento de hackeos automatizados hacia el sistema.
+Google API para el registro / inicio de sesión: Como bien dice el nombre, este punto servirá para que los usuarios puedan registrarse e iniciar sesión con su cuenta de google.
+Referencia | Título | Link | Fecha | Autor
+1 | Miro | https://miro.com/app/board/uXjVHQCfizs=/?share_link_id=586687121359 | 16/06 | Re-boo 
+2 | Trello | https://trello.com/b/odINiXq8/juanis-enterprise | 16/06 | Re-boo 
+3 | GitHub | https://github.com/Re-Boo-SA/Re-Boo_Project | 16/06 | Re-boo 
+4 | Figma | https://www.figma.com/design/1TteNMS2eo3bCCHOwpcQ8M/Re-Boo?node-id=7-3&t=DpPkbkGUJNtBZ3lo-1 | 16/06 | Re-boo 

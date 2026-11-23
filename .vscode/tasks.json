@@ -5,13 +5,17 @@
 			"label": "Re-Boo: servidor web local",
 			"type": "shell",
 			"command": "C:\\xampp\\php\\php.exe",
-			"args": [
-				"-S",
-				"127.0.0.1:8000",
-				"-t",
-				"Capa Presentación"
-			],
+			"args": ["-S", "127.0.0.1:8000", "index.php"],
+			"options": { "cwd": "${workspaceFolder}" },
 			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Re-Boo: tests del motor",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": ["tests/motor_test.php"],
+			"options": { "cwd": "${workspaceFolder}" },
 			"problemMatcher": []
 		}
 	]

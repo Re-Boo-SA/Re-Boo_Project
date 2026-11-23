@@ -1,0 +1,515 @@
+{
+ "_leeme": "Guion de un capítulo de 'Nacht über Berlin'. Es CONTENIDO: se edita sin tocar código. Ver el _leeme de prologo.json para los tipos de paso. Además: partida (una partida de Draft Der Mauer contra un bot), interrogatorio (preguntas con tiempo y sospecha), persecucion_auto (tramos con decisiones de ruta), tumbar (un personaje cae). Las tres primeras las resuelve el servidor y no se pueden saltear. cerradura: el minijuego de la ganzúa (apretar cuando la marca está en la zona clara). Un sigilo con 'registra' anota si te descubrieron (si/no) y la historia sigue por la rama que corresponde (con su combate). agujas: el acertijo de los cambios de vía (el servidor verifica adónde va el tren). vestir: un personaje se cambia de ropa (pasa a ser otro actor). paseo: caminata libre sin objetivos; cerca de cada punto aparece «E · Mirar» y se juega su escena; después de ver 'minimo', se puede terminar hablando con 'fin'. seguir: seguir a alguien por su ruta sin que te vea cuando mira hacia atrás (ni perderlo de vista).",
+ "id": "capitulo_18",
+ "titulo": "Capítulo 18: El archivo",
+ "duracionMinima": 45,
+ "aviso": "Ficción histórica. Los personajes y la trama son inventados; el contexto histórico es real. Contiene violencia.",
+ "recompensa": {
+  "xp": 400,
+  "logro": "nacht_capitulo_18"
+ },
+ "personajes": {
+  "viktor": "Viktor Adler",
+  "friedrich": "Friedrich",
+  "thomas": "Thomas",
+  "anneliese": "Anneliese",
+  "falk": "Erich Falk",
+  "maton": "Un hombre de Lukas",
+  "ingrid": "Ingrid Vogel",
+  "otto": "Otto Weiss",
+  "trapo": "Transportpolizei",
+  "cliente": "Un comensal",
+  "agente": "Un desconocido",
+  "guardia": "Un guardia de Falk",
+  "vuniforme": "Viktor Adler",
+  "tuniforme": "Thomas",
+  "vferroviario": "Viktor Adler",
+  "anciano": "El anciano",
+  "prisionero": "Prisionero",
+  "kampf": "Kampfgruppe",
+  "mujer": "Una mujer",
+  "vecino": "Un vecino",
+  "muchacho": "Un muchacho",
+  "lukas": "Lukas Brandt",
+  "martin": "Martin Adler",
+  "paul": "Paul Lange",
+  "padre": "El padre de Viktor",
+  "weiss": "Konrad Weiss",
+  "invitado": "Un invitado",
+  "samuel": "Samuel Hartmann",
+  "trabajador": "Un trabajador",
+  "voz": "Una voz"
+ },
+ "pasos": [
+  {
+   "tipo": "escena",
+   "mapa": "redaccion_1975",
+   "actores": [
+    "ingrid"
+   ],
+   "jugador": null,
+   "props": [
+    "caja"
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Occidental · 1975",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "ingrid",
+   "emocion": "triste",
+   "texto": "Las últimas fotos de la caja son de 1968. Viktor ya no se parece al de las primeras."
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Acto VIII · La última noche",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Berlín Oriental · Noviembre de 1968",
+   "segundos": 3
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Pasaron varios años. Viktor perdió a Friedrich. Perdió a su hermano. Ahora solo le queda Anneliese.",
+   "segundos": 5
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Y Thomas, que prometió quedarse hasta el final.",
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Erich Falk los guía. Viktor no le saca los ojos de encima.",
+   "segundos": 3
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "¿Qué vas a hacer cuando todo esto termine?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "No sé."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "¿Vas a volver a manejar?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Supongo."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "neutral",
+   "texto": "¿Y después?"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor tarda en responder.",
+   "segundos": 2
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "neutral",
+   "texto": "Voy a intentar acordarme de cómo era vivir sin mirar todo el tiempo por encima del hombro."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Anneliese sonríe. Es uno de los pocos momentos tranquilos de toda la historia.",
+   "segundos": 4
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 1.5
+  },
+  {
+   "tipo": "escena",
+   "mapa": "instalacion",
+   "actores": [
+    "anneliese",
+    "falk",
+    "trabajador_1",
+    "trabajador_2",
+    "trabajador_3"
+   ],
+   "jugador": "viktor",
+   "props": [
+    "carpeta",
+    "archivo"
+   ]
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "trabajador_1"
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "trabajador_2"
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "trabajador_3"
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "aparecer",
+     "actores": [
+      "thomas"
+     ]
+    }
+   ]
+  },
+  {
+   "tipo": "fundido",
+   "a": "escena",
+   "segundos": 1
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Una instalación militar abandonada",
+   "segundos": 3
+  },
+  {
+   "tipo": "guardar",
+   "punto": "instalacion"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "falk",
+   "emocion": "neutral",
+   "texto": "El archivo está en el nivel de abajo. Por el pasillo del fondo."
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "trabajador_2",
+   "texto": "Revisá el pasillo",
+   "accion": "Mirar",
+   "quedarse": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Cadáveres. Todos eran trabajadores de la instalación. Los mataron hace poco.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "triste",
+   "texto": "Lukas ya está acá."
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Entrá a la sala del archivo",
+   "zona": "entrada_archivo",
+   "radio": 70
+  },
+  {
+   "tipo": "aparecer",
+   "actores": [
+    "lukas",
+    "maton_1",
+    "maton_2"
+   ]
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Llegaste. Sabía que la grabación de tu padre te iba a traer hasta acá."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Tengo una propuesta. Trabajá conmigo. Plata, una identidad nueva y la posibilidad de irte de Europa."
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "viktor",
+   "emocion": "enojado",
+   "texto": "¿Después de todo esto?"
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "lukas",
+   "emocion": "neutral",
+   "texto": "Precisamente por todo esto."
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "interactuar",
+   "objeto": "carpeta",
+   "texto": "Anneliese encontró una carpeta: mirala con ella",
+   "accion": "Abrir la carpeta",
+   "quedarse": true
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "El nombre de su padre. Fotografías, informes médicos, papeles de traslado.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Y un acta de defunción. Murió en 1957. No en una cárcel: en un hospital privado de Berlín Occidental. Envenenado.",
+   "segundos": 5,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Lo mantuvieron vivo durante años. Y lo mataron cuando dejó de ser útil.",
+   "segundos": 4
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "enojado",
+   "texto": "¿Lo sabías?"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Lukas no contesta.",
+   "segundos": 2
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Anneliese levanta el arma. Lukas dispara primero.",
+   "segundos": 3,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "efecto",
+   "nombre": "disparos",
+   "desde": [
+    "lukas"
+   ],
+   "segundos": 0.4
+  },
+  {
+   "tipo": "tumbar",
+   "actor": "anneliese"
+  },
+  {
+   "tipo": "mover",
+   "actor": "lukas",
+   "a": "deposito",
+   "segundos": 1.2,
+   "esperar": false
+  },
+  {
+   "tipo": "franjas",
+   "visibles": false
+  },
+  {
+   "tipo": "guardar",
+   "punto": "tiroteo"
+  },
+  {
+   "tipo": "combate",
+   "id": "archivo",
+   "mapa": "instalacion",
+   "lider": "viktor",
+   "objetivo": {
+    "tipo": "eliminar",
+    "rondas": 10
+   },
+   "texto": "Lukas huye a los túneles: derribá a sus hombres (10 rondas)",
+   "unidades": {
+    "viktor": {
+     "lado": "aliado",
+     "celda": [
+      16,
+      4
+     ],
+     "vida": 5,
+     "mov": 4,
+     "punteria": 85
+    },
+    "maton_1": {
+     "lado": "enemigo",
+     "celda": [
+      21,
+      2
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 50
+    },
+    "maton_2": {
+     "lado": "enemigo",
+     "celda": [
+      20,
+      5
+     ],
+     "vida": 3,
+     "mov": 4,
+     "punteria": 50
+    }
+   }
+  },
+  {
+   "tipo": "franjas",
+   "visibles": true
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "culpar",
+   "pasos": [
+    {
+     "tipo": "mover",
+     "actor": "falk",
+     "a": "falk_huye",
+     "segundos": 1.5
+    },
+    {
+     "tipo": "desaparecer",
+     "actores": [
+      "falk"
+     ]
+    },
+    {
+     "tipo": "tarjeta",
+     "texto": "En el medio del tiroteo, Erich Falk se escapó con una parte del archivo.",
+     "segundos": 4
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Falk intenta escaparse con una parte del archivo. No llega a la puerta: Thomas le cierra el paso.",
+     "segundos": 4
+    },
+    {
+     "tipo": "dialogo",
+     "quien": "thomas",
+     "emocion": "enojado",
+     "texto": "Vos no vas a ningún lado."
+    }
+   ]
+  },
+  {
+   "tipo": "objetivo",
+   "texto": "Andá con Anneliese",
+   "zona": "anneliese",
+   "radio": 70,
+   "accion": "Levantarla"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Está muy mal herida. Le pone en la mano una fotografía chiquita: su padre.",
+   "segundos": 4
+  },
+  {
+   "tipo": "dialogo",
+   "quien": "anneliese",
+   "emocion": "dolor",
+   "texto": "No dejes que desaparezcan otra vez."
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Viktor intenta levantarla. Anneliese muere.",
+   "segundos": 4,
+   "estilo": "documento"
+  },
+  {
+   "tipo": "fundido",
+   "a": "negro",
+   "segundos": 2.5
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "culpar",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "Viktor se queda solo.",
+     "segundos": 3,
+     "estilo": "documento"
+    }
+   ]
+  },
+  {
+   "tipo": "si",
+   "clave": "trato_thomas",
+   "valor": "entender",
+   "pasos": [
+    {
+     "tipo": "tarjeta",
+     "texto": "De los que empezaron en aquel auto bajo la lluvia, solo quedan Viktor y Thomas.",
+     "segundos": 4,
+     "estilo": "documento"
+    }
+   ]
+  },
+  {
+   "tipo": "guardar",
+   "punto": "final"
+  },
+  {
+   "tipo": "tarjeta",
+   "texto": "Fin del Capítulo 18",
+   "segundos": 3
+  },
+  {
+   "tipo": "fin"
+  }
+ ]
+}

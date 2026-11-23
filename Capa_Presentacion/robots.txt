@@ -1,0 +1,4 @@
+# No se listan rutas internas a propósito: robots.txt es público y un bot malicioso
+# lo usaría como mapa. Las páginas privadas se protegen con login, no escondiéndolas.
+User-agent: *
+Disallow:
