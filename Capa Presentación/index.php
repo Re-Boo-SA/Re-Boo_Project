@@ -2,21 +2,21 @@
 require_once(__DIR__ . '/Seguridad/arranque.php');
 
 if (!str_contains($_SERVER['REQUEST_URI'] ?? '', '/DraftDerMauer')) {
-    header('Location: DraftDerMauer/');
+    header('Location: ' . urlAplicacion('login'));
     exit();
 }
 
 if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
-        header('Location: panel-admin');
+        header('Location: ' . urlAplicacion('panel-admin'));
         exit();
     } else {
-        header('Location: inicio');
+        header('Location: ' . urlAplicacion('inicio'));
         exit();
     }
 }
 
-header('Location: login');
+header('Location: ' . urlAplicacion('login'));
 ?>
 <!DOCTYPE html>
 <html lang="es">

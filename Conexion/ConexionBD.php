@@ -10,6 +10,7 @@ class ConexionBD
     private $db_name = 'proyecto2026';
     private $username = 'root';
     private $password = 'root';
+    private $conn;
 
     public function __construct()
     {

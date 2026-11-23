@@ -4,7 +4,7 @@ require_once(__DIR__ . '/Seguridad/arranque.php');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = ($_POST['idioma'] ?? '') === 'en' ? 'en' : 'es';
-    header('Location: registro');
+    header('Location: ' . urlAplicacion('registro'));
     exit();
 }
 $idiomaActual = $_SESSION['idioma'] ?? 'es';
@@ -15,10 +15,10 @@ require_once(__DIR__ . '/../config.php');
 
 if (SesionSegura::estaAutenticado()) {
     if ($_SESSION['rol'] === 'administrador') {
-        header('Location: panel-admin');
+        header('Location: ' . urlAplicacion('panel-admin'));
         exit();
     } else {
-        header('Location: inicio');
+        header('Location: ' . urlAplicacion('inicio'));
         exit();
     }
 }
@@ -110,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
             <div class="contenedor-pestanias">
                 <div class="envoltorio-pestanias">
-                    <a href="login" class="boton-pestania">Ingresar</a>
-                    <a href="registro" class="boton-pestania activo">Crear cuentarda</a>
+                    <a href="<?= e(urlAplicacion('login')) ?>" class="boton-pestania">Ingresar</a>
+                    <a href="<?= e(urlAplicacion('registro')) ?>" class="boton-pestania activo">Crear cuentarda</a>
                 </div>
             </div>
 
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
                         </div>
                     <?php endif; ?>
 
-                    <form id="registro-form" class="formulario" action="registro" method="POST">
+                    <form id="registro-form" class="formulario" action="<?= e(urlAplicacion('registro')) ?>" method="POST">
                         <?= SesionSegura::campoCsrf() ?>
                         <div class="campo-trampa" aria-hidden="true">
                             <label for="sitio-web">No completar este campo</label>
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['cambiar_idioma'])) {
 
                         <p class="texto-cambiar">
                             ¿Ya tenés cuentarda?
-                            <a href="login" class="boton-enlace">Iniciá sesión</a>
+                            <a href="<?= e(urlAplicacion('login')) ?>" class="boton-enlace">Iniciá sesión</a>
                         </p>
                     </form>
                 </div>

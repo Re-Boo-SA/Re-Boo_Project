@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS SKINS (
     FOREIGN KEY (IDFicha) REFERENCES FICHAS(IDFicha)
 );
 
-CREATE TABLE IF NOT EXISTS TIENDA (
+CREATE TABLE IF NOT EXISTS tiendas (
     IDTienda INT AUTO_INCREMENT,
     BajaLogica BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (IDTienda)
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS acceso_admin_tienda (
     Ofertas INT NOT NULL,
     PRIMARY KEY (IDUsuario),
     FOREIGN KEY (IDUsuario) REFERENCES ADMINISTRADORES(IDUsuario),
-    FOREIGN KEY (IDTienda) REFERENCES TIENDA(IDTienda)
+    FOREIGN KEY (IDTienda) REFERENCES tiendas(IDTienda)
 );
 
 CREATE TABLE IF NOT EXISTS acceso_jugador_tienda (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS acceso_jugador_tienda (
     IDTienda INT NOT NULL,
     PRIMARY KEY (IDUsuario),
     FOREIGN KEY (IDUsuario) REFERENCES JUGADORES(IDUsuario),
-    FOREIGN KEY (IDTienda) REFERENCES TIENDA(IDTienda)
+    FOREIGN KEY (IDTienda) REFERENCES tiendas(IDTienda)
 );
 
 CREATE TABLE IF NOT EXISTS tienda_skins (
@@ -128,7 +128,16 @@ CREATE TABLE IF NOT EXISTS tienda_skins (
     IDSkin INT NOT NULL,
     IDFicha INT NOT NULL,
     PRIMARY KEY (IDSkin, IDFicha),
-    FOREIGN KEY (IDTienda) REFERENCES TIENDA(IDTienda),
+    FOREIGN KEY (IDTienda) REFERENCES tiendas(IDTienda),
+    FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
+);
+
+CREATE TABLE IF NOT EXISTS jugador_skins (
+    IDUsuario INT NOT NULL,
+    IDSkin INT NOT NULL,
+    IDFicha INT NOT NULL,
+    PRIMARY KEY (IDUsuario, IDSkin, IDFicha),
+    FOREIGN KEY (IDUsuario) REFERENCES JUGADORES(IDUsuario),
     FOREIGN KEY (IDSkin, IDFicha) REFERENCES SKINS(IDSkin, IDFicha)
 );
 
@@ -169,8 +178,8 @@ INSERT INTO FICHAS (IDFicha, FichaEspecie, BajaLogica) VALUES (2, "politico", 0)
 INSERT INTO SKINS (IDSkin, IDFicha, NombreSkin, Precio, URL, BajaLogica) VALUES (1, 1, "Espia azul", 150, "skin.png", 0);
 INSERT INTO SKINS (IDSkin, IDFicha, NombreSkin, Precio, URL, BajaLogica) VALUES (2, 2, "Militar rojo", 120, "skin.png", 0);
 
-INSERT INTO TIENDA (IDTienda, BajaLogica) VALUES (1, 0);
-INSERT INTO TIENDA (IDTienda, BajaLogica) VALUES (2, 0);
+INSERT INTO tiendas (IDTienda, BajaLogica) VALUES (1, 0);
+INSERT INTO tiendas (IDTienda, BajaLogica) VALUES (2, 0);
 
 INSERT INTO PARTIDAS (IDPartida, Puntajes, Posiciones, Fecha, BajaLogica) VALUES (1, "AURA:45", "1", "2026-06-26 14:30:00", 0);
 INSERT INTO PARTIDAS (IDPartida, Puntajes, Posiciones, Fecha, BajaLogica) VALUES (2, "Pepe:55", "2", "2026-06-26 15:15:00", 0);
@@ -398,7 +407,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.JUGADORES TO 'reboo_app'@'l
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.REPORTES TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.FICHAS TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.SKINS TO 'reboo_app'@'localhost';
-GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.TIENDA TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.tiendas TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.PARTIDAS TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.RECINTOS TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.JUGADAS TO 'reboo_app'@'localhost';
@@ -406,6 +415,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.administra_reportes TO 'reb
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.acceso_admin_tienda TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.acceso_jugador_tienda TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON proyecto2026.tienda_skins TO 'reboo_app'@'localhost';
+GRANT SELECT, INSERT ON proyecto2026.jugador_skins TO 'reboo_app'@'localhost';
 GRANT SELECT, INSERT ON proyecto2026.AUDITORIA TO 'reboo_app'@'localhost';
 GRANT EXECUTE ON proyecto2026.* TO 'reboo_app'@'localhost';
 FLUSH PRIVILEGES;

@@ -104,8 +104,8 @@ if (PHP_SAPI === 'cli-server') {
 
     if (isset($rutas[$rutaNormalizada])) {
         $archivo = $rutas[$rutaNormalizada];
-        $_SERVER['SCRIPT_NAME'] = '/Capa_Presentacion/' . $archivo;
-        $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/Capa_Presentacion/' . $archivo;
+        $_SERVER['SCRIPT_NAME'] = '/Capa Presentación/' . $archivo;
+        $_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/Capa Presentación/' . $archivo;
         require $_SERVER['SCRIPT_FILENAME'];
         exit();
     }

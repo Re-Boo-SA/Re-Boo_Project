@@ -23,7 +23,7 @@ LimitRequestBody 3145728
     # Rutas limpias cuando Capa Presentación es el DocumentRoot.
     RewriteRule ^DraftDerMauer$ DraftDerMauer/ [R=301,L]
     RewriteRule ^DraftDerMauer/$ index.php [END]
-    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida)/$ DraftDerMauer/$1 [R=301,L]
+    RewriteRule ^DraftDerMauer/(login|registro|inicio|calculadora|auditoria|panel-admin|unirse|tienda|error|estado|cerrar-sesion|perfil|crear-partida|unirse-partida)/$ DraftDerMauer/$1 [R=301,L]
     RewriteRule ^DraftDerMauer/login/?$ login.php [END]
     RewriteRule ^DraftDerMauer/registro/?$ registro.php [END]
     RewriteRule ^DraftDerMauer/inicio/?$ inicioHome.php [END]
@@ -31,6 +31,7 @@ LimitRequestBody 3145728
     RewriteRule ^DraftDerMauer/auditoria/?$ auditoria.php [END]
     RewriteRule ^DraftDerMauer/panel-admin/?$ panel_admin.php [END]
     RewriteRule ^DraftDerMauer/unirse/?$ unirse_partida.php [END]
+    RewriteRule ^DraftDerMauer/tienda/?$ tienda.php [END]
     RewriteRule ^DraftDerMauer/error/?$ error.php [END]
     RewriteRule ^DraftDerMauer/estado/?$ estado.php [END]
     RewriteRule ^DraftDerMauer/cerrar-sesion/?$ logout.php [END]
@@ -84,6 +85,9 @@ LimitRequestBody 3145728
     RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
     RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
     RewriteRule ^procesar_unirse_partida\.php$ ../DraftDerMauer/unirse-partida [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+    RewriteCond %{THE_REQUEST} \s/+[^\s?]*\.php(?:[?\s]) [NC]
+    RewriteRule ^tienda\.php$ ../DraftDerMauer/tienda [R=301,L,NE]
 </IfModule>
 
 # Si PHP corre como módulo de Apache, estos valores aplican aunque una página no use el arranque

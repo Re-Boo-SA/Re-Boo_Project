@@ -6,7 +6,7 @@ SesionSegura::exigirRol('jugador');
 
 if (isset($_POST['cambiar_idioma'])) {
     $_SESSION['idioma'] = isset($_POST['idioma']) && $_POST['idioma'] === 'en' ? 'en' : 'es';
-    header('Location: calculadora');
+    header('Location: ' . urlAplicacion('calculadora'));
     exit();
 }
 
@@ -42,7 +42,7 @@ if ($idiomaActual === 'en') {
             <p class="subtitulo">CALCULADORA OFICIAL DE PUNTOS</p>
         </div>
         <div class="controles-encabezado">
-            <a href="reglamento.php" class="boton-reglamento">Reglamento</a>
+            <a href="<?= e(urlAplicacion('inicio')) ?>" class="boton-menu-calculadora">Volver al menú</a>
             <button type="button" class="btn-modo-calculadora" id="btn-modo-calculadora" aria-label="Cambiar modo claro" title="Cambiar modo claro">
                 <span class="icono-modo luna" aria-hidden="true">🌙</span>
                 <span class="icono-modo sol" aria-hidden="true">☀️</span>
